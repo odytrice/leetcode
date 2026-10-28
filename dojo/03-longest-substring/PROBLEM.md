@@ -1,0 +1,53 @@
+# Drill 03: Longest Substring Without Repeating Characters
+
+Difficulty: LeetCode Medium (problem 3).
+
+Given a string `s`, return the length of its longest substring without repeating characters.
+
+A substring is contiguous. You cannot skip characters.
+
+For this drill, the input contains ASCII characters only, including letters, digits, spaces and punctuation. Comparisons are case-sensitive.
+
+## Examples
+
+```text
+Input: "abcabcbb"
+Output: 3
+Explanation: "abc" has length 3 and no repeating characters.
+```
+
+```text
+Input: "bbbbb"
+Output: 1
+Explanation: "b" has length 1.
+```
+
+```text
+Input: "pwwkew"
+Output: 3
+Explanation: "wke" is a valid substring. "pwke" is not contiguous.
+```
+
+## Constraints
+
+- `0 <= s.Length <= 50_000`
+- Input is non-null.
+- ASCII characters only for this drill.
+
+## Your task
+
+Implement `Solution.LengthOfLongestSubstring(string s)` in `Solution.cs`.
+
+Explain your approach before coding. Add tests for any important cases you identify. Be ready to explain correctness and time and space complexity.
+
+From this folder:
+
+```powershell
+dotnet run
+```
+
+From the `dojo` root:
+
+```powershell
+dotnet run --project 03-longest-substring
+```
