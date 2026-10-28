@@ -958,14 +958,13 @@ stop
         <h3><a href="https://leetcode.com/problems/two-sum/">Two Sum</a><span class="lc">#1</span><span class="diff easy">Easy</span></h3>
         <p class="task">Return the indices of the two numbers that add up to <code>target</code>.</p>
         <pre class="code" data-snippet="hash-two-sum" data-lang="ts"><code><span class="tk">function</span> <span class="tf">twoSum</span>(nums: <span class="tk">number</span>[], target: <span class="tk">number</span>): <span class="tk">number</span>[] {
-  <span class="tk">const</span> seen = <span class="tk">new</span> <span class="tt">Map</span>&lt;<span class="tk">number</span>, <span class="tk">number</span>&gt;();           <span class="tc">// value -&gt; index</span>
+  <span class="tk">const</span> seen = <span class="tk">new</span> <span class="tt">Map</span>&lt;<span class="tk">number</span>, <span class="tk">number</span>&gt;();  <span class="tc">// value -&gt; index</span>
 
   <span class="tk2">for</span> (<span class="tk">let</span> i = <span class="tn">0</span>; i &lt; nums.length; i++) {
-    <span class="tk">const</span> partner = seen.<span class="tk">get</span>(target - nums[i]);
-    <span class="tk2">if</span> (partner !== <span class="tk">undefined</span>)
-      <span class="tk2">return</span> [partner, i];                          <span class="tc">// partner was seen earlier</span>
+    <span class="tk">const</span> j = seen.<span class="tk">get</span>(target - nums[i]);
+    <span class="tk2">if</span> (j !== <span class="tk">undefined</span>) <span class="tk2">return</span> [j, i];  <span class="tc">// partner seen earlier</span>
 
-    seen.<span class="tk">set</span>(nums[i], i);                           <span class="tc">// store after checking</span>
+    seen.<span class="tk">set</span>(nums[i], i);  <span class="tc">// store after checking</span>
   }
 
   <span class="tk2">return</span> [];
@@ -1070,14 +1069,11 @@ stop
   <span class="tk">const</span> groups = <span class="tk">new</span> <span class="tt">Map</span>&lt;<span class="tk">string</span>, <span class="tk">string</span>[]&gt;();
 
   <span class="tk2">for</span> (<span class="tk">const</span> word <span class="tk2">of</span> strs) {
-    <span class="tk">const</span> key = [...word].<span class="tf">sort</span>().<span class="tf">join</span>(<span class="ts">""</span>);          <span class="tc">// "eat", "tea", "ate" -&gt; "aet"</span>
+    <span class="tk">const</span> key = [...word].<span class="tf">sort</span>().<span class="tf">join</span>(<span class="ts">""</span>);  <span class="tc">// "eat", "tea" -&gt; "aet"</span>
 
-    <span class="tk">let</span> group = groups.<span class="tk">get</span>(key);
-    <span class="tk2">if</span> (group === <span class="tk">undefined</span>) {
-      group = [];
-      groups.<span class="tk">set</span>(key, group);
-    }
-    group.<span class="tf">push</span>(word);
+    <span class="tk">const</span> group = groups.<span class="tk">get</span>(key);
+    <span class="tk2">if</span> (group) group.<span class="tf">push</span>(word);
+    <span class="tk2">else</span> groups.<span class="tk">set</span>(key, [word]);
   }
 
   <span class="tk2">return</span> [...groups.<span class="tf">values</span>()];
@@ -1252,8 +1248,8 @@ stop
     <span class="tk">const</span> sum = numbers[left] + numbers[right];
 
     <span class="tk2">if</span> (sum === target) <span class="tk2">return</span> [left + <span class="tn">1</span>, right + <span class="tn">1</span>];  <span class="tc">// 1-indexed</span>
-    <span class="tk2">if</span> (sum &lt; target) left++;                       <span class="tc">// too small: only a bigger left value helps</span>
-    <span class="tk2">else</span> right--;                                   <span class="tc">// too big: only a smaller right value helps</span>
+    <span class="tk2">if</span> (sum &lt; target) left++;                          <span class="tc">// too small</span>
+    <span class="tk2">else</span> right--;                                      <span class="tc">// too big</span>
   }
 
   <span class="tk2">return</span> [];
@@ -1371,11 +1367,11 @@ stop
         <h3><a href="https://leetcode.com/problems/3sum/">3Sum</a><span class="lc">#15</span><span class="diff medium">Medium</span></h3>
         <p class="task">Return every unique triplet that sums to zero. Fix one number, then run Two Sum II on the rest.</p>
         <pre class="code" data-snippet="tp-three-sum" data-lang="ts"><code><span class="tk">function</span> <span class="tf">threeSum</span>(nums: <span class="tk">number</span>[]): <span class="tk">number</span>[][] {
-  nums.<span class="tf">sort</span>((a, b) =&gt; a - b);
+  nums.<span class="tf">sort</span>((a, b) =&gt; a - b);  <span class="tc">// as numbers, not as text</span>
   <span class="tk">const</span> result: <span class="tk">number</span>[][] = [];
 
   <span class="tk2">for</span> (<span class="tk">let</span> i = <span class="tn">0</span>; i &lt; nums.length - <span class="tn">2</span>; i++) {
-    <span class="tk2">if</span> (i &gt; <span class="tn">0</span> &amp;&amp; nums[i] === nums[i - <span class="tn">1</span>]) <span class="tk2">continue</span>;  <span class="tc">// same anchor, same triplets</span>
+    <span class="tk2">if</span> (i &gt; <span class="tn">0</span> &amp;&amp; nums[i] === nums[i - <span class="tn">1</span>]) <span class="tk2">continue</span>;  <span class="tc">// same anchor</span>
 
     <span class="tk">let</span> left = i + <span class="tn">1</span>, right = nums.length - <span class="tn">1</span>;
     <span class="tk2">while</span> (left &lt; right) {
@@ -1388,7 +1384,7 @@ stop
         left++;
         right--;
         <span class="tk2">while</span> (left &lt; right &amp;&amp; nums[left] === nums[left - <span class="tn">1</span>])
-          left++;                                   <span class="tc">// skip repeated values</span>
+          left++;  <span class="tc">// skip repeated values</span>
       }
     }
   }
@@ -1655,14 +1651,14 @@ stop
         <h3><a href="https://leetcode.com/problems/longest-substring-without-repeating-characters/">Longest Substring Without Repeating Characters</a><span class="lc">#3</span><span class="diff medium">Medium</span><span class="dojo">dojo 03</span></h3>
         <p class="task">The length of the longest substring with no repeated characters.</p>
         <pre class="code" data-snippet="sw-longest-substring" data-lang="ts"><code><span class="tk">function</span> <span class="tf">lengthOfLongestSubstring</span>(s: <span class="tk">string</span>): <span class="tk">number</span> {
-  <span class="tk">const</span> window = <span class="tk">new</span> <span class="tt">Set</span>&lt;<span class="tk">string</span>&gt;();
+  <span class="tk">const</span> inWindow = <span class="tk">new</span> <span class="tt">Set</span>&lt;<span class="tk">string</span>&gt;();
   <span class="tk">let</span> left = <span class="tn">0</span>, best = <span class="tn">0</span>;
 
   <span class="tk2">for</span> (<span class="tk">let</span> right = <span class="tn">0</span>; right &lt; s.length; right++) {
-    <span class="tk2">while</span> (window.<span class="tf">has</span>(s[right]))                    <span class="tc">// invalid: shrink from the left</span>
-      window.<span class="tf">delete</span>(s[left++]);
+    <span class="tk2">while</span> (inWindow.<span class="tf">has</span>(s[right]))  <span class="tc">// invalid: shrink from the left</span>
+      inWindow.<span class="tf">delete</span>(s[left++]);
 
-    window.<span class="tf">add</span>(s[right]);                           <span class="tc">// grow on the right</span>
+    inWindow.<span class="tf">add</span>(s[right]);  <span class="tc">// grow on the right</span>
     best = <span class="tt">Math</span>.<span class="tf">max</span>(best, right - left + <span class="tn">1</span>);
   }
 
@@ -1786,7 +1782,7 @@ stop
   <span class="tk2">for</span> (<span class="tk">let</span> right = <span class="tn">0</span>; right &lt; nums.length; right++) {
     sum += nums[right];
 
-    <span class="tk2">while</span> (sum &gt;= target) {                         <span class="tc">// valid: record, then try shorter</span>
+    <span class="tk2">while</span> (sum &gt;= target) {  <span class="tc">// valid: record, then try shorter</span>
       best = <span class="tt">Math</span>.<span class="tf">min</span>(best, right - left + <span class="tn">1</span>);
       sum -= nums[left++];
     }
@@ -1979,10 +1975,10 @@ stop
         <h3><a href="https://leetcode.com/problems/range-sum-query-immutable/">Range Sum Query: Immutable</a><span class="lc">#303</span><span class="diff easy">Easy</span></h3>
         <p class="task">Answer many "sum of <code>nums[left..right]</code>" queries quickly.</p>
         <pre class="code" data-snippet="ps-range-sum" data-lang="ts"><code><span class="tk">class</span> NumArray {
-  <span class="tk">private</span> <span class="tk">readonly</span> prefix: <span class="tk">number</span>[];                <span class="tc">// prefix[i] = sum of the first i numbers</span>
+  <span class="tk">private</span> prefix: <span class="tk">number</span>[];  <span class="tc">// prefix[i] = sum of the first i</span>
 
   <span class="tk">constructor</span>(nums: <span class="tk">number</span>[]) {
-    <span class="tk">this</span>.prefix = <span class="tk">new</span> <span class="tt">Array</span>&lt;<span class="tk">number</span>&gt;(nums.length + <span class="tn">1</span>).<span class="tf">fill</span>(<span class="tn">0</span>);
+    <span class="tk">this</span>.prefix = <span class="tk">new</span> <span class="tt">Array</span>(nums.length + <span class="tn">1</span>).<span class="tf">fill</span>(<span class="tn">0</span>);
     <span class="tk2">for</span> (<span class="tk">let</span> i = <span class="tn">0</span>; i &lt; nums.length; i++)
       <span class="tk">this</span>.prefix[i + <span class="tn">1</span>] = <span class="tk">this</span>.prefix[i] + nums[i];
   }
@@ -2084,17 +2080,17 @@ stop
         <h3><a href="https://leetcode.com/problems/contiguous-array/">Contiguous Array</a><span class="lc">#525</span><span class="diff medium">Medium</span></h3>
         <p class="task">The length of the longest subarray with equal numbers of 0s and 1s.</p>
         <pre class="code" data-snippet="ps-contiguous-array" data-lang="ts"><code><span class="tk">function</span> <span class="tf">findMaxLength</span>(nums: <span class="tk">number</span>[]): <span class="tk">number</span> {
-  <span class="tk">const</span> firstSeen = <span class="tk">new</span> <span class="tt">Map</span>&lt;<span class="tk">number</span>, <span class="tk">number</span>&gt;([[<span class="tn">0</span>, -<span class="tn">1</span>]]);  <span class="tc">// sum -&gt; first index</span>
+  <span class="tk">const</span> firstSeen = <span class="tk">new</span> <span class="tt">Map</span>([[<span class="tn">0</span>, -<span class="tn">1</span>]]);  <span class="tc">// sum -&gt; first index</span>
   <span class="tk">let</span> sum = <span class="tn">0</span>, best = <span class="tn">0</span>;
 
   <span class="tk2">for</span> (<span class="tk">let</span> i = <span class="tn">0</span>; i &lt; nums.length; i++) {
-    sum += nums[i] === <span class="tn">1</span> ? <span class="tn">1</span> : -<span class="tn">1</span>;                  <span class="tc">// a 0 counts as -1, so balanced = 0</span>
+    sum += nums[i] === <span class="tn">1</span> ? <span class="tn">1</span> : -<span class="tn">1</span>;  <span class="tc">// a 0 counts as -1</span>
 
     <span class="tk">const</span> start = firstSeen.<span class="tk">get</span>(sum);
     <span class="tk2">if</span> (start !== <span class="tk">undefined</span>)
-      best = <span class="tt">Math</span>.<span class="tf">max</span>(best, i - start);             <span class="tc">// same sum again: the gap sums to 0</span>
+      best = <span class="tt">Math</span>.<span class="tf">max</span>(best, i - start);  <span class="tc">// same sum: the gap sums to 0</span>
     <span class="tk2">else</span>
-      firstSeen.<span class="tk">set</span>(sum, i);                        <span class="tc">// keep the earliest for the longest gap</span>
+      firstSeen.<span class="tk">set</span>(sum, i);             <span class="tc">// keep the earliest</span>
   }
 
   <span class="tk2">return</span> best;
@@ -2328,15 +2324,15 @@ stop
         <h3><a href="https://leetcode.com/problems/search-insert-position/">Search Insert Position</a><span class="lc">#35</span><span class="diff easy">Easy</span></h3>
         <p class="task">The index of <code>target</code> in a sorted array, or where it would be inserted. This is the lower-bound template.</p>
         <pre class="code" data-snippet="bs-search-insert" data-lang="ts"><code><span class="tk">function</span> <span class="tf">searchInsert</span>(nums: <span class="tk">number</span>[], target: <span class="tk">number</span>): <span class="tk">number</span> {
-  <span class="tk">let</span> lo = <span class="tn">0</span>, hi = nums.length;                     <span class="tc">// the answer is in [lo, hi]</span>
+  <span class="tk">let</span> lo = <span class="tn">0</span>, hi = nums.length;  <span class="tc">// the answer is in [lo, hi]</span>
 
   <span class="tk2">while</span> (lo &lt; hi) {
-    <span class="tk">const</span> mid = lo + <span class="tt">Math</span>.<span class="tf">floor</span>((hi - lo) / <span class="tn">2</span>);
-    <span class="tk2">if</span> (nums[mid] &lt; target) lo = mid + <span class="tn">1</span>;           <span class="tc">// mid too small: answer is right of it</span>
-    <span class="tk2">else</span> hi = mid;                                  <span class="tc">// mid could be the answer: keep it</span>
+    <span class="tk">const</span> mid = <span class="tt">Math</span>.<span class="tf">floor</span>((lo + hi) / <span class="tn">2</span>);
+    <span class="tk2">if</span> (nums[mid] &lt; target) lo = mid + <span class="tn">1</span>;  <span class="tc">// the answer is right of mid</span>
+    <span class="tk2">else</span> hi = mid;                         <span class="tc">// mid could be the answer</span>
   }
 
-  <span class="tk2">return</span> lo;                                        <span class="tc">// first index with nums[i] &gt;= target</span>
+  <span class="tk2">return</span> lo;  <span class="tc">// the first index with nums[i] &gt;= target</span>
 }</code></pre>
 <pre class="code" data-snippet="bs-search-insert" data-lang="py" hidden><code><span class="tk">def</span> <span class="tf">search_insert</span>(nums: <span class="tk">list</span>[<span class="tk">int</span>], target: <span class="tk">int</span>) -&gt; <span class="tk">int</span>:
     lo, hi = <span class="tn">0</span>, <span class="tf">len</span>(nums)                      <span class="tc"># the answer is in [lo, hi]</span>
@@ -2430,12 +2426,12 @@ stop
         <h3><a href="https://leetcode.com/problems/koko-eating-bananas/">Koko Eating Bananas</a><span class="lc">#875</span><span class="diff medium">Medium</span></h3>
         <p class="task">The slowest eating speed that finishes every pile within <code>h</code> hours.</p>
         <pre class="code" data-snippet="bs-koko" data-lang="ts"><code><span class="tk">function</span> <span class="tf">minEatingSpeed</span>(piles: <span class="tk">number</span>[], h: <span class="tk">number</span>): <span class="tk">number</span> {
-  <span class="tk">let</span> lo = <span class="tn">1</span>, hi = <span class="tt">Math</span>.<span class="tf">max</span>(...piles);              <span class="tc">// search speeds, not the array</span>
+  <span class="tk">let</span> lo = <span class="tn">1</span>, hi = <span class="tt">Math</span>.<span class="tf">max</span>(...piles);  <span class="tc">// search speeds, not the array</span>
 
   <span class="tk2">while</span> (lo &lt; hi) {
-    <span class="tk">const</span> mid = lo + <span class="tt">Math</span>.<span class="tf">floor</span>((hi - lo) / <span class="tn">2</span>);
-    <span class="tk2">if</span> (<span class="tf">canFinish</span>(piles, h, mid)) hi = mid;         <span class="tc">// works: try slower</span>
-    <span class="tk2">else</span> lo = mid + <span class="tn">1</span>;                              <span class="tc">// too slow: go faster</span>
+    <span class="tk">const</span> mid = <span class="tt">Math</span>.<span class="tf">floor</span>((lo + hi) / <span class="tn">2</span>);
+    <span class="tk2">if</span> (<span class="tf">canFinish</span>(piles, h, mid)) hi = mid;  <span class="tc">// works: try slower</span>
+    <span class="tk2">else</span> lo = mid + <span class="tn">1</span>;                       <span class="tc">// too slow: go faster</span>
   }
 
   <span class="tk2">return</span> lo;
@@ -2444,7 +2440,7 @@ stop
 <span class="tk">function</span> <span class="tf">canFinish</span>(piles: <span class="tk">number</span>[], h: <span class="tk">number</span>, speed: <span class="tk">number</span>): <span class="tk">boolean</span> {
   <span class="tk">let</span> hours = <span class="tn">0</span>;
   <span class="tk2">for</span> (<span class="tk">const</span> pile <span class="tk2">of</span> piles)
-    hours += <span class="tt">Math</span>.<span class="tf">ceil</span>(pile / speed);               <span class="tc">// ceiling of pile / speed</span>
+    hours += <span class="tt">Math</span>.<span class="tf">ceil</span>(pile / speed);  <span class="tc">// a part hour is a whole hour</span>
   <span class="tk2">return</span> hours &lt;= h;
 }</code></pre>
 <pre class="code" data-snippet="bs-koko" data-lang="py" hidden><code><span class="tk">def</span> <span class="tf">min_eating_speed</span>(piles: <span class="tk">list</span>[<span class="tk">int</span>], h: <span class="tk">int</span>) -&gt; <span class="tk">int</span>:
@@ -2668,13 +2664,13 @@ stop
         <h3><a href="https://leetcode.com/problems/valid-parentheses/">Valid Parentheses</a><span class="lc">#20</span><span class="diff easy">Easy</span></h3>
         <p class="task">Are the brackets balanced and correctly nested?</p>
         <pre class="code" data-snippet="st-valid-parentheses" data-lang="ts"><code><span class="tk">function</span> <span class="tf">isValid</span>(s: <span class="tk">string</span>): <span class="tk">boolean</span> {
-  <span class="tk">const</span> expected: <span class="tk">string</span>[] = [];                    <span class="tc">// closers we still owe, newest on top</span>
+  <span class="tk">const</span> expected: <span class="tk">string</span>[] = [];  <span class="tc">// closers we still owe</span>
 
   <span class="tk2">for</span> (<span class="tk">const</span> c <span class="tk2">of</span> s) {
     <span class="tk2">if</span> (c === <span class="ts">"("</span>) expected.<span class="tf">push</span>(<span class="ts">")"</span>);
     <span class="tk2">else</span> <span class="tk2">if</span> (c === <span class="ts">"["</span>) expected.<span class="tf">push</span>(<span class="ts">"]"</span>);
     <span class="tk2">else</span> <span class="tk2">if</span> (c === <span class="ts">"{"</span>) expected.<span class="tf">push</span>(<span class="ts">"}"</span>);
-    <span class="tk2">else</span> <span class="tk2">if</span> (expected.length === <span class="tn">0</span> || expected.<span class="tf">pop</span>() !== c) <span class="tk2">return</span> <span class="tk">false</span>;
+    <span class="tk2">else</span> <span class="tk2">if</span> (expected.<span class="tf">pop</span>() !== c) <span class="tk2">return</span> <span class="tk">false</span>;  <span class="tc">// wrong, or none</span>
   }
 
   <span class="tk2">return</span> expected.length === <span class="tn">0</span>;
@@ -2789,15 +2785,16 @@ stop
         <h3><a href="https://leetcode.com/problems/online-stock-span/">Online Stock Span</a><span class="lc">#901</span><span class="diff medium">Medium</span></h3>
         <p class="task">For each new price, how many consecutive days (today included) had a price no higher than today's?</p>
         <pre class="code" data-snippet="st-stock-spanner" data-lang="ts"><code><span class="tk">class</span> StockSpanner {
-  <span class="tc">// Prices strictly decrease from the bottom of the stack to the top.</span>
-  <span class="tk">private</span> <span class="tk">readonly</span> stack: { price: <span class="tk">number</span>; span: <span class="tk">number</span> }[] = [];
+  <span class="tc">// [price, span] pairs; prices fall from the bottom to the top</span>
+  <span class="tk">private</span> stack: [<span class="tk">number</span>, <span class="tk">number</span>][] = [];
 
   <span class="tf">next</span>(price: <span class="tk">number</span>): <span class="tk">number</span> {
+    <span class="tk">const</span> stack = <span class="tk">this</span>.stack;
     <span class="tk">let</span> span = <span class="tn">1</span>;
-    <span class="tk2">while</span> (<span class="tk">this</span>.stack.length &gt; <span class="tn">0</span> &amp;&amp; <span class="tk">this</span>.stack[<span class="tk">this</span>.stack.length - <span class="tn">1</span>].price &lt;= price)
-      span += <span class="tk">this</span>.stack.<span class="tf">pop</span>()!.span;               <span class="tc">// today also covers the days it covered</span>
+    <span class="tk2">while</span> (stack.length &gt; <span class="tn">0</span> &amp;&amp; stack[stack.length - <span class="tn">1</span>][<span class="tn">0</span>] &lt;= price)
+      span += stack.<span class="tf">pop</span>()![<span class="tn">1</span>];  <span class="tc">// cover the days it covered</span>
 
-    <span class="tk">this</span>.stack.<span class="tf">push</span>({ price, span });
+    stack.<span class="tf">push</span>([price, span]);
     <span class="tk2">return</span> span;
   }
 }</code></pre>
@@ -2987,11 +2984,10 @@ stop
         <p class="task">The two moves most list mediums are built from. Reorder List (#143) is exactly these two plus a merge.</p>
         <pre class="code" data-snippet="ll-toolkit" data-lang="ts"><code><span class="tc">// Reverse in place: point each node back at the one before it.</span>
 <span class="tk">function</span> <span class="tf">reverseList</span>(head: ListNode | <span class="tk">null</span>): ListNode | <span class="tk">null</span> {
-  <span class="tk">let</span> prev: ListNode | <span class="tk">null</span> = <span class="tk">null</span>;
-  <span class="tk">let</span> cur = head;
+  <span class="tk">let</span> prev: ListNode | <span class="tk">null</span> = <span class="tk">null</span>, cur = head;
 
   <span class="tk2">while</span> (cur !== <span class="tk">null</span>) {
-    <span class="tk">const</span> next = cur.next;                          <span class="tc">// save it before rewiring</span>
+    <span class="tk">const</span> next = cur.next;  <span class="tc">// save it before rewiring</span>
     cur.next = prev;
     prev = cur;
     cur = next;
@@ -3000,12 +2996,12 @@ stop
   <span class="tk2">return</span> prev;
 }
 
-<span class="tc">// Fast and slow: fast takes two steps for each step of slow, so slow stops mid-list.</span>
+<span class="tc">// Fast and slow: fast takes two steps for each step of slow.</span>
 <span class="tk">function</span> <span class="tf">middleNode</span>(head: ListNode | <span class="tk">null</span>): ListNode | <span class="tk">null</span> {
   <span class="tk">let</span> slow = head, fast = head;
 
   <span class="tk2">while</span> (fast !== <span class="tk">null</span> &amp;&amp; fast.next !== <span class="tk">null</span>) {
-    slow = slow!.next;                              <span class="tc">// slow is never at the tail here</span>
+    slow = slow!.next;  <span class="tc">// behind fast, so never null</span>
     fast = fast.next.next;
   }
 
@@ -3205,19 +3201,22 @@ ListNode* <span class="tf">middleNode</span>(ListNode* head)
       <article class="example">
         <h3><a href="https://leetcode.com/problems/remove-nth-node-from-end-of-list/">Remove Nth Node From End of List</a><span class="lc">#19</span><span class="diff medium">Medium</span></h3>
         <p class="task">Remove the nth node from the end in a single pass.</p>
-        <pre class="code" data-snippet="ll-remove-nth" data-lang="ts"><code><span class="tk">function</span> <span class="tf">removeNthFromEnd</span>(head: ListNode | <span class="tk">null</span>, n: <span class="tk">number</span>): ListNode | <span class="tk">null</span> {
-  <span class="tk">const</span> dummy = <span class="tk">new</span> <span class="tt">ListNode</span>(<span class="tn">0</span>, head);              <span class="tc">// lets us delete the real head too</span>
-  <span class="tk">let</span> fast = dummy, slow = dummy;
+        <pre class="code" data-snippet="ll-remove-nth" data-lang="ts"><code><span class="tk">function</span> <span class="tf">removeNthFromEnd</span>(
+  head: ListNode | <span class="tk">null</span>,
+  n: <span class="tk">number</span>,
+): ListNode | <span class="tk">null</span> {
+  <span class="tk">const</span> dummy = <span class="tk">new</span> <span class="tt">ListNode</span>(<span class="tn">0</span>, head);  <span class="tc">// lets us delete the head too</span>
+  <span class="tk">let</span> fast: ListNode = dummy, slow: ListNode = dummy;
 
   <span class="tk2">for</span> (<span class="tk">let</span> i = <span class="tn">0</span>; i &lt; n; i++)
-    fast = fast.next!;                              <span class="tc">// open a gap of n nodes</span>
+    fast = fast.next!;  <span class="tc">// open a gap of n nodes</span>
 
-  <span class="tk2">while</span> (fast.next !== <span class="tk">null</span>) {                      <span class="tc">// move both until fast is the tail</span>
+  <span class="tk2">while</span> (fast.next !== <span class="tk">null</span>) {  <span class="tc">// until fast is the tail</span>
     fast = fast.next;
     slow = slow.next!;
   }
 
-  slow.next = slow.next!.next;                      <span class="tc">// slow sits just before the target</span>
+  slow.next = slow.next!.next;  <span class="tc">// slow sits just before the target</span>
   <span class="tk2">return</span> dummy.next;
 }</code></pre>
 <pre class="code" data-snippet="ll-remove-nth" data-lang="py" hidden><code><span class="tk">def</span> <span class="tf">remove_nth_from_end</span>(head: ListNode | <span class="tk">None</span>, n: <span class="tk">int</span>) -&gt; ListNode | <span class="tk">None</span>:
@@ -3338,32 +3337,53 @@ ListNode* <span class="tf">middleNode</span>(ListNode* head)
       <article class="example">
         <h3><a href="https://leetcode.com/problems/lru-cache/">LRU Cache</a><span class="lc">#146</span><span class="diff medium">Medium</span></h3>
         <p class="task">A fixed-size cache that evicts the least recently used key, with O(1) <code>Get</code> and <code>Put</code>. A hash map finds the node; a doubly linked list keeps the order.</p>
-        <pre class="code" data-snippet="ll-lru-cache" data-lang="ts"><code><span class="tk">class</span> LRUCache {
-  <span class="tk">private</span> <span class="tk">readonly</span> capacity: <span class="tk">number</span>;
-  <span class="tc">// A Map keeps insertion order, so the first key is the least recently used.</span>
-  <span class="tk">private</span> <span class="tk">readonly</span> cache = <span class="tk">new</span> <span class="tt">Map</span>&lt;<span class="tk">number</span>, <span class="tk">number</span>&gt;();
+        <pre class="code" data-snippet="ll-lru-cache" data-lang="ts"><code><span class="tk">class</span> DNode {
+  prev: DNode = <span class="tk">this</span>;  <span class="tc">// linked to itself until it's inserted</span>
+  next: DNode = <span class="tk">this</span>;
+  <span class="tk">constructor</span>(<span class="tk">public</span> key: <span class="tk">number</span>, <span class="tk">public</span> val: <span class="tk">number</span>) {}
+}
 
-  <span class="tk">constructor</span>(capacity: <span class="tk">number</span>) {
-    <span class="tk">this</span>.capacity = capacity;
+<span class="tk">class</span> LRUCache {
+  <span class="tk">private</span> nodes = <span class="tk">new</span> <span class="tt">Map</span>&lt;<span class="tk">number</span>, <span class="tt">DNode</span>&gt;();
+  <span class="tk">private</span> head = <span class="tk">new</span> <span class="tt">DNode</span>(<span class="tn">0</span>, <span class="tn">0</span>);  <span class="tc">// dummy before the newest</span>
+  <span class="tk">private</span> tail = <span class="tk">new</span> <span class="tt">DNode</span>(<span class="tn">0</span>, <span class="tn">0</span>);  <span class="tc">// dummy after the oldest</span>
+
+  <span class="tk">constructor</span>(<span class="tk">private</span> capacity: <span class="tk">number</span>) {
+    <span class="tk">this</span>.head.next = <span class="tk">this</span>.tail;
+    <span class="tk">this</span>.tail.prev = <span class="tk">this</span>.head;
   }
 
   <span class="tk">get</span>(key: <span class="tk">number</span>): <span class="tk">number</span> {
-    <span class="tk">const</span> value = <span class="tk">this</span>.cache.<span class="tk">get</span>(key);
-    <span class="tk2">if</span> (value === <span class="tk">undefined</span>) <span class="tk2">return</span> -<span class="tn">1</span>;
-
-    <span class="tk">this</span>.cache.<span class="tf">delete</span>(key);                         <span class="tc">// delete and reinsert to mark it newest</span>
-    <span class="tk">this</span>.cache.<span class="tk">set</span>(key, value);
-    <span class="tk2">return</span> value;
+    <span class="tk">const</span> node = <span class="tk">this</span>.nodes.<span class="tk">get</span>(key);
+    <span class="tk2">if</span> (!node) <span class="tk2">return</span> -<span class="tn">1</span>;
+    <span class="tk">this</span>.<span class="tf">unlink</span>(node);
+    <span class="tk">this</span>.<span class="tf">addFront</span>(node);  <span class="tc">// just used: now the newest</span>
+    <span class="tk2">return</span> node.val;
   }
 
   <span class="tf">put</span>(key: <span class="tk">number</span>, value: <span class="tk">number</span>): <span class="tk">void</span> {
-    <span class="tk2">if</span> (<span class="tk">this</span>.cache.<span class="tf">has</span>(key)) {
-      <span class="tk">this</span>.cache.<span class="tf">delete</span>(key);
-    } <span class="tk2">else</span> <span class="tk2">if</span> (<span class="tk">this</span>.cache.size === <span class="tk">this</span>.capacity) {
-      <span class="tk">this</span>.cache.<span class="tf">delete</span>(<span class="tk">this</span>.cache.<span class="tf">keys</span>().<span class="tf">next</span>().value!);  <span class="tc">// evict the oldest</span>
+    <span class="tk">const</span> old = <span class="tk">this</span>.nodes.<span class="tk">get</span>(key);
+    <span class="tk2">if</span> (old) <span class="tk">this</span>.<span class="tf">unlink</span>(old);
+    <span class="tk2">else</span> <span class="tk2">if</span> (<span class="tk">this</span>.nodes.size === <span class="tk">this</span>.capacity) {
+      <span class="tk">const</span> lru = <span class="tk">this</span>.tail.prev;  <span class="tc">// the least recently used</span>
+      <span class="tk">this</span>.<span class="tf">unlink</span>(lru);
+      <span class="tk">this</span>.nodes.<span class="tf">delete</span>(lru.key);
     }
+    <span class="tk">const</span> node = <span class="tk">new</span> <span class="tt">DNode</span>(key, value);
+    <span class="tk">this</span>.nodes.<span class="tk">set</span>(key, node);
+    <span class="tk">this</span>.<span class="tf">addFront</span>(node);
+  }
 
-    <span class="tk">this</span>.cache.<span class="tk">set</span>(key, value);                     <span class="tc">// inserting appends: newest</span>
+  <span class="tk">private</span> <span class="tf">unlink</span>(node: DNode): <span class="tk">void</span> {
+    node.prev.next = node.next;
+    node.next.prev = node.prev;
+  }
+
+  <span class="tk">private</span> <span class="tf">addFront</span>(node: DNode): <span class="tk">void</span> {
+    node.prev = <span class="tk">this</span>.head;
+    node.next = <span class="tk">this</span>.head.next;
+    <span class="tk">this</span>.head.next.prev = node;
+    <span class="tk">this</span>.head.next = node;
   }
 }</code></pre>
 <pre class="code" data-snippet="ll-lru-cache" data-lang="py" hidden><code><span class="tk">class</span> LRUCache:
@@ -3712,17 +3732,17 @@ ListNode* <span class="tf">middleNode</span>(ListNode* head)
   <span class="tk2">return</span> <span class="tn">1</span> + <span class="tt">Math</span>.<span class="tf">max</span>(<span class="tf">maxDepth</span>(root.left), <span class="tf">maxDepth</span>(root.right));
 }
 
-<span class="tc">// Top-down: pass the limits that every node below must respect.</span>
+<span class="tc">// Top-down: pass the limits every node below must respect.</span>
 <span class="tk">function</span> <span class="tf">isValidBST</span>(root: TreeNode | <span class="tk">null</span>): <span class="tk">boolean</span> {
-  <span class="tk2">return</span> <span class="tf">isValid</span>(root, -Infinity, Infinity);
+  <span class="tk2">return</span> <span class="tf">fits</span>(root, -Infinity, Infinity);
 }
 
-<span class="tk">function</span> <span class="tf">isValid</span>(node: TreeNode | <span class="tk">null</span>, low: <span class="tk">number</span>, high: <span class="tk">number</span>): <span class="tk">boolean</span> {
+<span class="tk">function</span> <span class="tf">fits</span>(node: TreeNode | <span class="tk">null</span>, low: <span class="tk">number</span>, high: <span class="tk">number</span>): <span class="tk">boolean</span> {
   <span class="tk2">if</span> (node === <span class="tk">null</span>) <span class="tk2">return</span> <span class="tk">true</span>;
   <span class="tk2">if</span> (node.val &lt;= low || node.val &gt;= high) <span class="tk2">return</span> <span class="tk">false</span>;
 
-  <span class="tk2">return</span> <span class="tf">isValid</span>(node.left, low, node.val)          <span class="tc">// left side: smaller than me</span>
-      &amp;&amp; <span class="tf">isValid</span>(node.right, node.val, high);       <span class="tc">// right side: bigger than me</span>
+  <span class="tk2">return</span> <span class="tf">fits</span>(node.left, low, node.val)   <span class="tc">// left: smaller than me</span>
+    &amp;&amp; <span class="tf">fits</span>(node.right, node.val, high);  <span class="tc">// right: bigger than me</span>
 }</code></pre>
 <pre class="code" data-snippet="tr-dfs" data-lang="py" hidden><code><span class="tc"># Bottom-up: each call returns an answer about its own subtree.</span>
 <span class="tk">def</span> <span class="tf">max_depth</span>(root: TreeNode | <span class="tk">None</span>) -&gt; <span class="tk">int</span>:
@@ -3867,14 +3887,18 @@ ListNode* <span class="tf">middleNode</span>(ListNode* head)
       <article class="example">
         <h3><a href="https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-tree/">Lowest Common Ancestor of a Binary Tree</a><span class="lc">#236</span><span class="diff medium">Medium</span></h3>
         <p class="task">The lowest node with both <code>p</code> and <code>q</code> below it (a node counts as below itself).</p>
-        <pre class="code" data-snippet="tr-lca" data-lang="ts"><code><span class="tk">function</span> <span class="tf">lowestCommonAncestor</span>(root: TreeNode | <span class="tk">null</span>, p: TreeNode, q: TreeNode): TreeNode | <span class="tk">null</span> {
+        <pre class="code" data-snippet="tr-lca" data-lang="ts"><code><span class="tk">function</span> <span class="tf">lowestCommonAncestor</span>(
+  root: TreeNode | <span class="tk">null</span>,
+  p: TreeNode | <span class="tk">null</span>,
+  q: TreeNode | <span class="tk">null</span>,
+): TreeNode | <span class="tk">null</span> {
   <span class="tk2">if</span> (root === <span class="tk">null</span> || root === p || root === q) <span class="tk2">return</span> root;
 
   <span class="tk">const</span> left = <span class="tf">lowestCommonAncestor</span>(root.left, p, q);
   <span class="tk">const</span> right = <span class="tf">lowestCommonAncestor</span>(root.right, p, q);
 
-  <span class="tk2">if</span> (left !== <span class="tk">null</span> &amp;&amp; right !== <span class="tk">null</span>) <span class="tk2">return</span> root;  <span class="tc">// one on each side: split here</span>
-  <span class="tk2">return</span> left ?? right;                             <span class="tc">// pass up whatever was found</span>
+  <span class="tk2">if</span> (left !== <span class="tk">null</span> &amp;&amp; right !== <span class="tk">null</span>) <span class="tk2">return</span> root;  <span class="tc">// split here</span>
+  <span class="tk2">return</span> left ?? right;                              <span class="tc">// pass up what's found</span>
 }</code></pre>
 <pre class="code" data-snippet="tr-lca" data-lang="py" hidden><code><span class="tk">def</span> <span class="tf">lowest_common_ancestor</span>(
     root: TreeNode | <span class="tk">None</span>, p: TreeNode, q: TreeNode
@@ -3969,22 +3993,17 @@ ListNode* <span class="tf">middleNode</span>(ListNode* head)
         <p class="task">The values level by level, top to bottom.</p>
         <pre class="code" data-snippet="tr-bfs" data-lang="ts"><code><span class="tk">function</span> <span class="tf">levelOrder</span>(root: TreeNode | <span class="tk">null</span>): <span class="tk">number</span>[][] {
   <span class="tk">const</span> levels: <span class="tk">number</span>[][] = [];
-  <span class="tk2">if</span> (root === <span class="tk">null</span>) <span class="tk2">return</span> levels;
+  <span class="tk">let</span> level: <span class="tt">TreeNode</span>[] = root === <span class="tk">null</span> ? [] : [root];
 
-  <span class="tk">const</span> queue: <span class="tt">TreeNode</span>[] = [root];
+  <span class="tk2">while</span> (level.length &gt; <span class="tn">0</span>) {
+    levels.<span class="tf">push</span>(level.<span class="tf">map</span>((node) =&gt; node.val));
 
-  <span class="tk2">while</span> (queue.length &gt; <span class="tn">0</span>) {
-    <span class="tk">const</span> size = queue.length;                      <span class="tc">// everything queued now is one level</span>
-    <span class="tk">const</span> level: <span class="tk">number</span>[] = [];
-
-    <span class="tk2">for</span> (<span class="tk">let</span> i = <span class="tn">0</span>; i &lt; size; i++) {
-      <span class="tk">const</span> node = queue.<span class="tf">shift</span>()!;
-      level.<span class="tf">push</span>(node.val);
-      <span class="tk2">if</span> (node.left !== <span class="tk">null</span>) queue.<span class="tf">push</span>(node.left);
-      <span class="tk2">if</span> (node.right !== <span class="tk">null</span>) queue.<span class="tf">push</span>(node.right);
+    <span class="tk">const</span> next: <span class="tt">TreeNode</span>[] = [];  <span class="tc">// the level below, in order</span>
+    <span class="tk2">for</span> (<span class="tk">const</span> node <span class="tk2">of</span> level) {
+      <span class="tk2">if</span> (node.left !== <span class="tk">null</span>) next.<span class="tf">push</span>(node.left);
+      <span class="tk2">if</span> (node.right !== <span class="tk">null</span>) next.<span class="tf">push</span>(node.right);
     }
-
-    levels.<span class="tf">push</span>(level);
+    level = next;
   }
 
   <span class="tk2">return</span> levels;
@@ -4228,48 +4247,60 @@ ListNode* <span class="tf">middleNode</span>(ListNode* head)
       <article class="example">
         <h3><a href="https://leetcode.com/problems/kth-largest-element-in-an-array/">Kth Largest Element in an Array</a><span class="lc">#215</span><span class="diff medium">Medium</span></h3>
         <p class="task">The kth largest element, without sorting everything.</p>
-        <pre class="code" data-snippet="hp-kth-largest" data-lang="ts"><code><span class="tc">// TypeScript has no heap, so this snippet keeps a small binary min-heap of its own.</span>
-<span class="tk">class</span> <span class="tt">MinHeap</span>&lt;<span class="tt">T</span>&gt; {
-  <span class="tk">private</span> a: <span class="tt">T</span>[] = [];
-  <span class="tk">constructor</span>(<span class="tk">private</span> <span class="tk">readonly</span> cmp: (x: T, y: T) =&gt; <span class="tk">number</span>) {}
-  <span class="tk">get</span> <span class="tf">size</span>(): <span class="tk">number</span> { <span class="tk2">return</span> <span class="tk">this</span>.a.length; }
-  <span class="tf">peek</span>(): T { <span class="tk2">return</span> <span class="tk">this</span>.a[<span class="tn">0</span>]; }
-  <span class="tf">push</span>(x: T): <span class="tk">void</span> {
-    <span class="tk">this</span>.a.<span class="tf">push</span>(x);
-    <span class="tk2">for</span> (<span class="tk">let</span> i = <span class="tk">this</span>.a.length - <span class="tn">1</span>; i &gt; <span class="tn">0</span>; ) {
-      <span class="tk">const</span> p = (i - <span class="tn">1</span>) &gt;&gt; <span class="tn">1</span>;
-      <span class="tk2">if</span> (<span class="tk">this</span>.<span class="tf">cmp</span>(<span class="tk">this</span>.a[p], <span class="tk">this</span>.a[i]) &lt;= <span class="tn">0</span>) <span class="tk2">break</span>;
-      [<span class="tk">this</span>.a[i], <span class="tk">this</span>.a[p]] = [<span class="tk">this</span>.a[p], <span class="tk">this</span>.a[i]];
-      i = p;
+        <pre class="code" data-snippet="hp-kth-largest" data-lang="ts"><code><span class="tc">// A binary heap, stored in an array. The children of slot i are</span>
+<span class="tc">// 2i + 1 and 2i + 2, so the parent of slot i is (i - 1) / 2, rounded down.</span>
+<span class="tk">class</span> <span class="tt">Heap</span>&lt;<span class="tt">T</span>&gt; {
+  <span class="tk">private</span> items: <span class="tt">T</span>[] = [];
+
+  <span class="tc">// compare works like sort's: (a, b) =&gt; a - b makes a min-heap.</span>
+  <span class="tk">constructor</span>(<span class="tk">private</span> compare: (a: T, b: T) =&gt; <span class="tk">number</span>) {}
+
+  <span class="tk">get</span> <span class="tf">size</span>(): <span class="tk">number</span> {
+    <span class="tk2">return</span> <span class="tk">this</span>.items.length;
+  }
+
+  <span class="tf">peek</span>(): T | <span class="tk">undefined</span> {
+    <span class="tk2">return</span> <span class="tk">this</span>.items[<span class="tn">0</span>];
+  }
+
+  <span class="tf">push</span>(item: T): <span class="tk">void</span> {
+    <span class="tk">const</span> a = <span class="tk">this</span>.items;
+    a.<span class="tf">push</span>(item);    <span class="tc">// add it at the end</span>
+    <span class="tk">let</span> i = a.length - <span class="tn">1</span>;
+    <span class="tk2">while</span> (i &gt; <span class="tn">0</span>) {  <span class="tc">// sift up while it beats its parent</span>
+      <span class="tk">const</span> parent = <span class="tt">Math</span>.<span class="tf">floor</span>((i - <span class="tn">1</span>) / <span class="tn">2</span>);
+      <span class="tk2">if</span> (<span class="tk">this</span>.<span class="tf">compare</span>(a[i], a[parent]) &gt;= <span class="tn">0</span>) <span class="tk2">break</span>;
+      [a[i], a[parent]] = [a[parent], a[i]];
+      i = parent;
     }
   }
-  <span class="tf">pop</span>(): T {
-    <span class="tk">const</span> top = <span class="tk">this</span>.a[<span class="tn">0</span>], last = <span class="tk">this</span>.a.<span class="tf">pop</span>()!;
-    <span class="tk2">if</span> (<span class="tk">this</span>.a.length &gt; <span class="tn">0</span>) {
-      <span class="tk">this</span>.a[<span class="tn">0</span>] = last;
-      <span class="tk2">for</span> (<span class="tk">let</span> i = <span class="tn">0</span>; ; ) {
-        <span class="tk">const</span> l = <span class="tn">2</span> * i + <span class="tn">1</span>, r = l + <span class="tn">1</span>;
-        <span class="tk">let</span> m = i;
-        <span class="tk2">if</span> (l &lt; <span class="tk">this</span>.a.length &amp;&amp; <span class="tk">this</span>.<span class="tf">cmp</span>(<span class="tk">this</span>.a[l], <span class="tk">this</span>.a[m]) &lt; <span class="tn">0</span>) m = l;
-        <span class="tk2">if</span> (r &lt; <span class="tk">this</span>.a.length &amp;&amp; <span class="tk">this</span>.<span class="tf">cmp</span>(<span class="tk">this</span>.a[r], <span class="tk">this</span>.a[m]) &lt; <span class="tn">0</span>) m = r;
-        <span class="tk2">if</span> (m === i) <span class="tk2">break</span>;
-        [<span class="tk">this</span>.a[i], <span class="tk">this</span>.a[m]] = [<span class="tk">this</span>.a[m], <span class="tk">this</span>.a[i]];
-        i = m;
-      }
+
+  <span class="tf">pop</span>(): T | <span class="tk">undefined</span> {
+    <span class="tk">const</span> a = <span class="tk">this</span>.items;
+    <span class="tk2">if</span> (a.length &lt;= <span class="tn">1</span>) <span class="tk2">return</span> a.<span class="tf">pop</span>();
+    <span class="tk">const</span> top = a[<span class="tn">0</span>];
+    a[<span class="tn">0</span>] = a.<span class="tf">pop</span>()!;  <span class="tc">// move the last item to the top</span>
+    <span class="tk">let</span> i = <span class="tn">0</span>;
+    <span class="tk2">while</span> (<span class="tk">true</span>) {    <span class="tc">// sift down toward the better child</span>
+      <span class="tk">let</span> best = i;
+      <span class="tk2">for</span> (<span class="tk">const</span> kid <span class="tk2">of</span> [<span class="tn">2</span> * i + <span class="tn">1</span>, <span class="tn">2</span> * i + <span class="tn">2</span>])
+        <span class="tk2">if</span> (kid &lt; a.length &amp;&amp; <span class="tk">this</span>.<span class="tf">compare</span>(a[kid], a[best]) &lt; <span class="tn">0</span>) best = kid;
+      <span class="tk2">if</span> (best === i) <span class="tk2">return</span> top;
+      [a[i], a[best]] = [a[best], a[i]];
+      i = best;
     }
-    <span class="tk2">return</span> top;
   }
 }
 
 <span class="tk">function</span> <span class="tf">findKthLargest</span>(nums: <span class="tk">number</span>[], k: <span class="tk">number</span>): <span class="tk">number</span> {
-  <span class="tk">const</span> heap = <span class="tk">new</span> <span class="tt">MinHeap</span>&lt;<span class="tk">number</span>&gt;((a, b) =&gt; a - b);  <span class="tc">// min-heap: smallest on top</span>
+  <span class="tk">const</span> heap = <span class="tk">new</span> <span class="tt">Heap</span>&lt;<span class="tk">number</span>&gt;((a, b) =&gt; a - b);  <span class="tc">// a min-heap</span>
 
   <span class="tk2">for</span> (<span class="tk">const</span> num <span class="tk2">of</span> nums) {
     heap.<span class="tf">push</span>(num);
-    <span class="tk2">if</span> (heap.size &gt; k) heap.<span class="tf">pop</span>();                  <span class="tc">// drop the smallest, keep the k largest</span>
+    <span class="tk2">if</span> (heap.size &gt; k) heap.<span class="tf">pop</span>();  <span class="tc">// drop the smallest of k + 1</span>
   }
 
-  <span class="tk2">return</span> heap.<span class="tf">peek</span>();                               <span class="tc">// smallest of the k largest</span>
+  <span class="tk2">return</span> heap.<span class="tf">peek</span>()!;  <span class="tc">// the smallest of the k largest</span>
 }</code></pre>
 <pre class="code" data-snippet="hp-kth-largest" data-lang="py" hidden><code><span class="tk">def</span> <span class="tf">find_kth_largest</span>(nums: <span class="tk">list</span>[<span class="tk">int</span>], k: <span class="tk">int</span>) -&gt; <span class="tk">int</span>:
     heap: <span class="tk">list</span>[<span class="tk">int</span>] = []                       <span class="tc"># min-heap: smallest on top</span>
@@ -4366,36 +4397,48 @@ ListNode* <span class="tf">middleNode</span>(ListNode* head)
       <article class="example">
         <h3><a href="https://leetcode.com/problems/top-k-frequent-elements/">Top K Frequent Elements</a><span class="lc">#347</span><span class="diff medium">Medium</span></h3>
         <p class="task">The k most frequent numbers. A hash map counts; the heap ranks by count.</p>
-        <pre class="code" data-snippet="hp-top-k-frequent" data-lang="ts"><code><span class="tc">// TypeScript has no heap, so this snippet keeps a small binary min-heap of its own.</span>
-<span class="tk">class</span> <span class="tt">MinHeap</span>&lt;<span class="tt">T</span>&gt; {
-  <span class="tk">private</span> a: <span class="tt">T</span>[] = [];
-  <span class="tk">constructor</span>(<span class="tk">private</span> <span class="tk">readonly</span> cmp: (x: T, y: T) =&gt; <span class="tk">number</span>) {}
-  <span class="tk">get</span> <span class="tf">size</span>(): <span class="tk">number</span> { <span class="tk2">return</span> <span class="tk">this</span>.a.length; }
-  <span class="tf">peek</span>(): T { <span class="tk2">return</span> <span class="tk">this</span>.a[<span class="tn">0</span>]; }
-  <span class="tf">push</span>(x: T): <span class="tk">void</span> {
-    <span class="tk">this</span>.a.<span class="tf">push</span>(x);
-    <span class="tk2">for</span> (<span class="tk">let</span> i = <span class="tk">this</span>.a.length - <span class="tn">1</span>; i &gt; <span class="tn">0</span>; ) {
-      <span class="tk">const</span> p = (i - <span class="tn">1</span>) &gt;&gt; <span class="tn">1</span>;
-      <span class="tk2">if</span> (<span class="tk">this</span>.<span class="tf">cmp</span>(<span class="tk">this</span>.a[p], <span class="tk">this</span>.a[i]) &lt;= <span class="tn">0</span>) <span class="tk2">break</span>;
-      [<span class="tk">this</span>.a[i], <span class="tk">this</span>.a[p]] = [<span class="tk">this</span>.a[p], <span class="tk">this</span>.a[i]];
-      i = p;
+        <pre class="code" data-snippet="hp-top-k-frequent" data-lang="ts"><code><span class="tc">// A binary heap, stored in an array. The children of slot i are</span>
+<span class="tc">// 2i + 1 and 2i + 2, so the parent of slot i is (i - 1) / 2, rounded down.</span>
+<span class="tk">class</span> <span class="tt">Heap</span>&lt;<span class="tt">T</span>&gt; {
+  <span class="tk">private</span> items: <span class="tt">T</span>[] = [];
+
+  <span class="tc">// compare works like sort's: (a, b) =&gt; a - b makes a min-heap.</span>
+  <span class="tk">constructor</span>(<span class="tk">private</span> compare: (a: T, b: T) =&gt; <span class="tk">number</span>) {}
+
+  <span class="tk">get</span> <span class="tf">size</span>(): <span class="tk">number</span> {
+    <span class="tk2">return</span> <span class="tk">this</span>.items.length;
+  }
+
+  <span class="tf">peek</span>(): T | <span class="tk">undefined</span> {
+    <span class="tk2">return</span> <span class="tk">this</span>.items[<span class="tn">0</span>];
+  }
+
+  <span class="tf">push</span>(item: T): <span class="tk">void</span> {
+    <span class="tk">const</span> a = <span class="tk">this</span>.items;
+    a.<span class="tf">push</span>(item);    <span class="tc">// add it at the end</span>
+    <span class="tk">let</span> i = a.length - <span class="tn">1</span>;
+    <span class="tk2">while</span> (i &gt; <span class="tn">0</span>) {  <span class="tc">// sift up while it beats its parent</span>
+      <span class="tk">const</span> parent = <span class="tt">Math</span>.<span class="tf">floor</span>((i - <span class="tn">1</span>) / <span class="tn">2</span>);
+      <span class="tk2">if</span> (<span class="tk">this</span>.<span class="tf">compare</span>(a[i], a[parent]) &gt;= <span class="tn">0</span>) <span class="tk2">break</span>;
+      [a[i], a[parent]] = [a[parent], a[i]];
+      i = parent;
     }
   }
-  <span class="tf">pop</span>(): T {
-    <span class="tk">const</span> top = <span class="tk">this</span>.a[<span class="tn">0</span>], last = <span class="tk">this</span>.a.<span class="tf">pop</span>()!;
-    <span class="tk2">if</span> (<span class="tk">this</span>.a.length &gt; <span class="tn">0</span>) {
-      <span class="tk">this</span>.a[<span class="tn">0</span>] = last;
-      <span class="tk2">for</span> (<span class="tk">let</span> i = <span class="tn">0</span>; ; ) {
-        <span class="tk">const</span> l = <span class="tn">2</span> * i + <span class="tn">1</span>, r = l + <span class="tn">1</span>;
-        <span class="tk">let</span> m = i;
-        <span class="tk2">if</span> (l &lt; <span class="tk">this</span>.a.length &amp;&amp; <span class="tk">this</span>.<span class="tf">cmp</span>(<span class="tk">this</span>.a[l], <span class="tk">this</span>.a[m]) &lt; <span class="tn">0</span>) m = l;
-        <span class="tk2">if</span> (r &lt; <span class="tk">this</span>.a.length &amp;&amp; <span class="tk">this</span>.<span class="tf">cmp</span>(<span class="tk">this</span>.a[r], <span class="tk">this</span>.a[m]) &lt; <span class="tn">0</span>) m = r;
-        <span class="tk2">if</span> (m === i) <span class="tk2">break</span>;
-        [<span class="tk">this</span>.a[i], <span class="tk">this</span>.a[m]] = [<span class="tk">this</span>.a[m], <span class="tk">this</span>.a[i]];
-        i = m;
-      }
+
+  <span class="tf">pop</span>(): T | <span class="tk">undefined</span> {
+    <span class="tk">const</span> a = <span class="tk">this</span>.items;
+    <span class="tk2">if</span> (a.length &lt;= <span class="tn">1</span>) <span class="tk2">return</span> a.<span class="tf">pop</span>();
+    <span class="tk">const</span> top = a[<span class="tn">0</span>];
+    a[<span class="tn">0</span>] = a.<span class="tf">pop</span>()!;  <span class="tc">// move the last item to the top</span>
+    <span class="tk">let</span> i = <span class="tn">0</span>;
+    <span class="tk2">while</span> (<span class="tk">true</span>) {    <span class="tc">// sift down toward the better child</span>
+      <span class="tk">let</span> best = i;
+      <span class="tk2">for</span> (<span class="tk">const</span> kid <span class="tk2">of</span> [<span class="tn">2</span> * i + <span class="tn">1</span>, <span class="tn">2</span> * i + <span class="tn">2</span>])
+        <span class="tk2">if</span> (kid &lt; a.length &amp;&amp; <span class="tk">this</span>.<span class="tf">compare</span>(a[kid], a[best]) &lt; <span class="tn">0</span>) best = kid;
+      <span class="tk2">if</span> (best === i) <span class="tk2">return</span> top;
+      [a[i], a[best]] = [a[best], a[i]];
+      i = best;
     }
-    <span class="tk2">return</span> top;
   }
 }
 
@@ -4404,16 +4447,16 @@ ListNode* <span class="tf">middleNode</span>(ListNode* head)
   <span class="tk2">for</span> (<span class="tk">const</span> num <span class="tk2">of</span> nums)
     counts.<span class="tk">set</span>(num, (counts.<span class="tk">get</span>(num) ?? <span class="tn">0</span>) + <span class="tn">1</span>);
 
-  <span class="tk">const</span> heap = <span class="tk">new</span> <span class="tt">MinHeap</span>&lt;[<span class="tk">number</span>, <span class="tk">number</span>]&gt;((a, b) =&gt; a[<span class="tn">0</span>] - b[<span class="tn">0</span>]);  <span class="tc">// count -&gt; number</span>
-  <span class="tk2">for</span> (<span class="tk">const</span> [num, count] <span class="tk2">of</span> counts) {
-    heap.<span class="tf">push</span>([count, num]);
-    <span class="tk2">if</span> (heap.size &gt; k) heap.<span class="tf">pop</span>();                  <span class="tc">// evict the least frequent</span>
+  <span class="tc">// [number, count] pairs, the least frequent on top</span>
+  <span class="tk">const</span> heap = <span class="tk">new</span> <span class="tt">Heap</span>&lt;[<span class="tk">number</span>, <span class="tk">number</span>]&gt;((a, b) =&gt; a[<span class="tn">1</span>] - b[<span class="tn">1</span>]);
+  <span class="tk2">for</span> (<span class="tk">const</span> entry <span class="tk2">of</span> counts) {
+    heap.<span class="tf">push</span>(entry);
+    <span class="tk2">if</span> (heap.size &gt; k) heap.<span class="tf">pop</span>();  <span class="tc">// evict the least frequent</span>
   }
 
-  <span class="tk">const</span> result = <span class="tk">new</span> <span class="tt">Array</span>&lt;<span class="tk">number</span>&gt;(k);
-  <span class="tk2">for</span> (<span class="tk">let</span> i = k - <span class="tn">1</span>; i &gt;= <span class="tn">0</span>; i--)
-    result[i] = heap.<span class="tf">pop</span>()[<span class="tn">1</span>];                      <span class="tc">// most frequent ends up first</span>
-  <span class="tk2">return</span> result;
+  <span class="tk">const</span> result: <span class="tk">number</span>[] = [];
+  <span class="tk2">while</span> (heap.size &gt; <span class="tn">0</span>) result.<span class="tf">push</span>(heap.<span class="tf">pop</span>()![<span class="tn">0</span>]);
+  <span class="tk2">return</span> result.<span class="tf">reverse</span>();  <span class="tc">// the most frequent first</span>
 }</code></pre>
 <pre class="code" data-snippet="hp-top-k-frequent" data-lang="py" hidden><code><span class="tk">def</span> <span class="tf">top_k_frequent</span>(nums: <span class="tk">list</span>[<span class="tk">int</span>], k: <span class="tk">int</span>) -&gt; <span class="tk">list</span>[<span class="tk">int</span>]:
     counts: <span class="tk">dict</span>[<span class="tk">int</span>, <span class="tk">int</span>] = {}
@@ -4665,7 +4708,7 @@ ListNode* <span class="tf">middleNode</span>(ListNode* head)
     <span class="tk2">for</span> (<span class="tk">let</span> c = <span class="tn">0</span>; c &lt; grid[<span class="tn">0</span>].length; c++) {
       <span class="tk2">if</span> (grid[r][c] !== <span class="ts">"1"</span>) <span class="tk2">continue</span>;
       islands++;
-      <span class="tf">sink</span>(grid, r, c);                             <span class="tc">// erase the island so it counts once</span>
+      <span class="tf">sink</span>(grid, r, c);  <span class="tc">// erase it so it counts once</span>
     }
   }
 
@@ -4676,7 +4719,7 @@ ListNode* <span class="tf">middleNode</span>(ListNode* head)
   <span class="tk2">if</span> (r &lt; <span class="tn">0</span> || c &lt; <span class="tn">0</span> || r &gt;= grid.length || c &gt;= grid[<span class="tn">0</span>].length) <span class="tk2">return</span>;
   <span class="tk2">if</span> (grid[r][c] !== <span class="ts">"1"</span>) <span class="tk2">return</span>;
 
-  grid[r][c] = <span class="ts">"0"</span>;                                 <span class="tc">// mark visited</span>
+  grid[r][c] = <span class="ts">"0"</span>;  <span class="tc">// mark it visited</span>
   <span class="tf">sink</span>(grid, r + <span class="tn">1</span>, c);
   <span class="tf">sink</span>(grid, r - <span class="tn">1</span>, c);
   <span class="tf">sink</span>(grid, r, c + <span class="tn">1</span>);
@@ -4867,32 +4910,31 @@ ListNode* <span class="tf">middleNode</span>(ListNode* head)
         <p class="task">Each minute, rotten oranges rot their fresh neighbors. How many minutes until none are fresh (or -1)?</p>
         <pre class="code" data-snippet="gr-rotting" data-lang="ts"><code><span class="tk">function</span> <span class="tf">orangesRotting</span>(grid: <span class="tk">number</span>[][]): <span class="tk">number</span> {
   <span class="tk">const</span> rows = grid.length, cols = grid[<span class="tn">0</span>].length;
+  <span class="tk">let</span> rotten: [<span class="tk">number</span>, <span class="tk">number</span>][] = [];
   <span class="tk">let</span> fresh = <span class="tn">0</span>;
-  <span class="tk">const</span> queue: <span class="tk">number</span>[][] = [];
 
-  <span class="tk2">for</span> (<span class="tk">let</span> r = <span class="tn">0</span>; r &lt; rows; r++) {
+  <span class="tk2">for</span> (<span class="tk">let</span> r = <span class="tn">0</span>; r &lt; rows; r++)
     <span class="tk2">for</span> (<span class="tk">let</span> c = <span class="tn">0</span>; c &lt; cols; c++) {
-      <span class="tk2">if</span> (grid[r][c] === <span class="tn">2</span>) queue.<span class="tf">push</span>([r, c]);     <span class="tc">// every source starts at once</span>
+      <span class="tk2">if</span> (grid[r][c] === <span class="tn">2</span>) rotten.<span class="tf">push</span>([r, c]);  <span class="tc">// every source at once</span>
       <span class="tk2">else</span> <span class="tk2">if</span> (grid[r][c] === <span class="tn">1</span>) fresh++;
     }
-  }
 
   <span class="tk">const</span> steps = [[<span class="tn">1</span>, <span class="tn">0</span>], [-<span class="tn">1</span>, <span class="tn">0</span>], [<span class="tn">0</span>, <span class="tn">1</span>], [<span class="tn">0</span>, -<span class="tn">1</span>]];
-  <span class="tk">let</span> minutes = <span class="tn">0</span>, head = <span class="tn">0</span>;                        <span class="tc">// head reads the queue without shifting</span>
+  <span class="tk">let</span> minutes = <span class="tn">0</span>;
 
-  <span class="tk2">while</span> (head &lt; queue.length &amp;&amp; fresh &gt; <span class="tn">0</span>) {
-    <span class="tk2">for</span> (<span class="tk">let</span> i = queue.length - head; i &gt; <span class="tn">0</span>; i--) {  <span class="tc">// one level = one minute</span>
-      <span class="tk">const</span> [r, c] = queue[head++];
+  <span class="tk2">while</span> (rotten.length &gt; <span class="tn">0</span> &amp;&amp; fresh &gt; <span class="tn">0</span>) {
+    <span class="tk">const</span> next: [<span class="tk">number</span>, <span class="tk">number</span>][] = [];  <span class="tc">// rots during this minute</span>
+    <span class="tk2">for</span> (<span class="tk">const</span> [r, c] <span class="tk2">of</span> rotten)
       <span class="tk2">for</span> (<span class="tk">const</span> [dr, dc] <span class="tk2">of</span> steps) {
         <span class="tk">const</span> nr = r + dr, nc = c + dc;
         <span class="tk2">if</span> (nr &lt; <span class="tn">0</span> || nc &lt; <span class="tn">0</span> || nr &gt;= rows || nc &gt;= cols) <span class="tk2">continue</span>;
         <span class="tk2">if</span> (grid[nr][nc] !== <span class="tn">1</span>) <span class="tk2">continue</span>;
 
-        grid[nr][nc] = <span class="tn">2</span>;                           <span class="tc">// mark when queued</span>
+        grid[nr][nc] = <span class="tn">2</span>;  <span class="tc">// mark it as you collect it</span>
         fresh--;
-        queue.<span class="tf">push</span>([nr, nc]);
+        next.<span class="tf">push</span>([nr, nc]);
       }
-    }
+    rotten = next;
     minutes++;
   }
 
@@ -5224,29 +5266,29 @@ ListNode* <span class="tf">middleNode</span>(ListNode* head)
       <article class="example">
         <h3><a href="https://leetcode.com/problems/course-schedule-ii/">Course Schedule II</a><span class="lc">#210</span><span class="diff medium">Medium</span></h3>
         <p class="task">Return an order that takes every course, or an empty array if that's impossible.</p>
-        <pre class="code" data-snippet="ts-course-schedule" data-lang="ts"><code><span class="tk">function</span> <span class="tf">findOrder</span>(numCourses: <span class="tk">number</span>, prerequisites: <span class="tk">number</span>[][]): <span class="tk">number</span>[] {
+        <pre class="code" data-snippet="ts-course-schedule" data-lang="ts"><code><span class="tk">function</span> <span class="tf">findOrder</span>(
+  numCourses: <span class="tk">number</span>,
+  prerequisites: <span class="tk">number</span>[][],
+): <span class="tk">number</span>[] {
+  <span class="tc">// Array.from gives each course its own list; fill([]) would share one.</span>
   <span class="tk">const</span> unlocks: <span class="tk">number</span>[][] = <span class="tt">Array</span>.<span class="tf">from</span>({ length: numCourses }, () =&gt; []);
-  <span class="tk">const</span> indegree = <span class="tk">new</span> <span class="tt">Array</span>&lt;<span class="tk">number</span>&gt;(numCourses).<span class="tf">fill</span>(<span class="tn">0</span>);
+  <span class="tk">const</span> indegree: <span class="tk">number</span>[] = <span class="tk">new</span> <span class="tt">Array</span>(numCourses).<span class="tf">fill</span>(<span class="tn">0</span>);
 
-  <span class="tk2">for</span> (<span class="tk">const</span> p <span class="tk2">of</span> prerequisites) {                  <span class="tc">// p = [course, prerequisite]</span>
-    unlocks[p[<span class="tn">1</span>]].<span class="tf">push</span>(p[<span class="tn">0</span>]);                       <span class="tc">// edge: prerequisite -&gt; course</span>
-    indegree[p[<span class="tn">0</span>]]++;
+  <span class="tk2">for</span> (<span class="tk">const</span> [course, pre] <span class="tk2">of</span> prerequisites) {
+    unlocks[pre].<span class="tf">push</span>(course);  <span class="tc">// edge: prerequisite -&gt; course</span>
+    indegree[course]++;
   }
-
-  <span class="tk">const</span> ready: <span class="tk">number</span>[] = [];
-  <span class="tk2">for</span> (<span class="tk">let</span> i = <span class="tn">0</span>; i &lt; numCourses; i++)
-    <span class="tk2">if</span> (indegree[i] === <span class="tn">0</span>) ready.<span class="tf">push</span>(i);           <span class="tc">// nothing blocks these</span>
 
   <span class="tk">const</span> order: <span class="tk">number</span>[] = [];
-  <span class="tk2">for</span> (<span class="tk">let</span> head = <span class="tn">0</span>; head &lt; ready.length; head++) {
-    <span class="tk">const</span> course = ready[head];
-    order.<span class="tf">push</span>(course);
+  <span class="tk2">for</span> (<span class="tk">let</span> c = <span class="tn">0</span>; c &lt; numCourses; c++)
+    <span class="tk2">if</span> (indegree[c] === <span class="tn">0</span>) order.<span class="tf">push</span>(c);  <span class="tc">// nothing blocks these</span>
 
-    <span class="tk2">for</span> (<span class="tk">const</span> next <span class="tk2">of</span> unlocks[course])
-      <span class="tk2">if</span> (--indegree[next] === <span class="tn">0</span>) ready.<span class="tf">push</span>(next);
-  }
+  <span class="tc">// order doubles as the queue: head walks it, freed courses join the end</span>
+  <span class="tk2">for</span> (<span class="tk">let</span> head = <span class="tn">0</span>; head &lt; order.length; head++)
+    <span class="tk2">for</span> (<span class="tk">const</span> next <span class="tk2">of</span> unlocks[order[head]])
+      <span class="tk2">if</span> (--indegree[next] === <span class="tn">0</span>) order.<span class="tf">push</span>(next);
 
-  <span class="tk2">return</span> order.length === numCourses ? order : [];  <span class="tc">// leftovers = cycle</span>
+  <span class="tk2">return</span> order.length === numCourses ? order : [];  <span class="tc">// short: a cycle</span>
 }</code></pre>
 <pre class="code" data-snippet="ts-course-schedule" data-lang="py" hidden><code><span class="tk">def</span> <span class="tf">find_order</span>(num_courses: <span class="tk">int</span>, prerequisites: <span class="tk">list</span>[<span class="tk">list</span>[<span class="tk">int</span>]]) -&gt; <span class="tk">list</span>[<span class="tk">int</span>]:
     unlocks: <span class="tk">list</span>[<span class="tk">list</span>[<span class="tk">int</span>]] = [[] <span class="tk2">for</span> _ <span class="tk2">in</span> <span class="tf">range</span>(num_courses)]
@@ -5506,15 +5548,15 @@ ListNode* <span class="tf">middleNode</span>(ListNode* head)
   <span class="tk">const</span> result: <span class="tk">number</span>[][] = [];
   <span class="tk">const</span> path: <span class="tk">number</span>[] = [];
 
-  <span class="tk">const</span> explore = (start: <span class="tk">number</span>): <span class="tk">void</span> =&gt; {
-    result.<span class="tf">push</span>([...path]);                         <span class="tc">// every node is a subset: save a copy</span>
+  <span class="tk">function</span> <span class="tf">explore</span>(start: <span class="tk">number</span>): <span class="tk">void</span> {
+    result.<span class="tf">push</span>([...path]);  <span class="tc">// every node is a subset: copy it</span>
 
     <span class="tk2">for</span> (<span class="tk">let</span> i = start; i &lt; nums.length; i++) {
-      path.<span class="tf">push</span>(nums[i]);                           <span class="tc">// choose</span>
-      <span class="tf">explore</span>(i + <span class="tn">1</span>);                               <span class="tc">// explore, using later numbers only</span>
-      path.<span class="tf">pop</span>();                                   <span class="tc">// undo</span>
+      path.<span class="tf">push</span>(nums[i]);  <span class="tc">// choose</span>
+      <span class="tf">explore</span>(i + <span class="tn">1</span>);      <span class="tc">// explore, with later numbers only</span>
+      path.<span class="tf">pop</span>();          <span class="tc">// undo</span>
     }
-  };
+  }
 
   <span class="tf">explore</span>(<span class="tn">0</span>);
   <span class="tk2">return</span> result;
@@ -5646,15 +5688,15 @@ ListNode* <span class="tf">middleNode</span>(ListNode* head)
         <pre class="code" data-snippet="bt-permutations" data-lang="ts"><code><span class="tk">function</span> <span class="tf">permute</span>(nums: <span class="tk">number</span>[]): <span class="tk">number</span>[][] {
   <span class="tk">const</span> result: <span class="tk">number</span>[][] = [];
   <span class="tk">const</span> path: <span class="tk">number</span>[] = [];
-  <span class="tk">const</span> used = <span class="tk">new</span> <span class="tt">Array</span>&lt;<span class="tk">boolean</span>&gt;(nums.length).<span class="tf">fill</span>(<span class="tk">false</span>);
+  <span class="tk">const</span> used: <span class="tk">boolean</span>[] = <span class="tk">new</span> <span class="tt">Array</span>(nums.length).<span class="tf">fill</span>(<span class="tk">false</span>);
 
-  <span class="tk">const</span> explore = (): <span class="tk">void</span> =&gt; {
+  <span class="tk">function</span> <span class="tf">explore</span>(): <span class="tk">void</span> {
     <span class="tk2">if</span> (path.length === nums.length) {
       result.<span class="tf">push</span>([...path]);
       <span class="tk2">return</span>;
     }
 
-    <span class="tk2">for</span> (<span class="tk">let</span> i = <span class="tn">0</span>; i &lt; nums.length; i++) {         <span class="tc">// order matters: scan from 0 each time</span>
+    <span class="tk2">for</span> (<span class="tk">let</span> i = <span class="tn">0</span>; i &lt; nums.length; i++) {  <span class="tc">// order matters: from 0</span>
       <span class="tk2">if</span> (used[i]) <span class="tk2">continue</span>;
 
       used[i] = <span class="tk">true</span>;
@@ -5663,7 +5705,7 @@ ListNode* <span class="tf">middleNode</span>(ListNode* head)
       path.<span class="tf">pop</span>();
       used[i] = <span class="tk">false</span>;
     }
-  };
+  }
 
   <span class="tf">explore</span>();
   <span class="tk2">return</span> result;
@@ -5857,20 +5899,21 @@ ListNode* <span class="tf">middleNode</span>(ListNode* head)
         <pre class="code" data-snippet="bt-combination-sum" data-lang="ts"><code><span class="tk">function</span> <span class="tf">combinationSum</span>(candidates: <span class="tk">number</span>[], target: <span class="tk">number</span>): <span class="tk">number</span>[][] {
   <span class="tk">const</span> result: <span class="tk">number</span>[][] = [];
   <span class="tk">const</span> path: <span class="tk">number</span>[] = [];
-  candidates.<span class="tf">sort</span>((a, b) =&gt; a - b);                 <span class="tc">// sorted, so a branch can stop early</span>
+  candidates.<span class="tf">sort</span>((a, b) =&gt; a - b);  <span class="tc">// sorted, so a branch can stop early</span>
 
-  <span class="tk">const</span> explore = (start: <span class="tk">number</span>, remaining: <span class="tk">number</span>): <span class="tk">void</span> =&gt; {
+  <span class="tk">function</span> <span class="tf">explore</span>(start: <span class="tk">number</span>, remaining: <span class="tk">number</span>): <span class="tk">void</span> {
     <span class="tk2">if</span> (remaining === <span class="tn">0</span>) {
       result.<span class="tf">push</span>([...path]);
       <span class="tk2">return</span>;
     }
 
-    <span class="tk2">for</span> (<span class="tk">let</span> i = start; i &lt; candidates.length &amp;&amp; candidates[i] &lt;= remaining; i++) {
+    <span class="tk2">for</span> (<span class="tk">let</span> i = start; i &lt; candidates.length; i++) {
+      <span class="tk2">if</span> (candidates[i] &gt; remaining) <span class="tk2">break</span>;   <span class="tc">// the rest are bigger still</span>
       path.<span class="tf">push</span>(candidates[i]);
-      <span class="tf">explore</span>(i, remaining - candidates[i]);        <span class="tc">// i, not i + 1: reuse allowed</span>
+      <span class="tf">explore</span>(i, remaining - candidates[i]);  <span class="tc">// i, not i + 1: reuse</span>
       path.<span class="tf">pop</span>();
     }
-  };
+  }
 
   <span class="tf">explore</span>(<span class="tn">0</span>, target);
   <span class="tk2">return</span> result;
@@ -6147,27 +6190,22 @@ ListNode* <span class="tf">middleNode</span>(ListNode* head)
         <p class="task">The largest sum of houses with no two neighbors robbed. Shown both ways, so you can see the recursion turn into a loop.</p>
         <pre class="code" data-snippet="dp-house-robber" data-lang="ts"><code><span class="tc">// 1. Top-down: write the recursion, then cache it.</span>
 <span class="tk">function</span> <span class="tf">robMemo</span>(nums: <span class="tk">number</span>[]): <span class="tk">number</span> {
-  <span class="tk">const</span> memo = <span class="tk">new</span> <span class="tt">Map</span>&lt;<span class="tk">number</span>, <span class="tk">number</span>&gt;();
+  <span class="tk">const</span> memo: (<span class="tk">number</span> | <span class="tk">undefined</span>)[] = [];
 
-  <span class="tk">const</span> best = (i: <span class="tk">number</span>): <span class="tk">number</span> =&gt; {             <span class="tc">// most loot from house i onward</span>
+  <span class="tk">function</span> <span class="tf">best</span>(i: <span class="tk">number</span>): <span class="tk">number</span> {  <span class="tc">// the most loot from house i on</span>
     <span class="tk2">if</span> (i &gt;= nums.length) <span class="tk2">return</span> <span class="tn">0</span>;
-
-    <span class="tk">const</span> cached = memo.<span class="tk">get</span>(i);
-    <span class="tk2">if</span> (cached !== <span class="tk">undefined</span>) <span class="tk2">return</span> cached;
-
-    <span class="tk">const</span> loot = <span class="tt">Math</span>.<span class="tf">max</span>(
-      <span class="tf">best</span>(i + <span class="tn">1</span>),                                  <span class="tc">// skip house i</span>
-      nums[i] + <span class="tf">best</span>(i + <span class="tn">2</span>));                       <span class="tc">// rob it and skip its neighbor</span>
-    memo.<span class="tk">set</span>(i, loot);
-    <span class="tk2">return</span> loot;
-  };
+    <span class="tk2">return</span> memo[i] ??= <span class="tt">Math</span>.<span class="tf">max</span>(
+      <span class="tf">best</span>(i + <span class="tn">1</span>),                    <span class="tc">// skip house i</span>
+      nums[i] + <span class="tf">best</span>(i + <span class="tn">2</span>),          <span class="tc">// rob it and skip its neighbor</span>
+    );
+  }
 
   <span class="tk2">return</span> <span class="tf">best</span>(<span class="tn">0</span>);
 }
 
-<span class="tc">// 2. Bottom-up: same recurrence, filled from the end, keeping only two values.</span>
+<span class="tc">// 2. Bottom-up: the same recurrence, from the end, two values kept.</span>
 <span class="tk">function</span> <span class="tf">rob</span>(nums: <span class="tk">number</span>[]): <span class="tk">number</span> {
-  <span class="tk">let</span> next1 = <span class="tn">0</span>, next2 = <span class="tn">0</span>;                         <span class="tc">// Best(i + 1) and Best(i + 2)</span>
+  <span class="tk">let</span> next1 = <span class="tn">0</span>, next2 = <span class="tn">0</span>;  <span class="tc">// best(i + 1) and best(i + 2)</span>
 
   <span class="tk2">for</span> (<span class="tk">let</span> i = nums.length - <span class="tn">1</span>; i &gt;= <span class="tn">0</span>; i--) {
     <span class="tk">const</span> best = <span class="tt">Math</span>.<span class="tf">max</span>(next1, nums[i] + next2);
@@ -6390,8 +6428,8 @@ ListNode* <span class="tf">middleNode</span>(ListNode* head)
         <h3><a href="https://leetcode.com/problems/coin-change/">Coin Change</a><span class="lc">#322</span><span class="diff medium">Medium</span></h3>
         <p class="task">The fewest coins that make <code>amount</code>, or -1 if no combination does.</p>
         <pre class="code" data-snippet="dp-coin-change" data-lang="ts"><code><span class="tk">function</span> <span class="tf">coinChange</span>(coins: <span class="tk">number</span>[], amount: <span class="tk">number</span>): <span class="tk">number</span> {
-  <span class="tk">const</span> dp = <span class="tk">new</span> <span class="tt">Array</span>&lt;<span class="tk">number</span>&gt;(amount + <span class="tn">1</span>);         <span class="tc">// dp[a] = fewest coins that make a</span>
-  dp.<span class="tf">fill</span>(amount + <span class="tn">1</span>);                              <span class="tc">// "infinity" that cannot overflow</span>
+  <span class="tc">// dp[a] = the fewest coins that make a; Infinity means "can't yet"</span>
+  <span class="tk">const</span> dp: <span class="tk">number</span>[] = <span class="tk">new</span> <span class="tt">Array</span>(amount + <span class="tn">1</span>).<span class="tf">fill</span>(Infinity);
   dp[<span class="tn">0</span>] = <span class="tn">0</span>;
 
   <span class="tk2">for</span> (<span class="tk">let</span> a = <span class="tn">1</span>; a &lt;= amount; a++)
@@ -6399,7 +6437,7 @@ ListNode* <span class="tf">middleNode</span>(ListNode* head)
       <span class="tk2">if</span> (coin &lt;= a)
         dp[a] = <span class="tt">Math</span>.<span class="tf">min</span>(dp[a], dp[a - coin] + <span class="tn">1</span>);  <span class="tc">// use coin last</span>
 
-  <span class="tk2">return</span> dp[amount] &gt; amount ? -<span class="tn">1</span> : dp[amount];
+  <span class="tk2">return</span> dp[amount] === <span class="tt">Infinity</span> ? -<span class="tn">1</span> : dp[amount];
 }</code></pre>
 <pre class="code" data-snippet="dp-coin-change" data-lang="py" hidden><code><span class="tk">def</span> <span class="tf">coin_change</span>(coins: <span class="tk">list</span>[<span class="tk">int</span>], amount: <span class="tk">int</span>) -&gt; <span class="tk">int</span>:
     infinity = amount + <span class="tn">1</span>                      <span class="tc"># "infinity" that can't overflow</span>
@@ -6506,16 +6544,17 @@ ListNode* <span class="tf">middleNode</span>(ListNode* head)
         <p class="task">The length of the longest subsequence two strings share. The table in the diagram is this code's <code>dp</code>.</p>
         <pre class="code" data-snippet="dp-lcs" data-lang="ts"><code><span class="tk">function</span> <span class="tf">longestCommonSubsequence</span>(text1: <span class="tk">string</span>, text2: <span class="tk">string</span>): <span class="tk">number</span> {
   <span class="tk">const</span> m = text1.length, n = text2.length;
-  <span class="tc">// dp[i][j]: LCS of the first i chars of text1 and the first j of text2</span>
-  <span class="tk">const</span> dp = <span class="tt">Array</span>.<span class="tf">from</span>({ length: m + <span class="tn">1</span> }, () =&gt; <span class="tk">new</span> <span class="tt">Array</span>&lt;<span class="tk">number</span>&gt;(n + <span class="tn">1</span>).<span class="tf">fill</span>(<span class="tn">0</span>));
+  <span class="tc">// dp[i][j]: the first i chars of text1 against the first j of text2</span>
+  <span class="tk">const</span> dp: <span class="tk">number</span>[][] = <span class="tt">Array</span>.<span class="tf">from</span>(
+    { length: m + <span class="tn">1</span> },
+    () =&gt; <span class="tk">new</span> <span class="tt">Array</span>(n + <span class="tn">1</span>).<span class="tf">fill</span>(<span class="tn">0</span>),  <span class="tc">// a new row for every i</span>
+  );
 
-  <span class="tk2">for</span> (<span class="tk">let</span> i = <span class="tn">1</span>; i &lt;= m; i++) {
-    <span class="tk2">for</span> (<span class="tk">let</span> j = <span class="tn">1</span>; j &lt;= n; j++) {
+  <span class="tk2">for</span> (<span class="tk">let</span> i = <span class="tn">1</span>; i &lt;= m; i++)
+    <span class="tk2">for</span> (<span class="tk">let</span> j = <span class="tn">1</span>; j &lt;= n; j++)
       dp[i][j] = text1[i - <span class="tn">1</span>] === text2[j - <span class="tn">1</span>]
-        ? dp[i - <span class="tn">1</span>][j - <span class="tn">1</span>] + <span class="tn">1</span>                      <span class="tc">// match: extend the diagonal</span>
-        : <span class="tt">Math</span>.<span class="tf">max</span>(dp[i - <span class="tn">1</span>][j], dp[i][j - <span class="tn">1</span>]);     <span class="tc">// drop a char from one side</span>
-    }
-  }
+        ? dp[i - <span class="tn">1</span>][j - <span class="tn">1</span>] + <span class="tn">1</span>                   <span class="tc">// match: extend diagonal</span>
+        : <span class="tt">Math</span>.<span class="tf">max</span>(dp[i - <span class="tn">1</span>][j], dp[i][j - <span class="tn">1</span>]);  <span class="tc">// drop a char</span>
 
   <span class="tk2">return</span> dp[m][n];
 }</code></pre>
@@ -6702,15 +6741,15 @@ ListNode* <span class="tf">middleNode</span>(ListNode* head)
         <h3><a href="https://leetcode.com/problems/merge-intervals/">Merge Intervals</a><span class="lc">#56</span><span class="diff medium">Medium</span><span class="dojo">dojo 02</span></h3>
         <p class="task">Merge every set of overlapping intervals.</p>
         <pre class="code" data-snippet="iv-merge" data-lang="ts"><code><span class="tk">function</span> <span class="tf">merge</span>(intervals: <span class="tk">number</span>[][]): <span class="tk">number</span>[][] {
-  intervals.<span class="tf">sort</span>((a, b) =&gt; a[<span class="tn">0</span>] - b[<span class="tn">0</span>]);            <span class="tc">// by start</span>
+  intervals.<span class="tf">sort</span>((a, b) =&gt; a[<span class="tn">0</span>] - b[<span class="tn">0</span>]);  <span class="tc">// by start</span>
   <span class="tk">const</span> merged: <span class="tk">number</span>[][] = [];
 
-  <span class="tk2">for</span> (<span class="tk">const</span> current <span class="tk2">of</span> intervals) {
-    <span class="tk">const</span> last = merged[merged.length - <span class="tn">1</span>];
-    <span class="tk2">if</span> (last !== <span class="tk">undefined</span> &amp;&amp; current[<span class="tn">0</span>] &lt;= last[<span class="tn">1</span>])
-      last[<span class="tn">1</span>] = <span class="tt">Math</span>.<span class="tf">max</span>(last[<span class="tn">1</span>], current[<span class="tn">1</span>]);      <span class="tc">// overlap: extend</span>
+  <span class="tk2">for</span> (<span class="tk">const</span> [start, end] <span class="tk2">of</span> intervals) {
+    <span class="tk">const</span> last = merged.<span class="tf">at</span>(-<span class="tn">1</span>);
+    <span class="tk2">if</span> (last !== <span class="tk">undefined</span> &amp;&amp; start &lt;= last[<span class="tn">1</span>])
+      last[<span class="tn">1</span>] = <span class="tt">Math</span>.<span class="tf">max</span>(last[<span class="tn">1</span>], end);  <span class="tc">// overlap: extend</span>
     <span class="tk2">else</span>
-      merged.<span class="tf">push</span>([current[<span class="tn">0</span>], current[<span class="tn">1</span>]]);        <span class="tc">// gap: start new</span>
+      merged.<span class="tf">push</span>([start, end]);         <span class="tc">// gap: start a new one</span>
   }
 
   <span class="tk2">return</span> merged;
@@ -6822,12 +6861,12 @@ ListNode* <span class="tf">middleNode</span>(ListNode* head)
         <h3><a href="https://leetcode.com/problems/non-overlapping-intervals/">Non-overlapping Intervals</a><span class="lc">#435</span><span class="diff medium">Medium</span></h3>
         <p class="task">The fewest intervals to remove so the rest don't overlap. Keep whichever ends first: it leaves the most room.</p>
         <pre class="code" data-snippet="iv-non-overlapping" data-lang="ts"><code><span class="tk">function</span> <span class="tf">eraseOverlapIntervals</span>(intervals: <span class="tk">number</span>[][]): <span class="tk">number</span> {
-  intervals.<span class="tf">sort</span>((a, b) =&gt; a[<span class="tn">1</span>] - b[<span class="tn">1</span>]);            <span class="tc">// by end</span>
+  intervals.<span class="tf">sort</span>((a, b) =&gt; a[<span class="tn">1</span>] - b[<span class="tn">1</span>]);  <span class="tc">// by end</span>
   <span class="tk">let</span> removed = <span class="tn">0</span>, end = -Infinity;
 
-  <span class="tk2">for</span> (<span class="tk">const</span> interval <span class="tk2">of</span> intervals) {
-    <span class="tk2">if</span> (interval[<span class="tn">0</span>] &gt;= end) end = interval[<span class="tn">1</span>];      <span class="tc">// fits after the last kept: keep it</span>
-    <span class="tk2">else</span> removed++;                                 <span class="tc">// overlaps one that ends sooner</span>
+  <span class="tk2">for</span> (<span class="tk">const</span> [start, finish] <span class="tk2">of</span> intervals) {
+    <span class="tk2">if</span> (start &gt;= end) end = finish;  <span class="tc">// fits after the last kept</span>
+    <span class="tk2">else</span> removed++;                  <span class="tc">// overlaps one that ends sooner</span>
   }
 
   <span class="tk2">return</span> removed;
@@ -6924,10 +6963,10 @@ ListNode* <span class="tf">middleNode</span>(ListNode* head)
         <h3><a href="https://leetcode.com/problems/jump-game/">Jump Game</a><span class="lc">#55</span><span class="diff medium">Medium</span></h3>
         <p class="task">From index i you may jump up to <code>nums[i]</code>. Can you reach the last index?</p>
         <pre class="code" data-snippet="iv-jump-game" data-lang="ts"><code><span class="tk">function</span> <span class="tf">canJump</span>(nums: <span class="tk">number</span>[]): <span class="tk">boolean</span> {
-  <span class="tk">let</span> reach = <span class="tn">0</span>;                                    <span class="tc">// farthest index we can get to</span>
+  <span class="tk">let</span> reach = <span class="tn">0</span>;  <span class="tc">// the farthest index we can get to</span>
 
   <span class="tk2">for</span> (<span class="tk">let</span> i = <span class="tn">0</span>; i &lt; nums.length; i++) {
-    <span class="tk2">if</span> (i &gt; reach) <span class="tk2">return</span> <span class="tk">false</span>;                    <span class="tc">// stuck before reaching i</span>
+    <span class="tk2">if</span> (i &gt; reach) <span class="tk2">return</span> <span class="tk">false</span>;  <span class="tc">// stuck before i</span>
     reach = <span class="tt">Math</span>.<span class="tf">max</span>(reach, i + nums[i]);
   }
 
@@ -7068,37 +7107,38 @@ ListNode* <span class="tf">middleNode</span>(ListNode* head)
         <h3><a href="https://leetcode.com/problems/redundant-connection/">Redundant Connection</a><span class="lc">#684</span><span class="diff medium">Medium</span></h3>
         <p class="task">A tree with one extra edge: return the edge that creates the cycle. The <code>UnionFind</code> class is reusable as-is.</p>
         <pre class="code" data-snippet="uf-redundant" data-lang="ts"><code><span class="tk">class</span> UnionFind {
-  <span class="tk">private</span> <span class="tk">readonly</span> parent: <span class="tk">number</span>[];
-  <span class="tk">private</span> <span class="tk">readonly</span> size: <span class="tk">number</span>[];
+  <span class="tk">private</span> parent: <span class="tk">number</span>[];
+  <span class="tk">private</span> size: <span class="tk">number</span>[];
 
   <span class="tk">constructor</span>(n: <span class="tk">number</span>) {
-    <span class="tk">this</span>.parent = <span class="tt">Array</span>.<span class="tf">from</span>({ length: n }, (_, i) =&gt; i);  <span class="tc">// everyone starts as a root</span>
-    <span class="tk">this</span>.size = <span class="tk">new</span> <span class="tt">Array</span>&lt;<span class="tk">number</span>&gt;(n).<span class="tf">fill</span>(<span class="tn">1</span>);
+    <span class="tk">this</span>.parent = <span class="tt">Array</span>.<span class="tf">from</span>({ length: n }, (_, i) =&gt; i);  <span class="tc">// all roots</span>
+    <span class="tk">this</span>.size = <span class="tk">new</span> <span class="tt">Array</span>(n).<span class="tf">fill</span>(<span class="tn">1</span>);
   }
 
   <span class="tf">find</span>(x: <span class="tk">number</span>): <span class="tk">number</span> {
     <span class="tk2">while</span> (<span class="tk">this</span>.parent[x] !== x) {
-      <span class="tk">this</span>.parent[x] = <span class="tk">this</span>.parent[<span class="tk">this</span>.parent[x]];  <span class="tc">// path halving keeps trees flat</span>
+      <span class="tk">this</span>.parent[x] = <span class="tk">this</span>.parent[<span class="tk">this</span>.parent[x]];  <span class="tc">// path halving</span>
       x = <span class="tk">this</span>.parent[x];
     }
     <span class="tk2">return</span> x;
   }
 
-  <span class="tf">union</span>(a: <span class="tk">number</span>, b: <span class="tk">number</span>): <span class="tk">boolean</span> {            <span class="tc">// false if already connected</span>
+  <span class="tf">union</span>(a: <span class="tk">number</span>, b: <span class="tk">number</span>): <span class="tk">boolean</span> {  <span class="tc">// false if already joined</span>
     <span class="tk">let</span> rootA = <span class="tk">this</span>.<span class="tf">find</span>(a), rootB = <span class="tk">this</span>.<span class="tf">find</span>(b);
     <span class="tk2">if</span> (rootA === rootB) <span class="tk2">return</span> <span class="tk">false</span>;
 
-    <span class="tk2">if</span> (<span class="tk">this</span>.size[rootA] &lt; <span class="tk">this</span>.size[rootB]) [rootA, rootB] = [rootB, rootA];
-    <span class="tk">this</span>.parent[rootB] = rootA;                     <span class="tc">// hang the smaller tree under the bigger</span>
+    <span class="tk2">if</span> (<span class="tk">this</span>.size[rootA] &lt; <span class="tk">this</span>.size[rootB])
+      [rootA, rootB] = [rootB, rootA];  <span class="tc">// keep rootA the bigger tree</span>
+    <span class="tk">this</span>.parent[rootB] = rootA;         <span class="tc">// hang the smaller tree under it</span>
     <span class="tk">this</span>.size[rootA] += <span class="tk">this</span>.size[rootB];
     <span class="tk2">return</span> <span class="tk">true</span>;
   }
 }
 
 <span class="tk">function</span> <span class="tf">findRedundantConnection</span>(edges: <span class="tk">number</span>[][]): <span class="tk">number</span>[] {
-  <span class="tk">const</span> sets = <span class="tk">new</span> <span class="tt">UnionFind</span>(edges.length + <span class="tn">1</span>);     <span class="tc">// nodes are numbered 1..n</span>
-  <span class="tk2">for</span> (<span class="tk">const</span> edge <span class="tk2">of</span> edges)
-    <span class="tk2">if</span> (!sets.<span class="tf">union</span>(edge[<span class="tn">0</span>], edge[<span class="tn">1</span>])) <span class="tk2">return</span> edge;  <span class="tc">// closes a cycle</span>
+  <span class="tk">const</span> sets = <span class="tk">new</span> <span class="tt">UnionFind</span>(edges.length + <span class="tn">1</span>);  <span class="tc">// nodes are 1..n</span>
+  <span class="tk2">for</span> (<span class="tk">const</span> [a, b] <span class="tk2">of</span> edges)
+    <span class="tk2">if</span> (!sets.<span class="tf">union</span>(a, b)) <span class="tk2">return</span> [a, b];        <span class="tc">// this edge closes a cycle</span>
   <span class="tk2">return</span> [];
 }</code></pre>
 <pre class="code" data-snippet="uf-redundant" data-lang="py" hidden><code><span class="tk">class</span> UnionFind:
@@ -7442,18 +7482,21 @@ ListNode* <span class="tf">middleNode</span>(ListNode* head)
       <article class="example">
         <h3><a href="https://leetcode.com/problems/implement-trie-prefix-tree/">Implement Trie (Prefix Tree)</a><span class="lc">#208</span><span class="diff medium">Medium</span></h3>
         <p class="task">Insert words, then search for a whole word or a prefix.</p>
-        <pre class="code" data-snippet="trie-implement" data-lang="ts"><code><span class="tk">class</span> Trie {
-  <span class="tk">private</span> <span class="tk">readonly</span> next: (Trie | <span class="tk">null</span>)[];           <span class="tc">// one slot per letter: a = 0, z = 25</span>
-  <span class="tk">private</span> isWord = <span class="tk">false</span>;
+        <pre class="code" data-snippet="trie-implement" data-lang="ts"><code><span class="tk">class</span> TrieNode {
+  children = <span class="tk">new</span> <span class="tt">Map</span>&lt;<span class="tk">string</span>, <span class="tt">TrieNode</span>&gt;();  <span class="tc">// letter -&gt; child</span>
+  isWord = <span class="tk">false</span>;
+}
 
-  <span class="tk">constructor</span>() {
-    <span class="tk">this</span>.next = <span class="tk">new</span> <span class="tt">Array</span>&lt;Trie | <span class="tk">null</span>&gt;(<span class="tn">26</span>).<span class="tf">fill</span>(<span class="tk">null</span>);
-  }
+<span class="tk">class</span> Trie {
+  <span class="tk">private</span> root = <span class="tk">new</span> <span class="tt">TrieNode</span>();
 
   <span class="tf">insert</span>(word: <span class="tk">string</span>): <span class="tk">void</span> {
-    <span class="tk">let</span> node: Trie = <span class="tk">this</span>;
-    <span class="tk2">for</span> (<span class="tk">const</span> ch <span class="tk2">of</span> word)
-      node = node.next[ch.<span class="tf">charCodeAt</span>(<span class="tn">0</span>) - <span class="tn">97</span>] ??= <span class="tk">new</span> <span class="tt">Trie</span>();
+    <span class="tk">let</span> node = <span class="tk">this</span>.root;
+    <span class="tk2">for</span> (<span class="tk">const</span> ch <span class="tk2">of</span> word) {
+      <span class="tk">const</span> next = node.children.<span class="tk">get</span>(ch) ?? <span class="tk">new</span> <span class="tt">TrieNode</span>();
+      node.children.<span class="tk">set</span>(ch, next);  <span class="tc">// no change if it was there</span>
+      node = next;
+    }
     node.isWord = <span class="tk">true</span>;
   }
 
@@ -7465,12 +7508,12 @@ ListNode* <span class="tf">middleNode</span>(ListNode* head)
     <span class="tk2">return</span> <span class="tk">this</span>.<span class="tf">walk</span>(prefix) !== <span class="tk">null</span>;
   }
 
-  <span class="tk">private</span> <span class="tf">walk</span>(s: <span class="tk">string</span>): Trie | <span class="tk">null</span> {            <span class="tc">// follow s from the root, null if it falls off</span>
-    <span class="tk">let</span> node: Trie = <span class="tk">this</span>;
+  <span class="tk">private</span> <span class="tf">walk</span>(s: <span class="tk">string</span>): TrieNode | <span class="tk">null</span> {  <span class="tc">// null if it falls off</span>
+    <span class="tk">let</span> node = <span class="tk">this</span>.root;
     <span class="tk2">for</span> (<span class="tk">const</span> ch <span class="tk2">of</span> s) {
-      <span class="tk">const</span> child = node.next[ch.<span class="tf">charCodeAt</span>(<span class="tn">0</span>) - <span class="tn">97</span>];
-      <span class="tk2">if</span> (child === <span class="tk">null</span>) <span class="tk2">return</span> <span class="tk">null</span>;
-      node = child;
+      <span class="tk">const</span> next = node.children.<span class="tk">get</span>(ch);
+      <span class="tk2">if</span> (next === <span class="tk">undefined</span>) <span class="tk2">return</span> <span class="tk">null</span>;
+      node = next;
     }
     <span class="tk2">return</span> node;
   }
@@ -7794,61 +7837,75 @@ ListNode* <span class="tf">middleNode</span>(ListNode* head)
       <article class="example">
         <h3><a href="https://leetcode.com/problems/network-delay-time/">Network Delay Time</a><span class="lc">#743</span><span class="diff medium">Medium</span></h3>
         <p class="task">A signal starts at node <code>k</code>. How long until every node has it (-1 if some never do)?</p>
-        <pre class="code" data-snippet="dj-network-delay" data-lang="ts"><code><span class="tc">// TypeScript has no heap, so this snippet keeps a small binary min-heap of its own.</span>
-<span class="tk">class</span> <span class="tt">MinHeap</span>&lt;<span class="tt">T</span>&gt; {
-  <span class="tk">private</span> a: <span class="tt">T</span>[] = [];
-  <span class="tk">constructor</span>(<span class="tk">private</span> <span class="tk">readonly</span> cmp: (x: T, y: T) =&gt; <span class="tk">number</span>) {}
-  <span class="tk">get</span> <span class="tf">size</span>(): <span class="tk">number</span> { <span class="tk2">return</span> <span class="tk">this</span>.a.length; }
-  <span class="tf">peek</span>(): T { <span class="tk2">return</span> <span class="tk">this</span>.a[<span class="tn">0</span>]; }
-  <span class="tf">push</span>(x: T): <span class="tk">void</span> {
-    <span class="tk">this</span>.a.<span class="tf">push</span>(x);
-    <span class="tk2">for</span> (<span class="tk">let</span> i = <span class="tk">this</span>.a.length - <span class="tn">1</span>; i &gt; <span class="tn">0</span>; ) {
-      <span class="tk">const</span> p = (i - <span class="tn">1</span>) &gt;&gt; <span class="tn">1</span>;
-      <span class="tk2">if</span> (<span class="tk">this</span>.<span class="tf">cmp</span>(<span class="tk">this</span>.a[p], <span class="tk">this</span>.a[i]) &lt;= <span class="tn">0</span>) <span class="tk2">break</span>;
-      [<span class="tk">this</span>.a[i], <span class="tk">this</span>.a[p]] = [<span class="tk">this</span>.a[p], <span class="tk">this</span>.a[i]];
-      i = p;
+        <pre class="code" data-snippet="dj-network-delay" data-lang="ts"><code><span class="tc">// A binary heap, stored in an array. The children of slot i are</span>
+<span class="tc">// 2i + 1 and 2i + 2, so the parent of slot i is (i - 1) / 2, rounded down.</span>
+<span class="tk">class</span> <span class="tt">Heap</span>&lt;<span class="tt">T</span>&gt; {
+  <span class="tk">private</span> items: <span class="tt">T</span>[] = [];
+
+  <span class="tc">// compare works like sort's: (a, b) =&gt; a - b makes a min-heap.</span>
+  <span class="tk">constructor</span>(<span class="tk">private</span> compare: (a: T, b: T) =&gt; <span class="tk">number</span>) {}
+
+  <span class="tk">get</span> <span class="tf">size</span>(): <span class="tk">number</span> {
+    <span class="tk2">return</span> <span class="tk">this</span>.items.length;
+  }
+
+  <span class="tf">peek</span>(): T | <span class="tk">undefined</span> {
+    <span class="tk2">return</span> <span class="tk">this</span>.items[<span class="tn">0</span>];
+  }
+
+  <span class="tf">push</span>(item: T): <span class="tk">void</span> {
+    <span class="tk">const</span> a = <span class="tk">this</span>.items;
+    a.<span class="tf">push</span>(item);    <span class="tc">// add it at the end</span>
+    <span class="tk">let</span> i = a.length - <span class="tn">1</span>;
+    <span class="tk2">while</span> (i &gt; <span class="tn">0</span>) {  <span class="tc">// sift up while it beats its parent</span>
+      <span class="tk">const</span> parent = <span class="tt">Math</span>.<span class="tf">floor</span>((i - <span class="tn">1</span>) / <span class="tn">2</span>);
+      <span class="tk2">if</span> (<span class="tk">this</span>.<span class="tf">compare</span>(a[i], a[parent]) &gt;= <span class="tn">0</span>) <span class="tk2">break</span>;
+      [a[i], a[parent]] = [a[parent], a[i]];
+      i = parent;
     }
   }
-  <span class="tf">pop</span>(): T {
-    <span class="tk">const</span> top = <span class="tk">this</span>.a[<span class="tn">0</span>], last = <span class="tk">this</span>.a.<span class="tf">pop</span>()!;
-    <span class="tk2">if</span> (<span class="tk">this</span>.a.length &gt; <span class="tn">0</span>) {
-      <span class="tk">this</span>.a[<span class="tn">0</span>] = last;
-      <span class="tk2">for</span> (<span class="tk">let</span> i = <span class="tn">0</span>; ; ) {
-        <span class="tk">const</span> l = <span class="tn">2</span> * i + <span class="tn">1</span>, r = l + <span class="tn">1</span>;
-        <span class="tk">let</span> m = i;
-        <span class="tk2">if</span> (l &lt; <span class="tk">this</span>.a.length &amp;&amp; <span class="tk">this</span>.<span class="tf">cmp</span>(<span class="tk">this</span>.a[l], <span class="tk">this</span>.a[m]) &lt; <span class="tn">0</span>) m = l;
-        <span class="tk2">if</span> (r &lt; <span class="tk">this</span>.a.length &amp;&amp; <span class="tk">this</span>.<span class="tf">cmp</span>(<span class="tk">this</span>.a[r], <span class="tk">this</span>.a[m]) &lt; <span class="tn">0</span>) m = r;
-        <span class="tk2">if</span> (m === i) <span class="tk2">break</span>;
-        [<span class="tk">this</span>.a[i], <span class="tk">this</span>.a[m]] = [<span class="tk">this</span>.a[m], <span class="tk">this</span>.a[i]];
-        i = m;
-      }
+
+  <span class="tf">pop</span>(): T | <span class="tk">undefined</span> {
+    <span class="tk">const</span> a = <span class="tk">this</span>.items;
+    <span class="tk2">if</span> (a.length &lt;= <span class="tn">1</span>) <span class="tk2">return</span> a.<span class="tf">pop</span>();
+    <span class="tk">const</span> top = a[<span class="tn">0</span>];
+    a[<span class="tn">0</span>] = a.<span class="tf">pop</span>()!;  <span class="tc">// move the last item to the top</span>
+    <span class="tk">let</span> i = <span class="tn">0</span>;
+    <span class="tk2">while</span> (<span class="tk">true</span>) {    <span class="tc">// sift down toward the better child</span>
+      <span class="tk">let</span> best = i;
+      <span class="tk2">for</span> (<span class="tk">const</span> kid <span class="tk2">of</span> [<span class="tn">2</span> * i + <span class="tn">1</span>, <span class="tn">2</span> * i + <span class="tn">2</span>])
+        <span class="tk2">if</span> (kid &lt; a.length &amp;&amp; <span class="tk">this</span>.<span class="tf">compare</span>(a[kid], a[best]) &lt; <span class="tn">0</span>) best = kid;
+      <span class="tk2">if</span> (best === i) <span class="tk2">return</span> top;
+      [a[i], a[best]] = [a[best], a[i]];
+      i = best;
     }
-    <span class="tk2">return</span> top;
   }
 }
 
 <span class="tk">function</span> <span class="tf">networkDelayTime</span>(times: <span class="tk">number</span>[][], n: <span class="tk">number</span>, k: <span class="tk">number</span>): <span class="tk">number</span> {
-  <span class="tk">const</span> graph: <span class="tk">number</span>[][][] = <span class="tt">Array</span>.<span class="tf">from</span>({ length: n + <span class="tn">1</span> }, () =&gt; []);
-  <span class="tk2">for</span> (<span class="tk">const</span> t <span class="tk2">of</span> times) graph[t[<span class="tn">0</span>]].<span class="tf">push</span>([t[<span class="tn">1</span>], t[<span class="tn">2</span>]]);
+  <span class="tk">const</span> graph: [<span class="tk">number</span>, <span class="tk">number</span>][][] =
+    <span class="tt">Array</span>.<span class="tf">from</span>({ length: n + <span class="tn">1</span> }, () =&gt; []);  <span class="tc">// graph[u]: [v, time]</span>
+  <span class="tk2">for</span> (<span class="tk">const</span> [from, to, time] <span class="tk2">of</span> times) graph[from].<span class="tf">push</span>([to, time]);
 
-  <span class="tk">const</span> dist = <span class="tk">new</span> <span class="tt">Array</span>&lt;<span class="tk">number</span>&gt;(n + <span class="tn">1</span>).<span class="tf">fill</span>(Infinity);
+  <span class="tk">const</span> dist: <span class="tk">number</span>[] = <span class="tk">new</span> <span class="tt">Array</span>(n + <span class="tn">1</span>).<span class="tf">fill</span>(Infinity);
   dist[k] = <span class="tn">0</span>;
 
-  <span class="tk">const</span> heap = <span class="tk">new</span> <span class="tt">MinHeap</span>&lt;[<span class="tk">number</span>, <span class="tk">number</span>]&gt;((a, b) =&gt; a[<span class="tn">0</span>] - b[<span class="tn">0</span>]);
-  heap.<span class="tf">push</span>([<span class="tn">0</span>, k]);                                <span class="tc">// node k, priority = distance</span>
+  <span class="tc">// [distance, node] pairs, the closest on top (the Heap from pattern 9)</span>
+  <span class="tk">const</span> heap = <span class="tk">new</span> <span class="tt">Heap</span>&lt;[<span class="tk">number</span>, <span class="tk">number</span>]&gt;((a, b) =&gt; a[<span class="tn">0</span>] - b[<span class="tn">0</span>]);
+  heap.<span class="tf">push</span>([<span class="tn">0</span>, k]);
 
   <span class="tk2">while</span> (heap.size &gt; <span class="tn">0</span>) {
-    <span class="tk">const</span> [d, node] = heap.<span class="tf">pop</span>();
-    <span class="tk2">if</span> (d &gt; dist[node]) <span class="tk2">continue</span>;                   <span class="tc">// stale entry: already settled cheaper</span>
+    <span class="tk">const</span> [d, node] = heap.<span class="tf">pop</span>()!;
+    <span class="tk2">if</span> (d &gt; dist[node]) <span class="tk2">continue</span>;  <span class="tc">// stale: settled cheaper already</span>
 
     <span class="tk2">for</span> (<span class="tk">const</span> [next, time] <span class="tk2">of</span> graph[node]) {
       <span class="tk2">if</span> (d + time &gt;= dist[next]) <span class="tk2">continue</span>;
-      dist[next] = d + time;                        <span class="tc">// relax: a shorter way to next</span>
+      dist[next] = d + time;  <span class="tc">// relax: a shorter way to next</span>
       heap.<span class="tf">push</span>([dist[next], next]);
     }
   }
 
-  <span class="tk">const</span> slowest = <span class="tt">Math</span>.<span class="tf">max</span>(...dist.<span class="tf">slice</span>(<span class="tn">1</span>));       <span class="tc">// node 0 is unused</span>
+  <span class="tk">const</span> slowest = <span class="tt">Math</span>.<span class="tf">max</span>(...dist.<span class="tf">slice</span>(<span class="tn">1</span>));  <span class="tc">// node 0 is unused</span>
   <span class="tk2">return</span> slowest === <span class="tt">Infinity</span> ? -<span class="tn">1</span> : slowest;
 }</code></pre>
 <pre class="code" data-snippet="dj-network-delay" data-lang="py" hidden><code><span class="tk">def</span> <span class="tf">network_delay_time</span>(times: <span class="tk">list</span>[<span class="tk">list</span>[<span class="tk">int</span>]], n: <span class="tk">int</span>, k: <span class="tk">int</span>) -&gt; <span class="tk">int</span>:
@@ -8230,52 +8287,65 @@ count.<span class="tf">Remove</span>(<span class="ts">'b'</span>);
       <pre class="code" data-snippet="kit-collections" data-lang="ts"><code><span class="tc">// Stack is LIFO, queue is FIFO</span>
 <span class="tk">const</span> stack: <span class="tk">number</span>[] = [];
 stack.<span class="tf">push</span>(<span class="tn">1</span>);
-<span class="tk">const</span> top = stack[stack.length - <span class="tn">1</span>];                <span class="tc">// check length &gt; 0 first</span>
+<span class="tk">const</span> top = stack[stack.length - <span class="tn">1</span>];  <span class="tc">// check length &gt; 0 first</span>
 stack.<span class="tf">pop</span>();
 
-<span class="tk">const</span> queue: [<span class="tk">number</span>, <span class="tk">number</span>][] = [];               <span class="tc">// pairs are handy for grids</span>
-queue.<span class="tf">push</span>([<span class="tn">0</span>, <span class="tn">0</span>]);
-<span class="tk">const</span> [row, col] = queue.<span class="tf">shift</span>()!;
+<span class="tc">// shift() is O(n) on a big array, so read a queue with a head index</span>
+<span class="tk">const</span> queue: [<span class="tk">number</span>, <span class="tk">number</span>][] = [[<span class="tn">0</span>, <span class="tn">0</span>]];  <span class="tc">// pairs are handy for grids</span>
+<span class="tk">let</span> head = <span class="tn">0</span>;
+<span class="tk">const</span> [row, col] = queue[head++];
 
-<span class="tc">// A heap needs a class: MinHeap orders on the priority, reverse cmp for a max-heap</span>
-<span class="tk">class</span> <span class="tt">MinHeap</span>&lt;<span class="tt">T</span>&gt; {
-  <span class="tk">private</span> a: <span class="tt">T</span>[] = [];
-  <span class="tk">constructor</span>(<span class="tk">private</span> <span class="tk">readonly</span> cmp: (x: T, y: T) =&gt; <span class="tk">number</span>) {}
-  <span class="tk">get</span> <span class="tf">size</span>(): <span class="tk">number</span> { <span class="tk2">return</span> <span class="tk">this</span>.a.length; }
-  <span class="tf">peek</span>(): T { <span class="tk2">return</span> <span class="tk">this</span>.a[<span class="tn">0</span>]; }
-  <span class="tf">push</span>(x: T): <span class="tk">void</span> {
-    <span class="tk">this</span>.a.<span class="tf">push</span>(x);
-    <span class="tk2">for</span> (<span class="tk">let</span> i = <span class="tk">this</span>.a.length - <span class="tn">1</span>; i &gt; <span class="tn">0</span>; ) {
-      <span class="tk">const</span> p = (i - <span class="tn">1</span>) &gt;&gt; <span class="tn">1</span>;
-      <span class="tk2">if</span> (<span class="tk">this</span>.<span class="tf">cmp</span>(<span class="tk">this</span>.a[p], <span class="tk">this</span>.a[i]) &lt;= <span class="tn">0</span>) <span class="tk2">break</span>;
-      [<span class="tk">this</span>.a[i], <span class="tk">this</span>.a[p]] = [<span class="tk">this</span>.a[p], <span class="tk">this</span>.a[i]];
-      i = p;
+<span class="tc">// A binary heap, stored in an array. The children of slot i are</span>
+<span class="tc">// 2i + 1 and 2i + 2, so the parent of slot i is (i - 1) / 2, rounded down.</span>
+<span class="tk">class</span> <span class="tt">Heap</span>&lt;<span class="tt">T</span>&gt; {
+  <span class="tk">private</span> items: <span class="tt">T</span>[] = [];
+
+  <span class="tc">// compare works like sort's: (a, b) =&gt; a - b makes a min-heap.</span>
+  <span class="tk">constructor</span>(<span class="tk">private</span> compare: (a: T, b: T) =&gt; <span class="tk">number</span>) {}
+
+  <span class="tk">get</span> <span class="tf">size</span>(): <span class="tk">number</span> {
+    <span class="tk2">return</span> <span class="tk">this</span>.items.length;
+  }
+
+  <span class="tf">peek</span>(): T | <span class="tk">undefined</span> {
+    <span class="tk2">return</span> <span class="tk">this</span>.items[<span class="tn">0</span>];
+  }
+
+  <span class="tf">push</span>(item: T): <span class="tk">void</span> {
+    <span class="tk">const</span> a = <span class="tk">this</span>.items;
+    a.<span class="tf">push</span>(item);    <span class="tc">// add it at the end</span>
+    <span class="tk">let</span> i = a.length - <span class="tn">1</span>;
+    <span class="tk2">while</span> (i &gt; <span class="tn">0</span>) {  <span class="tc">// sift up while it beats its parent</span>
+      <span class="tk">const</span> parent = <span class="tt">Math</span>.<span class="tf">floor</span>((i - <span class="tn">1</span>) / <span class="tn">2</span>);
+      <span class="tk2">if</span> (<span class="tk">this</span>.<span class="tf">compare</span>(a[i], a[parent]) &gt;= <span class="tn">0</span>) <span class="tk2">break</span>;
+      [a[i], a[parent]] = [a[parent], a[i]];
+      i = parent;
     }
   }
-  <span class="tf">pop</span>(): T {
-    <span class="tk">const</span> top = <span class="tk">this</span>.a[<span class="tn">0</span>], last = <span class="tk">this</span>.a.<span class="tf">pop</span>()!;
-    <span class="tk2">if</span> (<span class="tk">this</span>.a.length &gt; <span class="tn">0</span>) {
-      <span class="tk">this</span>.a[<span class="tn">0</span>] = last;
-      <span class="tk2">for</span> (<span class="tk">let</span> i = <span class="tn">0</span>; ; ) {
-        <span class="tk">const</span> l = <span class="tn">2</span> * i + <span class="tn">1</span>, r = l + <span class="tn">1</span>;
-        <span class="tk">let</span> m = i;
-        <span class="tk2">if</span> (l &lt; <span class="tk">this</span>.a.length &amp;&amp; <span class="tk">this</span>.<span class="tf">cmp</span>(<span class="tk">this</span>.a[l], <span class="tk">this</span>.a[m]) &lt; <span class="tn">0</span>) m = l;
-        <span class="tk2">if</span> (r &lt; <span class="tk">this</span>.a.length &amp;&amp; <span class="tk">this</span>.<span class="tf">cmp</span>(<span class="tk">this</span>.a[r], <span class="tk">this</span>.a[m]) &lt; <span class="tn">0</span>) m = r;
-        <span class="tk2">if</span> (m === i) <span class="tk2">break</span>;
-        [<span class="tk">this</span>.a[i], <span class="tk">this</span>.a[m]] = [<span class="tk">this</span>.a[m], <span class="tk">this</span>.a[i]];
-        i = m;
-      }
+
+  <span class="tf">pop</span>(): T | <span class="tk">undefined</span> {
+    <span class="tk">const</span> a = <span class="tk">this</span>.items;
+    <span class="tk2">if</span> (a.length &lt;= <span class="tn">1</span>) <span class="tk2">return</span> a.<span class="tf">pop</span>();
+    <span class="tk">const</span> top = a[<span class="tn">0</span>];
+    a[<span class="tn">0</span>] = a.<span class="tf">pop</span>()!;  <span class="tc">// move the last item to the top</span>
+    <span class="tk">let</span> i = <span class="tn">0</span>;
+    <span class="tk2">while</span> (<span class="tk">true</span>) {    <span class="tc">// sift down toward the better child</span>
+      <span class="tk">let</span> best = i;
+      <span class="tk2">for</span> (<span class="tk">const</span> kid <span class="tk2">of</span> [<span class="tn">2</span> * i + <span class="tn">1</span>, <span class="tn">2</span> * i + <span class="tn">2</span>])
+        <span class="tk2">if</span> (kid &lt; a.length &amp;&amp; <span class="tk">this</span>.<span class="tf">compare</span>(a[kid], a[best]) &lt; <span class="tn">0</span>) best = kid;
+      <span class="tk2">if</span> (best === i) <span class="tk2">return</span> top;
+      [a[i], a[best]] = [a[best], a[i]];
+      i = best;
     }
-    <span class="tk2">return</span> top;
   }
 }
 
-<span class="tk">const</span> minHeap = <span class="tk">new</span> <span class="tt">MinHeap</span>&lt;[<span class="tk">number</span>, <span class="tk">string</span>]&gt;((a, b) =&gt; a[<span class="tn">0</span>] - b[<span class="tn">0</span>]);  <span class="tc">// element, priority</span>
-minHeap.<span class="tf">push</span>([<span class="tn">2</span>, <span class="ts">"write tests"</span>]);
-minHeap.<span class="tf">push</span>([<span class="tn">1</span>, <span class="ts">"fix bug"</span>]);
-<span class="tk">const</span> first = minHeap.<span class="tf">pop</span>()[<span class="tn">1</span>];                     <span class="tc">// "fix bug": lowest priority first</span>
+<span class="tk">const</span> tasks = <span class="tk">new</span> <span class="tt">Heap</span>&lt;[<span class="tk">number</span>, <span class="tk">string</span>]&gt;((a, b) =&gt; a[<span class="tn">0</span>] - b[<span class="tn">0</span>]);  <span class="tc">// [priority, task]</span>
+tasks.<span class="tf">push</span>([<span class="tn">2</span>, <span class="ts">"write tests"</span>]);
+tasks.<span class="tf">push</span>([<span class="tn">1</span>, <span class="ts">"fix bug"</span>]);
+<span class="tk">const</span> first = tasks.<span class="tf">pop</span>()![<span class="tn">1</span>];  <span class="tc">// "fix bug": the lowest priority first</span>
 
-<span class="tk">const</span> nextMax = <span class="tk">new</span> <span class="tt">MinHeap</span>&lt;<span class="tk">number</span>&gt;((a, b) =&gt; b - a);  <span class="tc">// reversed: a max-heap</span></code></pre>
+<span class="tk">const</span> maxHeap = <span class="tk">new</span> <span class="tt">Heap</span>&lt;<span class="tk">number</span>&gt;((a, b) =&gt; b - a);  <span class="tc">// reversed: a max-heap</span></code></pre>
 <pre class="code" data-snippet="kit-collections" data-lang="py" hidden><code><span class="tc"># Stack is LIFO, a deque used as a queue is FIFO</span>
 stack: <span class="tk">list</span>[<span class="tk">int</span>] = []
 stack.<span class="tf">append</span>(<span class="tn">1</span>)
