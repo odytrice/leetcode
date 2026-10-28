@@ -6,6 +6,6 @@
     "node": ">=24"
   },
   "scripts": {
-    "test": "node --test 01-subarray-sum/test_solution.ts"
+    "test": "node --test 560-subarray-sum/test_solution.ts"
   }
 }
