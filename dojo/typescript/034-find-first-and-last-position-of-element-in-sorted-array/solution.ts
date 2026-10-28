@@ -1,0 +1,3 @@
+export function searchRange(nums: number[], target: number): number[] {
+  throw new Error("TODO: implement searchRange");
+}

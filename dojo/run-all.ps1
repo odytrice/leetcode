@@ -1,48 +1,35 @@
 param(
+    [string[]]$Language = @('csharp', 'python', 'typescript', 'java', 'fsharp'),
     [switch]$Reference,
-    [switch]$CheckOnly
+    [switch]$CheckOnly,
+    [string[]]$Drill
 )
 
 $ErrorActionPreference = 'Stop'
-$html = Get-Content (Join-Path $PSScriptRoot '../index.html') -Raw
-$pattern = '<a href="https://leetcode.com/problems/([^/]+)/">([^<]+)(?:</a>)?\s*<span class="lc">#(\d+)</span>'
-$linked = [regex]::Matches($html, $pattern) | ForEach-Object { [int]$_.Groups[3].Value } | Sort-Object -Unique
-$drills = Get-ChildItem $PSScriptRoot -Directory | Where-Object { Test-Path (Join-Path $_.FullName 'PROBLEM.md') }
-$ids = @()
-foreach ($drill in $drills) {
-    if ($drill.Name -notmatch '^(\d{3,})-') { throw "Invalid drill folder: $($drill.Name)" }
-    $id = [int]$Matches[1]
-    if ($drill.Name.Split('-')[0] -cne $id.ToString('D3')) { throw "Incorrect padding: $($drill.Name)" }
-    $ids += $id
-    foreach ($file in @('PROBLEM.md', 'Solution.cs', 'ReferenceSolution.cs', 'Program.cs')) {
-        if (!(Test-Path (Join-Path $drill.FullName $file))) { throw "Missing $file in $($drill.Name)" }
-    }
-    if (@(Get-ChildItem $drill.FullName -Filter *.csproj).Count -ne 1) { throw "Expected one project in $($drill.Name)" }
-}
-if (@($ids | Sort-Object -Unique).Count -ne $ids.Count) { throw 'Duplicate LeetCode numbers' }
-$difference = Compare-Object @($linked) @($ids | Sort-Object)
-if ($difference) { throw "Cheat-sheet coverage mismatch: $($difference | Out-String)" }
-Write-Output "Coverage: $($drills.Count)/$($linked.Count) linked problems have complete drills."
-if ($CheckOnly) { exit 0 }
-
 $failed = @()
-$passedTests = 0
-$totalTests = 0
-foreach ($drill in ($drills | Sort-Object { [int]$_.Name.Split('-')[0] })) {
-    Write-Output "`nDRILL: $($drill.Name)"
-    $project = (Get-ChildItem $drill.FullName -Filter *.csproj).FullName
-    $arguments = @('run', '--project', $project)
-    if ($Reference) { $arguments += @('--', '--reference') }
-    $output = @(& dotnet @arguments)
+$summary = @()
+
+foreach ($name in $Language) {
+    $script = Join-Path $PSScriptRoot "$name/run-all.ps1"
+    if (!(Test-Path $script)) { throw "Unknown language: $name" }
+    Write-Output "`n===== $name ====="
+    if ($Drill) {
+        $output = @(& $script -Reference:$Reference -CheckOnly:$CheckOnly -Drill $Drill 2>&1)
+    }
+    else {
+        $output = @(& $script -Reference:$Reference -CheckOnly:$CheckOnly 2>&1)
+    }
     $code = $LASTEXITCODE
     $output | Write-Output
-    $summaries = @($output | Select-String '^([0-9]+)/([0-9]+) passed\.$')
-    if ($code -ne 0 -or $summaries.Count -ne 1) { $failed += $drill.Name }
-    if ($summaries.Count -eq 1) {
-        $passedTests += [int]$summaries[0].Matches[0].Groups[1].Value
-        $totalTests += [int]$summaries[0].Matches[0].Groups[2].Value
-    }
+    $total = @($output | ForEach-Object { "$_".Trim() } | Where-Object { $_ -like 'TOTAL: *' } | Select-Object -Last 1)
+    if ($total.Count -eq 1) { $summary += "$name -> $($total[0])" }
+    if ($code -ne 0) { $failed += $name }
 }
-Write-Output "`nTOTAL: $($drills.Count - $failed.Count)/$($drills.Count) drills passed; $passedTests/$totalTests tests passed."
-if ($failed.Count -gt 0) { Write-Output "Failed drills: $($failed -join ', ')"; exit 1 }
+
+if ($failed.Count -gt 0) {
+    Write-Output "`nFAILED LANGUAGES: $($failed -join ', ')"
+    exit 1
+}
+Write-Output "`nAll selected languages passed."
+foreach ($line in $summary) { Write-Output $line }
 exit 0

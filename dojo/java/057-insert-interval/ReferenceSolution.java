@@ -1,0 +1,28 @@
+import java.util.ArrayList;
+import java.util.List;
+
+/** O(n) time. Copies the earlier intervals, absorbs the overlap, then copies the rest. */
+class ReferenceSolution extends Solution {
+    @Override
+    public int[][] insert(int[][] intervals, int[] newInterval) {
+        List<int[]> result = new ArrayList<>();
+        int index = 0;
+        int start = newInterval[0];
+        int end = newInterval[1];
+        while (index < intervals.length && intervals[index][1] < start) {
+            result.add(new int[] {intervals[index][0], intervals[index][1]});
+            index++;
+        }
+        while (index < intervals.length && intervals[index][0] <= end) {
+            start = Math.min(start, intervals[index][0]);
+            end = Math.max(end, intervals[index][1]);
+            index++;
+        }
+        result.add(new int[] {start, end});
+        while (index < intervals.length) {
+            result.add(new int[] {intervals[index][0], intervals[index][1]});
+            index++;
+        }
+        return result.toArray(new int[0][]);
+    }
+}

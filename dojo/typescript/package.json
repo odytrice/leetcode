@@ -1,0 +1,11 @@
+{
+  "name": "interview-dojo-typescript",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=24"
+  },
+  "scripts": {
+    "test": "node 560-subarray-sum/test_solution.ts --reference"
+  }
+}
