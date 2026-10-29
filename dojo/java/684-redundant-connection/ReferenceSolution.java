@@ -5,7 +5,7 @@ class ReferenceSolution extends Solution {
     @Override
     public int[] findRedundantConnection(int[][] edges) {
         parent = new int[edges.length + 1];
-        for (int node = 0; node < parent.length; node++) {
+        for (int node = 0; node < parent.length; node += 1) {
             parent[node] = node;
         }
         for (int[] edge : edges) {

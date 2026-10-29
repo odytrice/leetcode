@@ -11,12 +11,12 @@ class ReferenceSolution extends Solution {
     @Override
     public List<List<String>> accountsMerge(List<List<String>> accounts) {
         parent = new int[accounts.size()];
-        for (int account = 0; account < parent.length; account++) {
+        for (int account = 0; account < parent.length; account += 1) {
             parent[account] = account;
         }
 
         Map<String, Integer> owner = new HashMap<>();
-        for (int account = 0; account < accounts.size(); account++) {
+        for (int account = 0; account < accounts.size(); account += 1) {
             for (String email : accounts.get(account).subList(1, accounts.get(account).size())) {
                 Integer first = owner.get(email);
                 if (first == null) {

@@ -4,8 +4,11 @@ export function findMin(nums: number[]): number {
   let right = nums.length - 1;
   while (left < right) {
     const middle = (left + right) >> 1;
-    if (nums[middle] > nums[right]) left = middle + 1;
-    else right = middle;
+    if (nums[middle] > nums[right]) {
+      left = middle + 1;
+    } else {
+      right = middle;
+    }
   }
   return nums[left];
 }

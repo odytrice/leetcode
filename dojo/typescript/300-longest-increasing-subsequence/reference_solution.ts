@@ -6,11 +6,17 @@ export function lengthOfLIS(nums: number[]): number {
     let high = tails.length;
     while (low < high) {
       const middle = (low + high) >> 1;
-      if (tails[middle] < value) low = middle + 1;
-      else high = middle;
+      if (tails[middle] < value) {
+        low = middle + 1;
+      } else {
+        high = middle;
+      }
     }
-    if (low === tails.length) tails.push(value);
-    else tails[low] = value;
+    if (low === tails.length) {
+      tails.push(value);
+    } else {
+      tails[low] = value;
+    }
   }
   return tails.length;
 }

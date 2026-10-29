@@ -8,13 +8,16 @@ export function shipWithinDays(weights: number[], days: number): number {
     let load = 0;
     for (const weight of weights) {
       if (load + weight > capacity) {
-        used++;
+        used += 1;
         load = 0;
       }
       load += weight;
     }
-    if (used <= days) right = capacity;
-    else left = capacity + 1;
+    if (used <= days) {
+      right = capacity;
+    } else {
+      left = capacity + 1;
+    }
   }
   return left;
 }

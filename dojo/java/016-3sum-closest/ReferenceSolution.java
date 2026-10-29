@@ -6,7 +6,7 @@ class ReferenceSolution extends Solution {
     public int threeSumClosest(int[] nums, int target) {
         Arrays.sort(nums);
         int best = nums[0] + nums[1] + nums[2];
-        for (int first = 0; first < nums.length - 2; first++) {
+        for (int first = 0; first < nums.length - 2; first += 1) {
             int left = first + 1;
             int right = nums.length - 1;
             while (left < right) {
@@ -18,9 +18,9 @@ class ReferenceSolution extends Solution {
                     return total;
                 }
                 if (total < target) {
-                    left++;
+                    left += 1;
                 } else {
-                    right--;
+                    right -= 1;
                 }
             }
         }

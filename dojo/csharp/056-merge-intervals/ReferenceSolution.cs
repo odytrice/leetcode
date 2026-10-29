@@ -7,8 +7,15 @@ public class ReferenceSolution
         var result = new List<int[]>();
         foreach (var interval in intervals)
         {
-            if (result.Count == 0 || result[^1][1] < interval[0]) result.Add([interval[0], interval[1]]);
-            else result[^1][1] = Math.Max(result[^1][1], interval[1]);
+            // A gap starts a new interval; an overlap extends the last one.
+            if (result.Count == 0 || result[^1][1] < interval[0])
+            {
+                result.Add([interval[0], interval[1]]);
+            }
+            else
+            {
+                result[^1][1] = Math.Max(result[^1][1], interval[1]);
+            }
         }
         return result.ToArray();
     }

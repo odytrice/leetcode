@@ -9,11 +9,11 @@ class ReferenceSolution extends Solution {
     public List<Integer> eventualSafeNodes(int[][] graph) {
         int count = graph.length;
         List<List<Integer>> reverse = new ArrayList<>();
-        for (int node = 0; node < count; node++) {
+        for (int node = 0; node < count; node += 1) {
             reverse.add(new ArrayList<>());
         }
         int[] degree = new int[count];
-        for (int node = 0; node < count; node++) {
+        for (int node = 0; node < count; node += 1) {
             degree[node] = graph[node].length;
             for (int target : graph[node]) {
                 reverse.get(target).add(node);
@@ -21,7 +21,7 @@ class ReferenceSolution extends Solution {
         }
 
         Deque<Integer> queue = new ArrayDeque<>();
-        for (int node = 0; node < count; node++) {
+        for (int node = 0; node < count; node += 1) {
             if (degree[node] == 0) {
                 queue.add(node);
             }
@@ -29,14 +29,15 @@ class ReferenceSolution extends Solution {
         while (!queue.isEmpty()) {
             int node = queue.poll();
             for (int source : reverse.get(node)) {
-                if (--degree[source] == 0) {
+                degree[source] -= 1;
+                if (degree[source] == 0) {
                     queue.add(source);
                 }
             }
         }
 
         List<Integer> result = new ArrayList<>();
-        for (int node = 0; node < count; node++) {
+        for (int node = 0; node < count; node += 1) {
             if (degree[node] == 0) {
                 result.add(node);
             }

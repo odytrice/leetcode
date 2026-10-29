@@ -1,11 +1,40 @@
 public class ReferenceSolution : Solution
 {
+    // O(n^2 * alpha(n)) time. Union-find; every successful union merges two provinces.
     public override int FindCircleNum(int[][] isConnected)
     {
-        int n = isConnected.Length, count = n; var parent = Enumerable.Range(0, n).ToArray();
-        int Find(int x) { while (parent[x] != x) { parent[x] = parent[parent[x]]; x = parent[x]; } return x; }
-        for (int i = 0; i < n; i++) for (int j = i + 1; j < n; j++) if (isConnected[i][j] == 1)
-        { int a = Find(i), b = Find(j); if (a != b) { parent[a] = b; count--; } }
+        int n = isConnected.Length;
+        int count = n;
+        var parent = Enumerable.Range(0, n).ToArray();
+
+        // Path halving keeps the trees shallow.
+        int Find(int x)
+        {
+            while (parent[x] != x)
+            {
+                parent[x] = parent[parent[x]];
+                x = parent[x];
+            }
+            return x;
+        }
+
+        for (int i = 0; i < n; i += 1)
+        {
+            for (int j = i + 1; j < n; j += 1)
+            {
+                if (isConnected[i][j] != 1)
+                {
+                    continue;
+                }
+                int a = Find(i);
+                int b = Find(j);
+                if (a != b)
+                {
+                    parent[a] = b;
+                    count -= 1;
+                }
+            }
+        }
         return count;
     }
 }

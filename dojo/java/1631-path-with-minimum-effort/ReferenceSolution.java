@@ -27,7 +27,7 @@ class ReferenceSolution extends Solution {
             if (row == rows - 1 && column == columns - 1) {
                 return cost;
             }
-            for (int step = 0; step < 4; step++) {
+            for (int step = 0; step < 4; step += 1) {
                 int nextRow = row + rowStep[step];
                 int nextColumn = column + columnStep[step];
                 if (nextRow < 0 || nextColumn < 0 || nextRow >= rows || nextColumn >= columns) {

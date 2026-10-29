@@ -3,7 +3,7 @@ class ReferenceSolution extends Solution {
     @Override
     public boolean canJump(int[] nums) {
         int reach = 0;
-        for (int index = 0; index < nums.length; index++) {
+        for (int index = 0; index < nums.length; index += 1) {
             if (index > reach) {
                 return false;
             }

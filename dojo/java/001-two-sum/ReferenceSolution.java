@@ -6,7 +6,7 @@ class ReferenceSolution extends Solution {
     @Override
     public int[] twoSum(int[] nums, int target) {
         Map<Integer, Integer> seen = new HashMap<>();
-        for (int index = 0; index < nums.length; index++) {
+        for (int index = 0; index < nums.length; index += 1) {
             Integer partner = seen.get(target - nums[index]);
             if (partner != null) {
                 return new int[] {partner, index};

@@ -2,7 +2,9 @@ import { GraphNode } from "./solution.ts";
 
 // O(nodes + edges) time. Copies each node once, then relinks its neighbours.
 export function cloneGraph(node: GraphNode | null): GraphNode | null {
-  if (node === null) return null;
+  if (node === null) {
+    return null;
+  }
   const copies = new Map<GraphNode, GraphNode>([[node, new GraphNode(node.val)]]);
   const queue: GraphNode[] = [node];
   while (queue.length > 0) {

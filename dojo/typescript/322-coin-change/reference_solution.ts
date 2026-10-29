@@ -3,9 +3,11 @@ export function coinChange(coins: number[], amount: number): number {
   const unreachable = amount + 1;
   const dp = new Array<number>(amount + 1).fill(unreachable);
   dp[0] = 0;
-  for (let total = 1; total <= amount; total++) {
+  for (let total = 1; total <= amount; total += 1) {
     for (const coin of coins) {
-      if (coin <= total) dp[total] = Math.min(dp[total], dp[total - coin] + 1);
+      if (coin <= total) {
+        dp[total] = Math.min(dp[total], dp[total - coin] + 1);
+      }
     }
   }
   return dp[amount] <= amount ? dp[amount] : -1;

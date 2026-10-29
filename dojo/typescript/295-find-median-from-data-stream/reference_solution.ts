@@ -9,15 +9,20 @@ export class ReferenceSolution extends MedianFinder {
     let high = this.values.length;
     while (low < high) {
       const middle = (low + high) >> 1;
-      if (this.values[middle] < num) low = middle + 1;
-      else high = middle;
+      if (this.values[middle] < num) {
+        low = middle + 1;
+      } else {
+        high = middle;
+      }
     }
     this.values.splice(low, 0, num);
   }
 
   override findMedian(): number {
     const middle = this.values.length >> 1;
-    if (this.values.length % 2 === 1) return this.values[middle];
+    if (this.values.length % 2 === 1) {
+      return this.values[middle];
+    }
     return (this.values[middle - 1] + this.values[middle]) / 2;
   }
 }

@@ -15,7 +15,7 @@ class ReferenceSolution extends Solution {
         queue.add(root);
         while (!queue.isEmpty()) {
             int size = queue.size();
-            for (int index = 0; index < size; index++) {
+            for (int index = 0; index < size; index += 1) {
                 TreeNode node = queue.poll();
                 if (index == size - 1) {
                     result.add(node.val);

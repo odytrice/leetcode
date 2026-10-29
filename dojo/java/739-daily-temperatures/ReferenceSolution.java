@@ -7,7 +7,7 @@ class ReferenceSolution extends Solution {
     public int[] dailyTemperatures(int[] temperatures) {
         int[] answer = new int[temperatures.length];
         Deque<Integer> waiting = new ArrayDeque<>();
-        for (int today = 0; today < temperatures.length; today++) {
+        for (int today = 0; today < temperatures.length; today += 1) {
             while (!waiting.isEmpty() && temperatures[waiting.peek()] < temperatures[today]) {
                 int earlier = waiting.pop();
                 answer[earlier] = today - earlier;

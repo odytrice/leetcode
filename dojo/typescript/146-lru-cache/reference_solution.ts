@@ -12,15 +12,18 @@ export class ReferenceSolution extends LRUCache {
 
   override get(key: number): number {
     const value = this.values.get(key);
-    if (value === undefined) return -1;
+    if (value === undefined) {
+      return -1;
+    }
     this.values.delete(key);
     this.values.set(key, value);
     return value;
   }
 
   override put(key: number, value: number): void {
-    if (this.values.has(key)) this.values.delete(key);
-    else if (this.values.size === this.capacity) {
+    if (this.values.has(key)) {
+      this.values.delete(key);
+    } else if (this.values.size === this.capacity) {
       this.values.delete(this.values.keys().next().value as number);
     }
     this.values.set(key, value);

@@ -7,7 +7,9 @@ export function detectCycle(head: ListNode | null): ListNode | null {
   while (fast !== null && fast.next !== null) {
     slow = slow?.next ?? null;
     fast = fast.next.next;
-    if (slow !== fast) continue;
+    if (slow !== fast) {
+      continue;
+    }
     slow = head;
     while (slow !== fast) {
       slow = slow?.next ?? null;

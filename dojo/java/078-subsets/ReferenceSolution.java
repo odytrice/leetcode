@@ -9,7 +9,7 @@ class ReferenceSolution extends Solution {
         result.add(new ArrayList<>());
         for (int value : nums) {
             int count = result.size();
-            for (int index = 0; index < count; index++) {
+            for (int index = 0; index < count; index += 1) {
                 List<Integer> extended = new ArrayList<>(result.get(index));
                 extended.add(value);
                 result.add(extended);

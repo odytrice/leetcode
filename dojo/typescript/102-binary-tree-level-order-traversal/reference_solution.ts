@@ -8,8 +8,12 @@ export function levelOrder(root: TreeNode | null): number[][] {
     result.push(level.map((node) => node.val));
     const next: TreeNode[] = [];
     for (const node of level) {
-      if (node.left !== null) next.push(node.left);
-      if (node.right !== null) next.push(node.right);
+      if (node.left !== null) {
+        next.push(node.left);
+      }
+      if (node.right !== null) {
+        next.push(node.right);
+      }
     }
     level = next;
   }

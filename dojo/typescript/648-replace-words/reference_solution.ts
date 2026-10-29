@@ -19,9 +19,13 @@ export function replaceWords(dictionary: string[], sentence: string): string {
     let prefix = "";
     for (const char of word) {
       node = node.get(char) as Map<string, unknown> | undefined;
-      if (node === undefined) return word;
+      if (node === undefined) {
+        return word;
+      }
       prefix += char;
-      if (roots.has(prefix)) return prefix;
+      if (roots.has(prefix)) {
+        return prefix;
+      }
     }
     return word;
   };

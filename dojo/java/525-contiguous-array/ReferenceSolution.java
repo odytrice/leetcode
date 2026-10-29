@@ -9,7 +9,7 @@ class ReferenceSolution extends Solution {
         first.put(0, -1);
         int balance = 0;
         int best = 0;
-        for (int index = 0; index < nums.length; index++) {
+        for (int index = 0; index < nums.length; index += 1) {
             balance += nums[index] == 1 ? 1 : -1;
             Integer start = first.get(balance);
             if (start == null) {

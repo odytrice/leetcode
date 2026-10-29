@@ -6,9 +6,15 @@ export function pacificAtlantic(heights: number[][]): number[][] {
   const reach = (pacific: boolean): Set<string> => {
     const seen = new Set<string>();
     const stack: [number, number][] = [];
-    for (let row = 0; row < rows; row++) stack.push([row, pacific ? 0 : columns - 1]);
-    for (let column = 0; column < columns; column++) stack.push([pacific ? 0 : rows - 1, column]);
-    for (const [row, column] of stack) seen.add(`${row},${column}`);
+    for (let row = 0; row < rows; row += 1) {
+      stack.push([row, pacific ? 0 : columns - 1]);
+    }
+    for (let column = 0; column < columns; column += 1) {
+      stack.push([pacific ? 0 : rows - 1, column]);
+    }
+    for (const [row, column] of stack) {
+      seen.add(`${row},${column}`);
+    }
 
     while (stack.length > 0) {
       const [row, column] = stack.pop() as [number, number];
@@ -35,7 +41,9 @@ export function pacificAtlantic(heights: number[][]): number[][] {
   const atlantic = reach(false);
   const result: number[][] = [];
   for (const key of pacific) {
-    if (!atlantic.has(key)) continue;
+    if (!atlantic.has(key)) {
+      continue;
+    }
     const [row, column] = key.split(",").map(Number);
     result.push([row, column]);
   }

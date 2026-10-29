@@ -8,8 +8,12 @@ export function rightSideView(root: TreeNode | null): number[] {
     result.push(level[level.length - 1].val);
     const next: TreeNode[] = [];
     for (const node of level) {
-      if (node.left !== null) next.push(node.left);
-      if (node.right !== null) next.push(node.right);
+      if (node.left !== null) {
+        next.push(node.left);
+      }
+      if (node.right !== null) {
+        next.push(node.right);
+      }
     }
     level = next;
   }

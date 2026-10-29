@@ -8,15 +8,21 @@ export function minimumEffortPath(heights: number[][]): number {
   while (queue.length > 0) {
     queue.sort((a, b) => a[0] - b[0]);
     const [cost, row, column] = queue.shift() as [number, number, number];
-    if (cost !== effort[row][column]) continue;
-    if (row === rows - 1 && column === columns - 1) return cost;
+    if (cost !== effort[row][column]) {
+      continue;
+    }
+    if (row === rows - 1 && column === columns - 1) {
+      return cost;
+    }
     for (const [nextRow, nextColumn] of [
       [row - 1, column],
       [row + 1, column],
       [row, column - 1],
       [row, column + 1],
     ]) {
-      if (nextRow < 0 || nextColumn < 0 || nextRow >= rows || nextColumn >= columns) continue;
+      if (nextRow < 0 || nextColumn < 0 || nextRow >= rows || nextColumn >= columns) {
+        continue;
+      }
       const step = Math.max(cost, Math.abs(heights[nextRow][nextColumn] - heights[row][column]));
       if (step < effort[nextRow][nextColumn]) {
         effort[nextRow][nextColumn] = step;

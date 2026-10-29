@@ -4,8 +4,11 @@ export function isValid(s: string): boolean {
   const stack: string[] = [];
   for (const char of s) {
     const opener = pairs.get(char);
-    if (opener === undefined) stack.push(char);
-    else if (stack.pop() !== opener) return false;
+    if (opener === undefined) {
+      stack.push(char);
+    } else if (stack.pop() !== opener) {
+      return false;
+    }
   }
   return stack.length === 0;
 }

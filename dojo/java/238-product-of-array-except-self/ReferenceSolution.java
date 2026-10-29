@@ -5,11 +5,11 @@ class ReferenceSolution extends Solution {
         int[] result = new int[nums.length];
         int prefix = 1;
         int suffix = 1;
-        for (int index = 0; index < nums.length; index++) {
+        for (int index = 0; index < nums.length; index += 1) {
             result[index] = prefix;
             prefix *= nums[index];
         }
-        for (int index = nums.length - 1; index >= 0; index--) {
+        for (int index = nums.length - 1; index >= 0; index -= 1) {
             result[index] *= suffix;
             suffix *= nums[index];
         }

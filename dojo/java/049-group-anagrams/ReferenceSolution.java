@@ -12,7 +12,7 @@ class ReferenceSolution extends Solution {
         for (String word : strs) {
             int[] counts = new int[26];
             for (char letter : word.toCharArray()) {
-                counts[letter - 'a']++;
+                counts[letter - 'a'] += 1;
             }
             groups.computeIfAbsent(Arrays.toString(counts), key -> new ArrayList<>()).add(word);
         }

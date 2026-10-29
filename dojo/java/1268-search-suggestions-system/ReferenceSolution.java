@@ -9,7 +9,7 @@ class ReferenceSolution extends Solution {
         String[] ordered = products.clone();
         Arrays.sort(ordered);
         List<List<String>> result = new ArrayList<>();
-        for (int length = 1; length <= searchWord.length(); length++) {
+        for (int length = 1; length <= searchWord.length(); length += 1) {
             String prefix = searchWord.substring(0, length);
             int low = 0;
             int high = ordered.length;
@@ -22,7 +22,7 @@ class ReferenceSolution extends Solution {
                 }
             }
             List<String> suggestions = new ArrayList<>();
-            for (int index = low; index < ordered.length && suggestions.size() < 3; index++) {
+            for (int index = low; index < ordered.length && suggestions.size() < 3; index += 1) {
                 if (!ordered[index].startsWith(prefix)) {
                     break;
                 }

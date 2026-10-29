@@ -14,17 +14,17 @@ class ReferenceSolution extends Solution {
             char current = s.charAt(position[0]);
             if (!Character.isDigit(current)) {
                 text.append(current);
-                position[0]++;
+                position[0] += 1;
                 continue;
             }
             int count = 0;
             while (position[0] < s.length() && Character.isDigit(s.charAt(position[0]))) {
                 count = count * 10 + (s.charAt(position[0]) - '0');
-                position[0]++;
+                position[0] += 1;
             }
-            position[0]++;
+            position[0] += 1;
             String inner = parse(s);
-            position[0]++;
+            position[0] += 1;
             text.append(inner.repeat(count));
         }
         return text.toString();

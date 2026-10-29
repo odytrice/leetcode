@@ -10,9 +10,9 @@ class ReferenceSolution extends Solution {
                 return new int[] {left + 1, right + 1};
             }
             if (total < target) {
-                left++;
+                left += 1;
             } else {
-                right--;
+                right -= 1;
             }
         }
         throw new IllegalArgumentException("No answer");

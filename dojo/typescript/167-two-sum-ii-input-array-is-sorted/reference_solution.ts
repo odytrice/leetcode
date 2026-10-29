@@ -4,9 +4,14 @@ export function twoSum(numbers: number[], target: number): number[] {
   let right = numbers.length - 1;
   while (left < right) {
     const total = numbers[left] + numbers[right];
-    if (total === target) return [left + 1, right + 1];
-    if (total < target) left++;
-    else right--;
+    if (total === target) {
+      return [left + 1, right + 1];
+    }
+    if (total < target) {
+      left += 1;
+    } else {
+      right -= 1;
+    }
   }
   throw new Error("No answer");
 }

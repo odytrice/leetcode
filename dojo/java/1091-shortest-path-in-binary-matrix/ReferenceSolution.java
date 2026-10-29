@@ -20,8 +20,8 @@ class ReferenceSolution extends Solution {
             if (row == size - 1 && column == size - 1) {
                 return length;
             }
-            for (int rowStep = -1; rowStep <= 1; rowStep++) {
-                for (int columnStep = -1; columnStep <= 1; columnStep++) {
+            for (int rowStep = -1; rowStep <= 1; rowStep += 1) {
+                for (int columnStep = -1; columnStep <= 1; columnStep += 1) {
                     int nextRow = row + rowStep;
                     int nextColumn = column + columnStep;
                     if (nextRow < 0 || nextColumn < 0 || nextRow >= size || nextColumn >= size

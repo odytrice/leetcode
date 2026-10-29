@@ -7,7 +7,9 @@ export function exist(board: string[][], word: string): boolean {
     if (row < 0 || column < 0 || row >= rows || column >= columns || board[row][column] !== word[index]) {
       return false;
     }
-    if (index === word.length - 1) return true;
+    if (index === word.length - 1) {
+      return true;
+    }
     const saved = board[row][column];
     board[row][column] = "";
     const found =
@@ -19,9 +21,11 @@ export function exist(board: string[][], word: string): boolean {
     return found;
   };
 
-  for (let row = 0; row < rows; row++) {
-    for (let column = 0; column < columns; column++) {
-      if (search(row, column, 0)) return true;
+  for (let row = 0; row < rows; row += 1) {
+    for (let column = 0; column < columns; column += 1) {
+      if (search(row, column, 0)) {
+        return true;
+      }
     }
   }
   return false;

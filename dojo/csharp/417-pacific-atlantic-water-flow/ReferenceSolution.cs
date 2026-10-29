@@ -1,25 +1,65 @@
 public class ReferenceSolution : Solution
 {
+    // O(rows * cols) time. Flow uphill from each ocean's border; answer the cells both reach.
     public override IList<IList<int>> PacificAtlantic(int[][] heights)
     {
-        int rows = heights.Length, cols = heights[0].Length;
+        int rows = heights.Length;
+        int cols = heights[0].Length;
+
         bool[,] Reach(bool pacific)
         {
-            var seen = new bool[rows, cols]; var queue = new Queue<(int R, int C)>();
-            void Add(int r, int c) { if (!seen[r, c]) { seen[r, c] = true; queue.Enqueue((r, c)); } }
-            for (int r = 0; r < rows; r++) Add(r, pacific ? 0 : cols - 1);
-            for (int c = 0; c < cols; c++) Add(pacific ? 0 : rows - 1, c);
-            int[] dr = [-1, 1, 0, 0], dc = [0, 0, -1, 1];
-            while (queue.TryDequeue(out var cell))
-            for (int d = 0; d < 4; d++)
+            var seen = new bool[rows, cols];
+            var queue = new Queue<(int R, int C)>();
+
+            void Add(int r, int c)
             {
-                int r = cell.R + dr[d], c = cell.C + dc[d];
-                if (r >= 0 && c >= 0 && r < rows && c < cols && !seen[r, c] && heights[r][c] >= heights[cell.R][cell.C]) Add(r, c);
+                if (!seen[r, c])
+                {
+                    seen[r, c] = true;
+                    queue.Enqueue((r, c));
+                }
+            }
+
+            // The Pacific touches the top and left edges; the Atlantic the bottom and right.
+            for (int r = 0; r < rows; r += 1)
+            {
+                Add(r, pacific ? 0 : cols - 1);
+            }
+            for (int c = 0; c < cols; c += 1)
+            {
+                Add(pacific ? 0 : rows - 1, c);
+            }
+
+            int[] dr = [-1, 1, 0, 0];
+            int[] dc = [0, 0, -1, 1];
+            while (queue.TryDequeue(out var cell))
+            {
+                for (int d = 0; d < 4; d += 1)
+                {
+                    int r = cell.R + dr[d];
+                    int c = cell.C + dc[d];
+                    if (r >= 0 && c >= 0 && r < rows && c < cols && !seen[r, c] && heights[r][c] >= heights[cell.R][cell.C])
+                    {
+                        Add(r, c);
+                    }
+                }
             }
             return seen;
         }
-        var p = Reach(true); var a = Reach(false); var result = new List<IList<int>>();
-        for (int r = 0; r < rows; r++) for (int c = 0; c < cols; c++) if (p[r, c] && a[r, c]) result.Add(new[] { r, c });
+
+        var p = Reach(true);
+        var a = Reach(false);
+        var result = new List<IList<int>>();
+        for (int r = 0; r < rows; r += 1)
+        {
+            for (int c = 0; c < cols; c += 1)
+            {
+                if (p[r, c] && a[r, c])
+                {
+                    result.Add(new[] { r, c });
+                }
+            }
+        }
         return result;
     }
 }

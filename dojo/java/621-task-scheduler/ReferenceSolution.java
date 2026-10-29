@@ -4,7 +4,7 @@ class ReferenceSolution extends Solution {
     public int leastInterval(char[] tasks, int n) {
         int[] counts = new int[26];
         for (char task : tasks) {
-            counts[task - 'A']++;
+            counts[task - 'A'] += 1;
         }
         int most = 0;
         for (int count : counts) {
@@ -13,7 +13,7 @@ class ReferenceSolution extends Solution {
         int tied = 0;
         for (int count : counts) {
             if (count == most) {
-                tied++;
+                tied += 1;
             }
         }
         return Math.max(tasks.length, (most - 1) * (n + 1) + tied);

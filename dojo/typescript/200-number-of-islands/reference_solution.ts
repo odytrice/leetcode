@@ -3,10 +3,12 @@ export function numIslands(grid: string[][]): number {
   const rows = grid.length;
   const columns = grid[0].length;
   let count = 0;
-  for (let row = 0; row < rows; row++) {
-    for (let column = 0; column < columns; column++) {
-      if (grid[row][column] !== "1") continue;
-      count++;
+  for (let row = 0; row < rows; row += 1) {
+    for (let column = 0; column < columns; column += 1) {
+      if (grid[row][column] !== "1") {
+        continue;
+      }
+      count += 1;
       const stack: [number, number][] = [[row, column]];
       grid[row][column] = "0";
       while (stack.length > 0) {

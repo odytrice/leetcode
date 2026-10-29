@@ -6,7 +6,7 @@ class ReferenceSolution extends Solution {
         ListNode dummy = new ListNode(0, head);
         ListNode fast = dummy;
         ListNode slow = dummy;
-        for (int step = 0; step <= n; step++) {
+        for (int step = 0; step <= n; step += 1) {
             fast = fast.next;
         }
         while (fast != null) {

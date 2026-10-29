@@ -11,17 +11,17 @@ class ReferenceSolution extends Solution {
         int end = newInterval[1];
         while (index < intervals.length && intervals[index][1] < start) {
             result.add(new int[] {intervals[index][0], intervals[index][1]});
-            index++;
+            index += 1;
         }
         while (index < intervals.length && intervals[index][0] <= end) {
             start = Math.min(start, intervals[index][0]);
             end = Math.max(end, intervals[index][1]);
-            index++;
+            index += 1;
         }
         result.add(new int[] {start, end});
         while (index < intervals.length) {
             result.add(new int[] {intervals[index][0], intervals[index][1]});
-            index++;
+            index += 1;
         }
         return result.toArray(new int[0][]);
     }

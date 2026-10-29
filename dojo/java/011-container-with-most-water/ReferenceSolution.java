@@ -8,9 +8,9 @@ class ReferenceSolution extends Solution {
         while (left < right) {
             best = Math.max(best, (right - left) * Math.min(height[left], height[right]));
             if (height[left] <= height[right]) {
-                left++;
+                left += 1;
             } else {
-                right--;
+                right -= 1;
             }
         }
         return best;

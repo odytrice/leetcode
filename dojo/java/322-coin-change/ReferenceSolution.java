@@ -8,7 +8,7 @@ class ReferenceSolution extends Solution {
         int[] dp = new int[amount + 1];
         Arrays.fill(dp, unreachable);
         dp[0] = 0;
-        for (int total = 1; total <= amount; total++) {
+        for (int total = 1; total <= amount; total += 1) {
             for (int coin : coins) {
                 if (coin <= total) {
                     dp[total] = Math.min(dp[total], dp[total - coin] + 1);

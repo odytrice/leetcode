@@ -9,7 +9,7 @@ class ReferenceSolution extends Solution {
         Deque<TreeNode> stack = new ArrayDeque<>();
         stack.push(root);
         int index = 0;
-        for (int position = 1; position < preorder.length; position++) {
+        for (int position = 1; position < preorder.length; position += 1) {
             TreeNode parent = stack.peek();
             TreeNode node = new TreeNode(preorder[position]);
             if (parent.val != inorder[index]) {
@@ -17,7 +17,7 @@ class ReferenceSolution extends Solution {
             } else {
                 while (!stack.isEmpty() && stack.peek().val == inorder[index]) {
                     parent = stack.pop();
-                    index++;
+                    index += 1;
                 }
                 parent.right = node;
             }

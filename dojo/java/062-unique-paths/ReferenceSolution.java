@@ -6,8 +6,8 @@ class ReferenceSolution extends Solution {
     public int uniquePaths(int m, int n) {
         int[] dp = new int[n];
         Arrays.fill(dp, 1);
-        for (int row = 1; row < m; row++) {
-            for (int column = 1; column < n; column++) {
+        for (int row = 1; row < m; row += 1) {
+            for (int column = 1; column < n; column += 1) {
                 dp[column] += dp[column - 1];
             }
         }

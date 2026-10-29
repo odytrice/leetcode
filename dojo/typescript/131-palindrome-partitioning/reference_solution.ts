@@ -2,8 +2,8 @@
 export function partition(s: string): string[][] {
   const size = s.length;
   const palindrome = Array.from({ length: size }, () => new Array<boolean>(size).fill(false));
-  for (let start = size - 1; start >= 0; start--) {
-    for (let end = start; end < size; end++) {
+  for (let start = size - 1; start >= 0; start -= 1) {
+    for (let end = start; end < size; end += 1) {
       if (s[start] === s[end] && (end - start < 2 || palindrome[start + 1][end - 1])) {
         palindrome[start][end] = true;
       }
@@ -17,7 +17,7 @@ export function partition(s: string): string[][] {
       result.push([...path]);
       return;
     }
-    for (let end = start; end < size; end++) {
+    for (let end = start; end < size; end += 1) {
       if (palindrome[start][end]) {
         path.push(s.slice(start, end + 1));
         search(end + 1);

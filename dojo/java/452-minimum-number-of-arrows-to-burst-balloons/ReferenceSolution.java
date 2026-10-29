@@ -9,7 +9,7 @@ class ReferenceSolution extends Solution {
         long end = Long.MIN_VALUE;
         for (int[] point : points) {
             if (point[0] > end) {
-                arrows++;
+                arrows += 1;
                 end = point[1];
             }
         }

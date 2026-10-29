@@ -9,7 +9,7 @@ export function findCheapestPrice(
   const unreachable = Number.POSITIVE_INFINITY;
   let distance = new Array<number>(n).fill(unreachable);
   distance[src] = 0;
-  for (let round = 0; round <= k; round++) {
+  for (let round = 0; round <= k; round += 1) {
     const following = [...distance];
     for (const [source, target, price] of flights) {
       if (distance[source] !== unreachable) {

@@ -26,7 +26,9 @@ export class ReferenceSolution extends Trie {
     let node: Node | undefined = this.root;
     for (const char of text) {
       node = node.children.get(char);
-      if (node === undefined) return undefined;
+      if (node === undefined) {
+        return undefined;
+      }
     }
     return node;
   }

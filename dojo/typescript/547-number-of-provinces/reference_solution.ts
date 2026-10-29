@@ -12,14 +12,16 @@ export function findCircleNum(isConnected: number[][]): number {
     return node;
   };
 
-  for (let first = 0; first < count; first++) {
-    for (let second = first + 1; second < count; second++) {
-      if (isConnected[first][second] !== 1) continue;
+  for (let first = 0; first < count; first += 1) {
+    for (let second = first + 1; second < count; second += 1) {
+      if (isConnected[first][second] !== 1) {
+        continue;
+      }
       const rootFirst = find(first);
       const rootSecond = find(second);
       if (rootFirst !== rootSecond) {
         parent[rootFirst] = rootSecond;
-        components--;
+        components -= 1;
       }
     }
   }

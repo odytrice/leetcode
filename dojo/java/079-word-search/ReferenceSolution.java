@@ -11,8 +11,8 @@ class ReferenceSolution extends Solution {
         this.word = word;
         rows = board.length;
         columns = board[0].length;
-        for (int row = 0; row < rows; row++) {
-            for (int column = 0; column < columns; column++) {
+        for (int row = 0; row < rows; row += 1) {
+            for (int column = 0; column < columns; column += 1) {
                 if (search(row, column, 0)) {
                     return true;
                 }

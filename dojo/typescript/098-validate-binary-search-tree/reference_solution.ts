@@ -11,7 +11,9 @@ export function isValidBST(root: TreeNode | null): boolean {
       node = node.left;
     }
     const current = stack.pop() as TreeNode;
-    if (current.val <= previous) return false;
+    if (current.val <= previous) {
+      return false;
+    }
     previous = current.val;
     node = current.right;
   }

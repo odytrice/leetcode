@@ -20,6 +20,8 @@ export function lowestCommonAncestor(root: TreeNode, p: TreeNode, q: TreeNode): 
   }
 
   let node: TreeNode | null | undefined = q;
-  while (node != null && !ancestors.has(node)) node = parents.get(node);
+  while (node != null && !ancestors.has(node)) {
+    node = parents.get(node);
+  }
   return node as TreeNode;
 }

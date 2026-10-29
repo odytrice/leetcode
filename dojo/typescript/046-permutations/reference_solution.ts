@@ -4,7 +4,7 @@ export function permute(nums: number[]): number[][] {
   for (const value of nums) {
     const next: number[][] = [];
     for (const permutation of result) {
-      for (let position = 0; position <= permutation.length; position++) {
+      for (let position = 0; position <= permutation.length; position += 1) {
         next.push([...permutation.slice(0, position), value, ...permutation.slice(position)]);
       }
     }

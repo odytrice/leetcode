@@ -8,16 +8,16 @@ class ReferenceSolution extends Solution {
     @Override
     public int[] findOrder(int numCourses, int[][] prerequisites) {
         List<List<Integer>> edges = new ArrayList<>();
-        for (int course = 0; course < numCourses; course++) {
+        for (int course = 0; course < numCourses; course += 1) {
             edges.add(new ArrayList<>());
         }
         int[] degree = new int[numCourses];
         for (int[] pair : prerequisites) {
             edges.get(pair[1]).add(pair[0]);
-            degree[pair[0]]++;
+            degree[pair[0]] += 1;
         }
         Deque<Integer> queue = new ArrayDeque<>();
-        for (int course = 0; course < numCourses; course++) {
+        for (int course = 0; course < numCourses; course += 1) {
             if (degree[course] == 0) {
                 queue.add(course);
             }
@@ -26,9 +26,11 @@ class ReferenceSolution extends Solution {
         int count = 0;
         while (!queue.isEmpty()) {
             int course = queue.poll();
-            order[count++] = course;
+            order[count] = course;
+            count += 1;
             for (int following : edges.get(course)) {
-                if (--degree[following] == 0) {
+                degree[following] -= 1;
+                if (degree[following] == 0) {
                     queue.add(following);
                 }
             }

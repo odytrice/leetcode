@@ -6,13 +6,13 @@ export function sortColors(nums: number[]): void {
   while (index <= high) {
     if (nums[index] === 0) {
       [nums[low], nums[index]] = [nums[index], nums[low]];
-      low++;
-      index++;
+      low += 1;
+      index += 1;
     } else if (nums[index] === 2) {
       [nums[high], nums[index]] = [nums[index], nums[high]];
-      high--;
+      high -= 1;
     } else {
-      index++;
+      index += 1;
     }
   }
 }

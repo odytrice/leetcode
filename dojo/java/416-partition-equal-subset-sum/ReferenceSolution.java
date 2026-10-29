@@ -13,7 +13,7 @@ class ReferenceSolution extends Solution {
         boolean[] reachable = new boolean[target + 1];
         reachable[0] = true;
         for (int value : nums) {
-            for (int subtotal = target; subtotal >= value; subtotal--) {
+            for (int subtotal = target; subtotal >= value; subtotal -= 1) {
                 if (reachable[subtotal - value]) {
                     reachable[subtotal] = true;
                 }

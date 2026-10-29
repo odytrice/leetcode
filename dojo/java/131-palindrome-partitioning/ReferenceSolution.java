@@ -7,8 +7,8 @@ class ReferenceSolution extends Solution {
     public List<List<String>> partition(String s) {
         int size = s.length();
         boolean[][] palindrome = new boolean[size][size];
-        for (int start = size - 1; start >= 0; start--) {
-            for (int end = start; end < size; end++) {
+        for (int start = size - 1; start >= 0; start -= 1) {
+            for (int end = start; end < size; end += 1) {
                 palindrome[start][end] = s.charAt(start) == s.charAt(end)
                         && (end - start < 2 || palindrome[start + 1][end - 1]);
             }
@@ -24,7 +24,7 @@ class ReferenceSolution extends Solution {
             result.add(new ArrayList<>(path));
             return;
         }
-        for (int end = start; end < s.length(); end++) {
+        for (int end = start; end < s.length(); end += 1) {
             if (palindrome[start][end]) {
                 path.add(s.substring(start, end + 1));
                 search(s, palindrome, end + 1, path, result);

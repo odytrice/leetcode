@@ -9,7 +9,7 @@ class ReferenceSolution extends Solution {
         int kept = 0;
         for (int[] interval : intervals) {
             if (interval[0] >= end) {
-                kept++;
+                kept += 1;
                 end = interval[1];
             }
         }

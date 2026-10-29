@@ -5,7 +5,7 @@ export function findMinArrowShots(points: number[][]): number {
   let end = Number.NEGATIVE_INFINITY;
   for (const [start, finish] of sorted) {
     if (start > end) {
-      arrows++;
+      arrows += 1;
       end = finish;
     }
   }

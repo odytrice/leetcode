@@ -8,7 +8,7 @@ class ReferenceSolution extends Solution {
     @Override
     public int networkDelayTime(int[][] times, int n, int k) {
         List<List<int[]>> graph = new ArrayList<>();
-        for (int node = 0; node <= n; node++) {
+        for (int node = 0; node <= n; node += 1) {
             graph.add(new ArrayList<>());
         }
         for (int[] edge : times) {
@@ -37,7 +37,7 @@ class ReferenceSolution extends Solution {
         }
 
         int answer = 0;
-        for (int node = 1; node <= n; node++) {
+        for (int node = 1; node <= n; node += 1) {
             answer = Math.max(answer, distance[node]);
         }
         return answer == Integer.MAX_VALUE ? -1 : answer;

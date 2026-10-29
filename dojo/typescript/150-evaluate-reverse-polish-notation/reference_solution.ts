@@ -5,10 +5,15 @@ export function evalRPN(tokens: string[]): number {
     if (["+", "-", "*", "/"].includes(token)) {
       const right = stack.pop() as number;
       const left = stack.pop() as number;
-      if (token === "+") stack.push(left + right);
-      else if (token === "-") stack.push(left - right);
-      else if (token === "*") stack.push(left * right);
-      else stack.push(Math.trunc(left / right));
+      if (token === "+") {
+        stack.push(left + right);
+      } else if (token === "-") {
+        stack.push(left - right);
+      } else if (token === "*") {
+        stack.push(left * right);
+      } else {
+        stack.push(Math.trunc(left / right));
+      }
     } else {
       stack.push(Number(token));
     }

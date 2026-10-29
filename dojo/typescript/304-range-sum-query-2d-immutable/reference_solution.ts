@@ -9,8 +9,8 @@ export class ReferenceSolution extends NumMatrix {
     const rows = matrix.length;
     const cols = matrix[0].length;
     this.prefix = Array.from({ length: rows + 1 }, () => new Array<number>(cols + 1).fill(0));
-    for (let row = 0; row < rows; row++) {
-      for (let column = 0; column < cols; column++) {
+    for (let row = 0; row < rows; row += 1) {
+      for (let column = 0; column < cols; column += 1) {
         this.prefix[row + 1][column + 1] =
           matrix[row][column] +
           this.prefix[row][column + 1] +

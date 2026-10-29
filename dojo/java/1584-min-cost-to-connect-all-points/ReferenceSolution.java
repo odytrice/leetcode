@@ -10,16 +10,16 @@ class ReferenceSolution extends Solution {
         Arrays.fill(best, Integer.MAX_VALUE);
         best[0] = 0;
         int total = 0;
-        for (int step = 0; step < size; step++) {
+        for (int step = 0; step < size; step += 1) {
             int chosen = -1;
-            for (int node = 0; node < size; node++) {
+            for (int node = 0; node < size; node += 1) {
                 if (!used[node] && (chosen == -1 || best[node] < best[chosen])) {
                     chosen = node;
                 }
             }
             used[chosen] = true;
             total += best[chosen];
-            for (int node = 0; node < size; node++) {
+            for (int node = 0; node < size; node += 1) {
                 if (!used[node]) {
                     int cost = Math.abs(points[chosen][0] - points[node][0])
                             + Math.abs(points[chosen][1] - points[node][1]);

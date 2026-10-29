@@ -5,7 +5,7 @@ export function eraseOverlapIntervals(intervals: number[][]): number {
   let kept = 0;
   for (const [start, finish] of sorted) {
     if (start >= end) {
-      kept++;
+      kept += 1;
       end = finish;
     }
   }

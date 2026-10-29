@@ -5,15 +5,15 @@ class ReferenceSolution extends Solution {
         int left = 0;
         int zeros = 0;
         int best = 0;
-        for (int right = 0; right < nums.length; right++) {
+        for (int right = 0; right < nums.length; right += 1) {
             if (nums[right] == 0) {
-                zeros++;
+                zeros += 1;
             }
             while (zeros > k) {
                 if (nums[left] == 0) {
-                    zeros--;
+                    zeros -= 1;
                 }
-                left++;
+                left += 1;
             }
             best = Math.max(best, right - left + 1);
         }

@@ -16,7 +16,7 @@ class ReferenceSolution extends Solution {
             }
             int length = 1;
             while (values.contains(value + length)) {
-                length++;
+                length += 1;
             }
             best = Math.max(best, length);
         }

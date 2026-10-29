@@ -5,7 +5,7 @@ export function buildTree(preorder: number[], inorder: number[]): TreeNode {
   const root = new TreeNode(preorder[0]);
   const stack: TreeNode[] = [root];
   let index = 0;
-  for (let position = 1; position < preorder.length; position++) {
+  for (let position = 1; position < preorder.length; position += 1) {
     let parent = stack[stack.length - 1];
     const node = new TreeNode(preorder[position]);
     if (parent.val !== inorder[index]) {
@@ -13,7 +13,7 @@ export function buildTree(preorder: number[], inorder: number[]): TreeNode {
     } else {
       while (stack.length > 0 && stack[stack.length - 1].val === inorder[index]) {
         parent = stack.pop() as TreeNode;
-        index++;
+        index += 1;
       }
       parent.right = node;
     }

@@ -5,8 +5,11 @@ export function maxArea(height: number[]): number {
   let best = 0;
   while (left < right) {
     best = Math.max(best, (right - left) * Math.min(height[left], height[right]));
-    if (height[left] <= height[right]) left++;
-    else right--;
+    if (height[left] <= height[right]) {
+      left += 1;
+    } else {
+      right -= 1;
+    }
   }
   return best;
 }

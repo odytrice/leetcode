@@ -8,7 +8,7 @@ class ReferenceSolution extends Solution {
         Map<Integer, Integer> first = new HashMap<>();
         first.put(0, -1);
         int total = 0;
-        for (int index = 0; index < nums.length; index++) {
+        for (int index = 0; index < nums.length; index += 1) {
             total += nums[index];
             int remainder = total % k;
             Integer start = first.get(remainder);

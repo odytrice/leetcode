@@ -7,7 +7,7 @@ class ReferenceSolution extends Solution {
         int[] distance = new int[n];
         Arrays.fill(distance, Integer.MAX_VALUE);
         distance[src] = 0;
-        for (int round = 0; round <= k; round++) {
+        for (int round = 0; round <= k; round += 1) {
             int[] following = distance.clone();
             for (int[] flight : flights) {
                 if (distance[flight[0]] != Integer.MAX_VALUE) {

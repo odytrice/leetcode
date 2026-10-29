@@ -4,7 +4,7 @@ class ReferenceSolution extends Solution {
     public int numDecodings(String s) {
         int previous = 1;
         int current = s.charAt(0) == '0' ? 0 : 1;
-        for (int index = 1; index < s.length(); index++) {
+        for (int index = 1; index < s.length(); index += 1) {
             int following = s.charAt(index) == '0' ? 0 : current;
             int pair = (s.charAt(index - 1) - '0') * 10 + (s.charAt(index) - '0');
             if (pair >= 10 && pair <= 26) {

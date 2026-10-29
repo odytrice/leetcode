@@ -6,8 +6,8 @@ class ReferenceSolution extends Solution {
     @Override
     public boolean isValidSudoku(char[][] board) {
         Set<String> seen = new HashSet<>();
-        for (int row = 0; row < 9; row++) {
-            for (int column = 0; column < 9; column++) {
+        for (int row = 0; row < 9; row += 1) {
+            for (int column = 0; column < 9; column += 1) {
                 char digit = board[row][column];
                 if (digit == '.') {
                     continue;

@@ -4,7 +4,8 @@ public class ReferenceSolution
     public int SubarraySum(int[] nums, int k)
     {
         var counts = new Dictionary<int, int> { [0] = 1 };
-        int sum = 0, answer = 0;
+        int sum = 0;
+        int answer = 0;
         foreach (int n in nums)
         {
             sum += n;

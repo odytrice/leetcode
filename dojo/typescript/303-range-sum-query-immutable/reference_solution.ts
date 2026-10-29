@@ -7,7 +7,9 @@ export class ReferenceSolution extends NumArray {
   constructor(nums: number[]) {
     super(nums);
     this.prefix = [0];
-    for (const value of nums) this.prefix.push(this.prefix[this.prefix.length - 1] + value);
+    for (const value of nums) {
+      this.prefix.push(this.prefix[this.prefix.length - 1] + value);
+    }
   }
 
   override sumRange(left: number, right: number): number {

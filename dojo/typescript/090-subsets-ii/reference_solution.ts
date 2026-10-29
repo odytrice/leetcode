@@ -6,8 +6,10 @@ export function subsetsWithDup(nums: number[]): number[][] {
 
   const search = (start: number): void => {
     result.push([...path]);
-    for (let index = start; index < values.length; index++) {
-      if (index > start && values[index] === values[index - 1]) continue;
+    for (let index = start; index < values.length; index += 1) {
+      if (index > start && values[index] === values[index - 1]) {
+        continue;
+      }
       path.push(values[index]);
       search(index + 1);
       path.pop();

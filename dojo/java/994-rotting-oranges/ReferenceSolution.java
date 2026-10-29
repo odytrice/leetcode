@@ -11,10 +11,10 @@ class ReferenceSolution extends Solution {
         int columns = grid[0].length;
         int fresh = 0;
         Deque<int[]> queue = new ArrayDeque<>();
-        for (int row = 0; row < rows; row++) {
-            for (int column = 0; column < columns; column++) {
+        for (int row = 0; row < rows; row += 1) {
+            for (int column = 0; column < columns; column += 1) {
                 if (grid[row][column] == 1) {
-                    fresh++;
+                    fresh += 1;
                 } else if (grid[row][column] == 2) {
                     queue.add(new int[] {row, column});
                 }
@@ -25,10 +25,10 @@ class ReferenceSolution extends Solution {
         int[] columnStep = {0, 0, -1, 1};
         int minutes = 0;
         while (fresh > 0 && !queue.isEmpty()) {
-            minutes++;
+            minutes += 1;
             List<int[]> nextQueue = new ArrayList<>();
             for (int[] cell : queue) {
-                for (int step = 0; step < 4; step++) {
+                for (int step = 0; step < 4; step += 1) {
                     int nextRow = cell[0] + rowStep[step];
                     int nextColumn = cell[1] + columnStep[step];
                     if (nextRow < 0 || nextColumn < 0 || nextRow >= rows || nextColumn >= columns
@@ -36,7 +36,7 @@ class ReferenceSolution extends Solution {
                         continue;
                     }
                     grid[nextRow][nextColumn] = 2;
-                    fresh--;
+                    fresh -= 1;
                     nextQueue.add(new int[] {nextRow, nextColumn});
                 }
             }

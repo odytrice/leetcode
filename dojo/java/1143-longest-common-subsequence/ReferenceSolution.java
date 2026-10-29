@@ -5,7 +5,7 @@ class ReferenceSolution extends Solution {
         int[] dp = new int[text2.length() + 1];
         for (char first : text1.toCharArray()) {
             int diagonal = 0;
-            for (int column = 1; column <= text2.length(); column++) {
+            for (int column = 1; column <= text2.length(); column += 1) {
                 int previous = dp[column];
                 dp[column] = first == text2.charAt(column - 1)
                         ? diagonal + 1

@@ -2,7 +2,7 @@
 export function dailyTemperatures(temperatures: number[]): number[] {
   const answer = new Array<number>(temperatures.length).fill(0);
   const waiting: number[] = [];
-  for (let today = 0; today < temperatures.length; today++) {
+  for (let today = 0; today < temperatures.length; today += 1) {
     while (waiting.length > 0 && temperatures[waiting[waiting.length - 1]] < temperatures[today]) {
       const earlier = waiting.pop() as number;
       answer[earlier] = today - earlier;

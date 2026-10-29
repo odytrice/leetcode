@@ -7,8 +7,8 @@ class ReferenceSolution extends NumMatrix {
         int rows = matrix.length;
         int cols = matrix[0].length;
         prefix = new long[rows + 1][cols + 1];
-        for (int row = 0; row < rows; row++) {
-            for (int column = 0; column < cols; column++) {
+        for (int row = 0; row < rows; row += 1) {
+            for (int column = 0; column < cols; column += 1) {
                 prefix[row + 1][column + 1] = matrix[row][column]
                         + prefix[row][column + 1]
                         + prefix[row + 1][column]

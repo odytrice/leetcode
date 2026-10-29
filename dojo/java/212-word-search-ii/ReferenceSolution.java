@@ -30,8 +30,8 @@ class ReferenceSolution extends Solution {
         rows = board.length;
         columns = board[0].length;
         result = new ArrayList<>();
-        for (int row = 0; row < rows; row++) {
-            for (int column = 0; column < columns; column++) {
+        for (int row = 0; row < rows; row += 1) {
+            for (int column = 0; column < columns; column += 1) {
                 search(row, column, root);
             }
         }

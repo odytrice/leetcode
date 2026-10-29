@@ -10,8 +10,10 @@ export function kthSmallest(root: TreeNode, k: number): number {
       node = node.left;
     }
     const current = stack.pop() as TreeNode;
-    k--;
-    if (k === 0) return current.val;
+    k -= 1;
+    if (k === 0) {
+      return current.val;
+    }
     node = current.right;
   }
   throw new Error("k is out of range");

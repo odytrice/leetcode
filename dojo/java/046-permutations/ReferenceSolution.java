@@ -10,7 +10,7 @@ class ReferenceSolution extends Solution {
         for (int value : nums) {
             List<List<Integer>> next = new ArrayList<>();
             for (List<Integer> permutation : result) {
-                for (int position = 0; position <= permutation.size(); position++) {
+                for (int position = 0; position <= permutation.size(); position += 1) {
                     List<Integer> copy = new ArrayList<>(permutation);
                     copy.add(position, value);
                     next.add(copy);

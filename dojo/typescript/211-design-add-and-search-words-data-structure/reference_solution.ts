@@ -23,11 +23,15 @@ export class ReferenceSolution extends WordDictionary {
   }
 
   private match(node: Node, word: string, index: number): boolean {
-    if (index === word.length) return node.endsWord;
+    if (index === word.length) {
+      return node.endsWord;
+    }
     const char = word[index];
     if (char === ".") {
       for (const child of node.children.values()) {
-        if (this.match(child, word, index + 1)) return true;
+        if (this.match(child, word, index + 1)) {
+          return true;
+        }
       }
       return false;
     }

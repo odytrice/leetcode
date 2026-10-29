@@ -19,8 +19,8 @@ class ReferenceSolution extends Solution {
         Set<Integer> pacific = reach(true);
         Set<Integer> atlantic = reach(false);
         List<List<Integer>> result = new ArrayList<>();
-        for (int row = 0; row < rows; row++) {
-            for (int column = 0; column < columns; column++) {
+        for (int row = 0; row < rows; row += 1) {
+            for (int column = 0; column < columns; column += 1) {
                 int key = row * columns + column;
                 if (pacific.contains(key) && atlantic.contains(key)) {
                     result.add(List.of(row, column));
@@ -33,10 +33,10 @@ class ReferenceSolution extends Solution {
     private Set<Integer> reach(boolean pacific) {
         Set<Integer> seen = new HashSet<>();
         Deque<int[]> stack = new ArrayDeque<>();
-        for (int row = 0; row < rows; row++) {
+        for (int row = 0; row < rows; row += 1) {
             stack.push(new int[] {row, pacific ? 0 : columns - 1});
         }
-        for (int column = 0; column < columns; column++) {
+        for (int column = 0; column < columns; column += 1) {
             stack.push(new int[] {pacific ? 0 : rows - 1, column});
         }
         for (int[] cell : stack) {
@@ -46,7 +46,7 @@ class ReferenceSolution extends Solution {
         int[] columnStep = {0, 0, -1, 1};
         while (!stack.isEmpty()) {
             int[] cell = stack.pop();
-            for (int step = 0; step < 4; step++) {
+            for (int step = 0; step < 4; step += 1) {
                 int nextRow = cell[0] + rowStep[step];
                 int nextColumn = cell[1] + columnStep[step];
                 if (nextRow < 0 || nextColumn < 0 || nextRow >= rows || nextColumn >= columns) {

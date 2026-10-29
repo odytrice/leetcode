@@ -6,12 +6,12 @@ class ReferenceSolution extends Solution {
     public int findCircleNum(int[][] isConnected) {
         int count = isConnected.length;
         parent = new int[count];
-        for (int node = 0; node < count; node++) {
+        for (int node = 0; node < count; node += 1) {
             parent[node] = node;
         }
         int components = count;
-        for (int first = 0; first < count; first++) {
-            for (int second = first + 1; second < count; second++) {
+        for (int first = 0; first < count; first += 1) {
+            for (int second = first + 1; second < count; second += 1) {
                 if (isConnected[first][second] != 1) {
                     continue;
                 }
@@ -19,7 +19,7 @@ class ReferenceSolution extends Solution {
                 int rootSecond = find(second);
                 if (rootFirst != rootSecond) {
                     parent[rootFirst] = rootSecond;
-                    components--;
+                    components -= 1;
                 }
             }
         }

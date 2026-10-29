@@ -8,14 +8,18 @@ class ReferenceSolution extends Solution {
         while (index <= high) {
             if (nums[index] == 0) {
                 int swap = nums[low];
-                nums[low++] = nums[index];
-                nums[index++] = swap;
+                nums[low] = nums[index];
+                nums[index] = swap;
+                low += 1;
+                index += 1;
             } else if (nums[index] == 2) {
                 int swap = nums[high];
-                nums[high--] = nums[index];
+                nums[high] = nums[index];
                 nums[index] = swap;
+                // The swapped-in value is unchecked, so index stays put.
+                high -= 1;
             } else {
-                index++;
+                index += 1;
             }
         }
     }

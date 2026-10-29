@@ -18,7 +18,7 @@ class ReferenceSolution extends Solution {
             result.add(new ArrayList<>(path));
             return;
         }
-        for (int index = start; index < values.length; index++) {
+        for (int index = start; index < values.length; index += 1) {
             if (values[index] > remaining) {
                 break;
             }

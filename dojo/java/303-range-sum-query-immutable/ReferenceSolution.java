@@ -5,7 +5,7 @@ class ReferenceSolution extends NumArray {
     ReferenceSolution(int[] nums) {
         super(nums);
         prefix = new int[nums.length + 1];
-        for (int index = 0; index < nums.length; index++) {
+        for (int index = 0; index < nums.length; index += 1) {
             prefix[index + 1] = prefix[index] + nums[index];
         }
     }

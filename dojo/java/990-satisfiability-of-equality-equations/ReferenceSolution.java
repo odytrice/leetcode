@@ -4,7 +4,7 @@ class ReferenceSolution extends Solution {
 
     @Override
     public boolean equationsPossible(String[] equations) {
-        for (int letter = 0; letter < 26; letter++) {
+        for (int letter = 0; letter < 26; letter += 1) {
             parent[letter] = letter;
         }
         for (String equation : equations) {

@@ -15,7 +15,7 @@ class ReferenceSolution extends Solution {
 
     private void search(int[] values, int start, List<Integer> path, List<List<Integer>> result) {
         result.add(new ArrayList<>(path));
-        for (int index = start; index < values.length; index++) {
+        for (int index = start; index < values.length; index += 1) {
             if (index > start && values[index] == values[index - 1]) {
                 continue;
             }

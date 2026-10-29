@@ -9,8 +9,10 @@ export function combinationSum(candidates: number[], target: number): number[][]
       result.push([...path]);
       return;
     }
-    for (let index = start; index < values.length; index++) {
-      if (values[index] > remaining) break;
+    for (let index = start; index < values.length; index += 1) {
+      if (values[index] > remaining) {
+        break;
+      }
       path.push(values[index]);
       search(index, remaining - values[index]);
       path.pop();

@@ -14,7 +14,7 @@ class ReferenceSolution extends Solution {
             int load = 0;
             for (int weight : weights) {
                 if (load + weight > capacity) {
-                    used++;
+                    used += 1;
                     load = 0;
                 }
                 load += weight;

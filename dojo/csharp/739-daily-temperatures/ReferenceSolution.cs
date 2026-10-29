@@ -4,12 +4,14 @@ public class ReferenceSolution
     public int[] DailyTemperatures(int[] temperatures)
     {
         var result = new int[temperatures.Length];
+        // Indices still waiting for a warmer day, coldest on top.
         var stack = new Stack<int>();
-        for (int i = 0; i < temperatures.Length; i++)
+        for (int i = 0; i < temperatures.Length; i += 1)
         {
             while (stack.Count > 0 && temperatures[stack.Peek()] < temperatures[i])
             {
-                int previous = stack.Pop(); result[previous] = i - previous;
+                int previous = stack.Pop();
+                result[previous] = i - previous;
             }
             stack.Push(i);
         }

@@ -7,7 +7,9 @@ export function lastStoneWeight(stones: number[]): number {
     if (first !== second) {
       const rest = first - second;
       let index = heap.length;
-      while (index > 0 && heap[index - 1] > rest) index--;
+      while (index > 0 && heap[index - 1] > rest) {
+        index -= 1;
+      }
       heap.splice(index, 0, rest);
     }
   }

@@ -13,7 +13,8 @@ class ReferenceSolution extends Solution {
                 node = node.left;
             }
             node = stack.pop();
-            if (--k == 0) {
+            k -= 1;
+            if (k == 0) {
                 return node.val;
             }
             node = node.right;

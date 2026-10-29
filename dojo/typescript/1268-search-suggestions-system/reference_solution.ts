@@ -2,18 +2,23 @@
 export function suggestedProducts(products: string[], searchWord: string): string[][] {
   const ordered = [...products].sort();
   const result: string[][] = [];
-  for (let length = 1; length <= searchWord.length; length++) {
+  for (let length = 1; length <= searchWord.length; length += 1) {
     const prefix = searchWord.slice(0, length);
     let low = 0;
     let high = ordered.length;
     while (low < high) {
       const middle = (low + high) >> 1;
-      if (ordered[middle] < prefix) low = middle + 1;
-      else high = middle;
+      if (ordered[middle] < prefix) {
+        low = middle + 1;
+      } else {
+        high = middle;
+      }
     }
     const suggestions: string[] = [];
-    for (let index = low; index < ordered.length && suggestions.length < 3; index++) {
-      if (!ordered[index].startsWith(prefix)) break;
+    for (let index = low; index < ordered.length && suggestions.length < 3; index += 1) {
+      if (!ordered[index].startsWith(prefix)) {
+        break;
+      }
       suggestions.push(ordered[index]);
     }
     result.push(suggestions);

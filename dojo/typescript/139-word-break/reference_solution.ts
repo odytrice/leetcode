@@ -4,8 +4,8 @@ export function wordBreak(s: string, wordDict: string[]): boolean {
   const longest = wordDict.reduce((best, word) => Math.max(best, word.length), 0);
   const dp = new Array<boolean>(s.length + 1).fill(false);
   dp[0] = true;
-  for (let end = 1; end <= s.length; end++) {
-    for (let start = Math.max(0, end - longest); start < end; start++) {
+  for (let end = 1; end <= s.length; end += 1) {
+    for (let start = Math.max(0, end - longest); start < end; start += 1) {
       if (dp[start] && words.has(s.slice(start, end))) {
         dp[end] = true;
         break;

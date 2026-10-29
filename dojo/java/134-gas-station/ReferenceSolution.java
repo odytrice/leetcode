@@ -5,7 +5,7 @@ class ReferenceSolution extends Solution {
         int total = 0;
         int tank = 0;
         int start = 0;
-        for (int index = 0; index < gas.length; index++) {
+        for (int index = 0; index < gas.length; index += 1) {
             int difference = gas[index] - cost[index];
             total += difference;
             tank += difference;

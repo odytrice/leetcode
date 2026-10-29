@@ -13,7 +13,9 @@ export function findRedundantConnection(edges: number[][]): number[] {
   for (const [first, second] of edges) {
     const rootFirst = find(first);
     const rootSecond = find(second);
-    if (rootFirst === rootSecond) return [first, second];
+    if (rootFirst === rootSecond) {
+      return [first, second];
+    }
     parent[rootFirst] = rootSecond;
   }
   throw new Error("No redundant edge");

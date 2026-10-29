@@ -8,7 +8,7 @@ class ReferenceSolution extends Solution {
     public List<List<Integer>> threeSum(int[] nums) {
         Arrays.sort(nums);
         List<List<Integer>> result = new ArrayList<>();
-        for (int first = 0; first < nums.length - 2; first++) {
+        for (int first = 0; first < nums.length - 2; first += 1) {
             if (first > 0 && nums[first] == nums[first - 1]) {
                 continue;
             }
@@ -17,18 +17,18 @@ class ReferenceSolution extends Solution {
             while (left < right) {
                 int total = nums[first] + nums[left] + nums[right];
                 if (total < 0) {
-                    left++;
+                    left += 1;
                 } else if (total > 0) {
-                    right--;
+                    right -= 1;
                 } else {
                     result.add(List.of(nums[first], nums[left], nums[right]));
                     int leftValue = nums[left];
                     int rightValue = nums[right];
                     while (left < right && nums[left] == leftValue) {
-                        left++;
+                        left += 1;
                     }
                     while (left < right && nums[right] == rightValue) {
-                        right--;
+                        right -= 1;
                     }
                 }
             }

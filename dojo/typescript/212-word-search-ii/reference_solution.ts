@@ -24,10 +24,14 @@ export function findWords(board: string[][], words: string[]): string[] {
   const result: string[] = [];
 
   const search = (row: number, column: number, node: Node): void => {
-    if (row < 0 || column < 0 || row >= rows || column >= columns) return;
+    if (row < 0 || column < 0 || row >= rows || column >= columns) {
+      return;
+    }
     const char = board[row][column];
     const child = node.children.get(char);
-    if (child === undefined) return;
+    if (child === undefined) {
+      return;
+    }
     if (child.word !== undefined) {
       result.push(child.word);
       child.word = undefined;
@@ -40,8 +44,10 @@ export function findWords(board: string[][], words: string[]): string[] {
     board[row][column] = char;
   };
 
-  for (let row = 0; row < rows; row++) {
-    for (let column = 0; column < columns; column++) search(row, column, root);
+  for (let row = 0; row < rows; row += 1) {
+    for (let column = 0; column < columns; column += 1) {
+      search(row, column, root);
+    }
   }
   return result;
 }

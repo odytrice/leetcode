@@ -13,8 +13,8 @@ class ReferenceSolution extends Solution {
         }
         boolean[] dp = new boolean[s.length() + 1];
         dp[0] = true;
-        for (int end = 1; end <= s.length(); end++) {
-            for (int start = Math.max(0, end - longest); start < end; start++) {
+        for (int end = 1; end <= s.length(); end += 1) {
+            for (int start = Math.max(0, end - longest); start < end; start += 1) {
                 if (dp[start] && words.contains(s.substring(start, end))) {
                     dp[end] = true;
                     break;
