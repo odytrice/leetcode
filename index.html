@@ -744,6 +744,37 @@ footer { padding: 0 20px 44px; text-align: center; font-size: 13.5px; color: #4b
   .figure[data-anim] { min-width: 0; }
   a { color: inherit; }
 }
+/* NeetCode video link: a small play glyph beside the problem number. Kept out of the
+   practice-pill and heading link styles, which would otherwise restyle the icon. */
+.example h3 a.yt,
+.practice a.yt {
+  display: inline-flex;
+  flex: 0 0 auto;
+  align-items: center;
+  justify-content: center;
+  width: 16px;
+  height: 16px;
+  padding: 0;
+  gap: 0;
+  background: none;
+  border: 0;
+  border-radius: 0;
+  box-shadow: none;
+  color: #cc2b26;
+  text-decoration: none;
+  opacity: 0.7;
+  vertical-align: -3px;
+  transition: opacity 0.15s ease, transform 0.15s ease;
+}
+.example h3 a.yt svg,
+.practice a.yt svg { display: block; flex: 0 0 auto; width: 100%; height: 100%; }
+.example h3 a.yt:hover,
+.practice a.yt:hover { color: #c4302b; opacity: 1; transform: translateY(-1px) scale(1.08); }
+.example h3 a.yt:focus-visible,
+.practice a.yt:focus-visible { outline: 2px solid currentColor; outline-offset: 2px; border-radius: 3px; }
+.example h3 a.yt { margin-left: -6px; }
+.practice li { display: flex; align-items: center; gap: 3px; }
+.practice li a.yt { margin: 0 0 0 -2px; }
 </style>
 </head>
 <body>
@@ -955,7 +986,7 @@ stop
         </ul></div>
       </div>
       <article class="example">
-        <h3><a href="https://leetcode.com/problems/two-sum/">Two Sum</a><span class="lc">#1</span><span class="diff easy">Easy</span></h3>
+        <h3><a href="https://leetcode.com/problems/two-sum/">Two Sum</a><span class="lc">#1</span><a class="yt" href="https://www.youtube.com/watch?v=KLlXCFG5TnA" target="_blank" rel="noopener noreferrer" aria-label="Watch the NeetCode video for Two Sum" title="NeetCode: Two Sum - Leetcode 1 - HashMap - Python"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M21.6 7.2a2.8 2.8 0 0 0-2-2C17.9 4.8 12 4.8 12 4.8s-5.9 0-7.6.4a2.8 2.8 0 0 0-2 2A29 29 0 0 0 2 12a29 29 0 0 0 .4 4.8 2.8 2.8 0 0 0 2 2c1.7.4 7.6.4 7.6.4s5.9 0 7.6-.4a2.8 2.8 0 0 0 2-2A29 29 0 0 0 22 12a29 29 0 0 0-.4-4.8z"/><path fill="#fff" d="M10 15.5v-7l6 3.5z"/></svg></a><span class="diff easy">Easy</span></h3>
         <p class="task">Return the indices of the two numbers that add up to <code>target</code>.</p>
         <pre class="code" data-snippet="hash-two-sum" data-lang="ts"><code><span class="tk">function</span> <span class="tf">twoSum</span>(nums: <span class="tk">number</span>[], target: <span class="tk">number</span>): <span class="tk">number</span>[] {
   <span class="tk">const</span> seen = <span class="tk">new</span> <span class="tt">Map</span>&lt;<span class="tk">number</span>, <span class="tk">number</span>&gt;();  <span class="tc">// value -&gt; index</span>
@@ -1063,7 +1094,7 @@ stop
         <p class="cx"><b>Time</b> O(n) · <b>Space</b> O(n)</p>
       </article>
       <article class="example">
-        <h3><a href="https://leetcode.com/problems/group-anagrams/">Group Anagrams</a><span class="lc">#49</span><span class="diff medium">Medium</span></h3>
+        <h3><a href="https://leetcode.com/problems/group-anagrams/">Group Anagrams</a><span class="lc">#49</span><a class="yt" href="https://www.youtube.com/watch?v=vzdNOK2oB2E" target="_blank" rel="noopener noreferrer" aria-label="Watch the NeetCode video for Group Anagrams" title="NeetCode: Group Anagrams - Categorize Strings by Count - Leetcode 49"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M21.6 7.2a2.8 2.8 0 0 0-2-2C17.9 4.8 12 4.8 12 4.8s-5.9 0-7.6.4a2.8 2.8 0 0 0-2 2A29 29 0 0 0 2 12a29 29 0 0 0 .4 4.8 2.8 2.8 0 0 0 2 2c1.7.4 7.6.4 7.6.4s5.9 0 7.6-.4a2.8 2.8 0 0 0 2-2A29 29 0 0 0 22 12a29 29 0 0 0-.4-4.8z"/><path fill="#fff" d="M10 15.5v-7l6 3.5z"/></svg></a><span class="diff medium">Medium</span></h3>
         <p class="task">Group the words that are anagrams of each other.</p>
         <pre class="code" data-snippet="hash-group-anagrams" data-lang="ts"><code><span class="tk">function</span> <span class="tf">groupAnagrams</span>(strs: <span class="tk">string</span>[]): <span class="tk">string</span>[][] {
   <span class="tk">const</span> groups = <span class="tk">new</span> <span class="tt">Map</span>&lt;<span class="tk">string</span>, <span class="tk">string</span>[]&gt;();
@@ -1179,9 +1210,9 @@ stop
         <p class="cx"><b>Time</b> O(n · k log k) for n words of length k · <b>Space</b> O(n · k)</p>
       </article>
       <div class="practice"><h3>Practice next</h3><ul>
-        <li><a href="https://leetcode.com/problems/longest-consecutive-sequence/">Longest Consecutive Sequence <span class="lc">#128</span></a></li>
-        <li><a href="https://leetcode.com/problems/valid-sudoku/">Valid Sudoku <span class="lc">#36</span></a></li>
-        <li><a href="https://leetcode.com/problems/insert-delete-getrandom-o1/">Insert Delete GetRandom O(1) <span class="lc">#380</span></a></li>
+        <li><a href="https://leetcode.com/problems/longest-consecutive-sequence/">Longest Consecutive Sequence <span class="lc">#128</span></a><a class="yt" href="https://www.youtube.com/watch?v=P6RZZMu_maU" target="_blank" rel="noopener noreferrer" aria-label="Watch the NeetCode video for Longest Consecutive Sequence" title="NeetCode: Leetcode 128 - LONGEST CONSECUTIVE SEQUENCE"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M21.6 7.2a2.8 2.8 0 0 0-2-2C17.9 4.8 12 4.8 12 4.8s-5.9 0-7.6.4a2.8 2.8 0 0 0-2 2A29 29 0 0 0 2 12a29 29 0 0 0 .4 4.8 2.8 2.8 0 0 0 2 2c1.7.4 7.6.4 7.6.4s5.9 0 7.6-.4a2.8 2.8 0 0 0 2-2A29 29 0 0 0 22 12a29 29 0 0 0-.4-4.8z"/><path fill="#fff" d="M10 15.5v-7l6 3.5z"/></svg></a></li>
+        <li><a href="https://leetcode.com/problems/valid-sudoku/">Valid Sudoku <span class="lc">#36</span></a><a class="yt" href="https://www.youtube.com/watch?v=TjFXEUCMqI8" target="_blank" rel="noopener noreferrer" aria-label="Watch the NeetCode video for Valid Sudoku" title="NeetCode: Valid Sudoku - Amazon Interview Question - Leetcode 36 - Python"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M21.6 7.2a2.8 2.8 0 0 0-2-2C17.9 4.8 12 4.8 12 4.8s-5.9 0-7.6.4a2.8 2.8 0 0 0-2 2A29 29 0 0 0 2 12a29 29 0 0 0 .4 4.8 2.8 2.8 0 0 0 2 2c1.7.4 7.6.4 7.6.4s5.9 0 7.6-.4a2.8 2.8 0 0 0 2-2A29 29 0 0 0 22 12a29 29 0 0 0-.4-4.8z"/><path fill="#fff" d="M10 15.5v-7l6 3.5z"/></svg></a></li>
+        <li><a href="https://leetcode.com/problems/insert-delete-getrandom-o1/">Insert Delete GetRandom O(1) <span class="lc">#380</span></a><a class="yt" href="https://www.youtube.com/watch?v=j4KwhBziOpg" target="_blank" rel="noopener noreferrer" aria-label="Watch the NeetCode video for Insert Delete GetRandom O(1)" title="NeetCode: Insert Delete GetRandom O(1) - Leetcode 380 - Python"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M21.6 7.2a2.8 2.8 0 0 0-2-2C17.9 4.8 12 4.8 12 4.8s-5.9 0-7.6.4a2.8 2.8 0 0 0-2 2A29 29 0 0 0 2 12a29 29 0 0 0 .4 4.8 2.8 2.8 0 0 0 2 2c1.7.4 7.6.4 7.6.4s5.9 0 7.6-.4a2.8 2.8 0 0 0 2-2A29 29 0 0 0 22 12a29 29 0 0 0-.4-4.8z"/><path fill="#fff" d="M10 15.5v-7l6 3.5z"/></svg></a></li>
       </ul></div>
     </section>
 
@@ -1239,7 +1270,7 @@ stop
         </ul></div>
       </div>
       <article class="example">
-        <h3><a href="https://leetcode.com/problems/two-sum-ii-input-array-is-sorted/">Two Sum II: Input Array Is Sorted</a><span class="lc">#167</span><span class="diff medium">Medium</span></h3>
+        <h3><a href="https://leetcode.com/problems/two-sum-ii-input-array-is-sorted/">Two Sum II: Input Array Is Sorted</a><span class="lc">#167</span><a class="yt" href="https://www.youtube.com/watch?v=cQ1Oz4ckceM" target="_blank" rel="noopener noreferrer" aria-label="Watch the NeetCode video for Two Sum II: Input Array Is Sorted" title="NeetCode: TWO SUM II - Amazon Coding Interview Question - Leetcode 167 - Python"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M21.6 7.2a2.8 2.8 0 0 0-2-2C17.9 4.8 12 4.8 12 4.8s-5.9 0-7.6.4a2.8 2.8 0 0 0-2 2A29 29 0 0 0 2 12a29 29 0 0 0 .4 4.8 2.8 2.8 0 0 0 2 2c1.7.4 7.6.4 7.6.4s5.9 0 7.6-.4a2.8 2.8 0 0 0 2-2A29 29 0 0 0 22 12a29 29 0 0 0-.4-4.8z"/><path fill="#fff" d="M10 15.5v-7l6 3.5z"/></svg></a><span class="diff medium">Medium</span></h3>
         <p class="task">The array is sorted and 1-indexed. Return the two positions that add up to <code>target</code> using O(1) extra space.</p>
         <pre class="code" data-snippet="tp-two-sum-ii" data-lang="ts"><code><span class="tk">function</span> <span class="tf">twoSum</span>(numbers: <span class="tk">number</span>[], target: <span class="tk">number</span>): <span class="tk">number</span>[] {
   <span class="tk">let</span> left = <span class="tn">0</span>, right = numbers.length - <span class="tn">1</span>;
@@ -1364,7 +1395,7 @@ stop
         <p class="cx"><b>Time</b> O(n) · <b>Space</b> O(1)</p>
       </article>
       <article class="example">
-        <h3><a href="https://leetcode.com/problems/3sum/">3Sum</a><span class="lc">#15</span><span class="diff medium">Medium</span></h3>
+        <h3><a href="https://leetcode.com/problems/3sum/">3Sum</a><span class="lc">#15</span><a class="yt" href="https://www.youtube.com/watch?v=jzZsG8n2R9A" target="_blank" rel="noopener noreferrer" aria-label="Watch the NeetCode video for 3Sum" title="NeetCode: 3Sum - Leetcode 15 - Python"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M21.6 7.2a2.8 2.8 0 0 0-2-2C17.9 4.8 12 4.8 12 4.8s-5.9 0-7.6.4a2.8 2.8 0 0 0-2 2A29 29 0 0 0 2 12a29 29 0 0 0 .4 4.8 2.8 2.8 0 0 0 2 2c1.7.4 7.6.4 7.6.4s5.9 0 7.6-.4a2.8 2.8 0 0 0 2-2A29 29 0 0 0 22 12a29 29 0 0 0-.4-4.8z"/><path fill="#fff" d="M10 15.5v-7l6 3.5z"/></svg></a><span class="diff medium">Medium</span></h3>
         <p class="task">Return every unique triplet that sums to zero. Fix one number, then run Two Sum II on the rest.</p>
         <pre class="code" data-snippet="tp-three-sum" data-lang="ts"><code><span class="tk">function</span> <span class="tf">threeSum</span>(nums: <span class="tk">number</span>[]): <span class="tk">number</span>[][] {
   nums.<span class="tf">sort</span>((a, b) =&gt; a - b);  <span class="tc">// as numbers, not as text</span>
@@ -1580,8 +1611,8 @@ stop
         <p class="cx"><b>Time</b> O(n²) · <b>Space</b> O(1) beyond the output</p>
       </article>
       <div class="practice"><h3>Practice next</h3><ul>
-        <li><a href="https://leetcode.com/problems/container-with-most-water/">Container With Most Water <span class="lc">#11</span></a></li>
-        <li><a href="https://leetcode.com/problems/sort-colors/">Sort Colors <span class="lc">#75</span></a></li>
+        <li><a href="https://leetcode.com/problems/container-with-most-water/">Container With Most Water <span class="lc">#11</span></a><a class="yt" href="https://www.youtube.com/watch?v=UuiTKBwPgAo" target="_blank" rel="noopener noreferrer" aria-label="Watch the NeetCode video for Container With Most Water" title="NeetCode: Container with Most Water - Leetcode 11 - Python"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M21.6 7.2a2.8 2.8 0 0 0-2-2C17.9 4.8 12 4.8 12 4.8s-5.9 0-7.6.4a2.8 2.8 0 0 0-2 2A29 29 0 0 0 2 12a29 29 0 0 0 .4 4.8 2.8 2.8 0 0 0 2 2c1.7.4 7.6.4 7.6.4s5.9 0 7.6-.4a2.8 2.8 0 0 0 2-2A29 29 0 0 0 22 12a29 29 0 0 0-.4-4.8z"/><path fill="#fff" d="M10 15.5v-7l6 3.5z"/></svg></a></li>
+        <li><a href="https://leetcode.com/problems/sort-colors/">Sort Colors <span class="lc">#75</span></a><a class="yt" href="https://www.youtube.com/watch?v=4xbWSRZHqac" target="_blank" rel="noopener noreferrer" aria-label="Watch the NeetCode video for Sort Colors" title="NeetCode: Sort Colors - Quicksort Partition - Leetcode 75 - Python"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M21.6 7.2a2.8 2.8 0 0 0-2-2C17.9 4.8 12 4.8 12 4.8s-5.9 0-7.6.4a2.8 2.8 0 0 0-2 2A29 29 0 0 0 2 12a29 29 0 0 0 .4 4.8 2.8 2.8 0 0 0 2 2c1.7.4 7.6.4 7.6.4s5.9 0 7.6-.4a2.8 2.8 0 0 0 2-2A29 29 0 0 0 22 12a29 29 0 0 0-.4-4.8z"/><path fill="#fff" d="M10 15.5v-7l6 3.5z"/></svg></a></li>
         <li><a href="https://leetcode.com/problems/3sum-closest/">3Sum Closest <span class="lc">#16</span></a></li>
       </ul></div>
     </section>
@@ -1648,7 +1679,7 @@ stop
         </ul></div>
       </div>
       <article class="example">
-        <h3><a href="https://leetcode.com/problems/longest-substring-without-repeating-characters/">Longest Substring Without Repeating Characters</a><span class="lc">#3</span><span class="diff medium">Medium</span><span class="dojo">dojo 03</span></h3>
+        <h3><a href="https://leetcode.com/problems/longest-substring-without-repeating-characters/">Longest Substring Without Repeating Characters</a><span class="lc">#3</span><a class="yt" href="https://www.youtube.com/watch?v=wiGpQwVHdE0" target="_blank" rel="noopener noreferrer" aria-label="Watch the NeetCode video for Longest Substring Without Repeating Characters" title="NeetCode: Longest Substring Without Repeating Characters - Leetcode 3 - Python"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M21.6 7.2a2.8 2.8 0 0 0-2-2C17.9 4.8 12 4.8 12 4.8s-5.9 0-7.6.4a2.8 2.8 0 0 0-2 2A29 29 0 0 0 2 12a29 29 0 0 0 .4 4.8 2.8 2.8 0 0 0 2 2c1.7.4 7.6.4 7.6.4s5.9 0 7.6-.4a2.8 2.8 0 0 0 2-2A29 29 0 0 0 22 12a29 29 0 0 0-.4-4.8z"/><path fill="#fff" d="M10 15.5v-7l6 3.5z"/></svg></a><span class="diff medium">Medium</span><span class="dojo">dojo 03</span></h3>
         <p class="task">The length of the longest substring with no repeated characters.</p>
         <pre class="code" data-snippet="sw-longest-substring" data-lang="ts"><code><span class="tk">function</span> <span class="tf">lengthOfLongestSubstring</span>(s: <span class="tk">string</span>): <span class="tk">number</span> {
   <span class="tk">const</span> inWindow = <span class="tk">new</span> <span class="tt">Set</span>&lt;<span class="tk">string</span>&gt;();
@@ -1774,7 +1805,7 @@ stop
         <p class="cx"><b>Time</b> O(n) · <b>Space</b> O(size of the alphabet)</p>
       </article>
       <article class="example">
-        <h3><a href="https://leetcode.com/problems/minimum-size-subarray-sum/">Minimum Size Subarray Sum</a><span class="lc">#209</span><span class="diff medium">Medium</span></h3>
+        <h3><a href="https://leetcode.com/problems/minimum-size-subarray-sum/">Minimum Size Subarray Sum</a><span class="lc">#209</span><a class="yt" href="https://www.youtube.com/watch?v=aYqYMIqZx5s" target="_blank" rel="noopener noreferrer" aria-label="Watch the NeetCode video for Minimum Size Subarray Sum" title="NeetCode: Minimum Size Subarray Sum - Leetcode 209 - Python"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M21.6 7.2a2.8 2.8 0 0 0-2-2C17.9 4.8 12 4.8 12 4.8s-5.9 0-7.6.4a2.8 2.8 0 0 0-2 2A29 29 0 0 0 2 12a29 29 0 0 0 .4 4.8 2.8 2.8 0 0 0 2 2c1.7.4 7.6.4 7.6.4s5.9 0 7.6-.4a2.8 2.8 0 0 0 2-2A29 29 0 0 0 22 12a29 29 0 0 0-.4-4.8z"/><path fill="#fff" d="M10 15.5v-7l6 3.5z"/></svg></a><span class="diff medium">Medium</span></h3>
         <p class="task">The length of the shortest subarray whose sum is at least <code>target</code> (0 if none). All numbers are positive.</p>
         <pre class="code" data-snippet="sw-min-subarray" data-lang="ts"><code><span class="tk">function</span> <span class="tf">minSubArrayLen</span>(target: <span class="tk">number</span>, nums: <span class="tk">number</span>[]): <span class="tk">number</span> {
   <span class="tk">let</span> left = <span class="tn">0</span>, sum = <span class="tn">0</span>, best = Infinity;
@@ -1900,8 +1931,8 @@ stop
         <p class="cx"><b>Time</b> O(n) · <b>Space</b> O(1)</p>
       </article>
       <div class="practice"><h3>Practice next</h3><ul>
-        <li><a href="https://leetcode.com/problems/longest-repeating-character-replacement/">Longest Repeating Character Replacement <span class="lc">#424</span></a></li>
-        <li><a href="https://leetcode.com/problems/permutation-in-string/">Permutation in String <span class="lc">#567</span></a></li>
+        <li><a href="https://leetcode.com/problems/longest-repeating-character-replacement/">Longest Repeating Character Replacement <span class="lc">#424</span></a><a class="yt" href="https://www.youtube.com/watch?v=gqXU1UyA8pk" target="_blank" rel="noopener noreferrer" aria-label="Watch the NeetCode video for Longest Repeating Character Replacement" title="NeetCode: Longest Repeating Character Replacement - Leetcode 424 - Python"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M21.6 7.2a2.8 2.8 0 0 0-2-2C17.9 4.8 12 4.8 12 4.8s-5.9 0-7.6.4a2.8 2.8 0 0 0-2 2A29 29 0 0 0 2 12a29 29 0 0 0 .4 4.8 2.8 2.8 0 0 0 2 2c1.7.4 7.6.4 7.6.4s5.9 0 7.6-.4a2.8 2.8 0 0 0 2-2A29 29 0 0 0 22 12a29 29 0 0 0-.4-4.8z"/><path fill="#fff" d="M10 15.5v-7l6 3.5z"/></svg></a></li>
+        <li><a href="https://leetcode.com/problems/permutation-in-string/">Permutation in String <span class="lc">#567</span></a><a class="yt" href="https://www.youtube.com/watch?v=UbyhOgBN834" target="_blank" rel="noopener noreferrer" aria-label="Watch the NeetCode video for Permutation in String" title="NeetCode: Permutation in String - Leetcode 567 - Python"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M21.6 7.2a2.8 2.8 0 0 0-2-2C17.9 4.8 12 4.8 12 4.8s-5.9 0-7.6.4a2.8 2.8 0 0 0-2 2A29 29 0 0 0 2 12a29 29 0 0 0 .4 4.8 2.8 2.8 0 0 0 2 2c1.7.4 7.6.4 7.6.4s5.9 0 7.6-.4a2.8 2.8 0 0 0 2-2A29 29 0 0 0 22 12a29 29 0 0 0-.4-4.8z"/><path fill="#fff" d="M10 15.5v-7l6 3.5z"/></svg></a></li>
         <li><a href="https://leetcode.com/problems/max-consecutive-ones-iii/">Max Consecutive Ones III <span class="lc">#1004</span></a></li>
       </ul></div>
     </section>
@@ -1972,7 +2003,7 @@ stop
         </ul></div>
       </div>
       <article class="example">
-        <h3><a href="https://leetcode.com/problems/range-sum-query-immutable/">Range Sum Query: Immutable</a><span class="lc">#303</span><span class="diff easy">Easy</span></h3>
+        <h3><a href="https://leetcode.com/problems/range-sum-query-immutable/">Range Sum Query: Immutable</a><span class="lc">#303</span><a class="yt" href="https://www.youtube.com/watch?v=2pndAmo_sMA" target="_blank" rel="noopener noreferrer" aria-label="Watch the NeetCode video for Range Sum Query: Immutable" title="NeetCode: Range Sum Query Immutable - Leetcode 303 - Python"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M21.6 7.2a2.8 2.8 0 0 0-2-2C17.9 4.8 12 4.8 12 4.8s-5.9 0-7.6.4a2.8 2.8 0 0 0-2 2A29 29 0 0 0 2 12a29 29 0 0 0 .4 4.8 2.8 2.8 0 0 0 2 2c1.7.4 7.6.4 7.6.4s5.9 0 7.6-.4a2.8 2.8 0 0 0 2-2A29 29 0 0 0 22 12a29 29 0 0 0-.4-4.8z"/><path fill="#fff" d="M10 15.5v-7l6 3.5z"/></svg></a><span class="diff easy">Easy</span></h3>
         <p class="task">Answer many "sum of <code>nums[left..right]</code>" queries quickly.</p>
         <pre class="code" data-snippet="ps-range-sum" data-lang="ts"><code><span class="tk">class</span> NumArray {
   <span class="tk">private</span> prefix: <span class="tk">number</span>[];  <span class="tc">// prefix[i] = sum of the first i</span>
@@ -2077,7 +2108,7 @@ stop
         <p class="cx"><b>Time</b> O(n) to build, O(1) per query · <b>Space</b> O(n)</p>
       </article>
       <article class="example">
-        <h3><a href="https://leetcode.com/problems/contiguous-array/">Contiguous Array</a><span class="lc">#525</span><span class="diff medium">Medium</span></h3>
+        <h3><a href="https://leetcode.com/problems/contiguous-array/">Contiguous Array</a><span class="lc">#525</span><a class="yt" href="https://www.youtube.com/watch?v=agB1LyObUNE" target="_blank" rel="noopener noreferrer" aria-label="Watch the NeetCode video for Contiguous Array" title="NeetCode: Contiguous Array - Leetcode 525 - Python"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M21.6 7.2a2.8 2.8 0 0 0-2-2C17.9 4.8 12 4.8 12 4.8s-5.9 0-7.6.4a2.8 2.8 0 0 0-2 2A29 29 0 0 0 2 12a29 29 0 0 0 .4 4.8 2.8 2.8 0 0 0 2 2c1.7.4 7.6.4 7.6.4s5.9 0 7.6-.4a2.8 2.8 0 0 0 2-2A29 29 0 0 0 22 12a29 29 0 0 0-.4-4.8z"/><path fill="#fff" d="M10 15.5v-7l6 3.5z"/></svg></a><span class="diff medium">Medium</span></h3>
         <p class="task">The length of the longest subarray with equal numbers of 0s and 1s.</p>
         <pre class="code" data-snippet="ps-contiguous-array" data-lang="ts"><code><span class="tk">function</span> <span class="tf">findMaxLength</span>(nums: <span class="tk">number</span>[]): <span class="tk">number</span> {
   <span class="tk">const</span> firstSeen = <span class="tk">new</span> <span class="tt">Map</span>([[<span class="tn">0</span>, -<span class="tn">1</span>]]);  <span class="tc">// sum -&gt; first index</span>
@@ -2214,10 +2245,10 @@ stop
         <p class="cx"><b>Time</b> O(n) · <b>Space</b> O(n)</p>
       </article>
       <div class="practice"><h3>Practice next</h3><ul>
-        <li><a href="https://leetcode.com/problems/subarray-sum-equals-k/">Subarray Sum Equals K <span class="lc">#560</span> <span class="dojo">dojo 01</span></a></li>
-        <li><a href="https://leetcode.com/problems/product-of-array-except-self/">Product of Array Except Self <span class="lc">#238</span></a></li>
-        <li><a href="https://leetcode.com/problems/continuous-subarray-sum/">Continuous Subarray Sum <span class="lc">#523</span></a></li>
-        <li><a href="https://leetcode.com/problems/range-sum-query-2d-immutable/">Range Sum Query 2D <span class="lc">#304</span></a></li>
+        <li><a href="https://leetcode.com/problems/subarray-sum-equals-k/">Subarray Sum Equals K <span class="lc">#560</span> <span class="dojo">dojo 01</span></a><a class="yt" href="https://www.youtube.com/watch?v=fFVZt-6sgyo" target="_blank" rel="noopener noreferrer" aria-label="Watch the NeetCode video for Subarray Sum Equals K" title="NeetCode: Subarray Sum Equals K - Prefix Sums - Leetcode 560 - Python"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M21.6 7.2a2.8 2.8 0 0 0-2-2C17.9 4.8 12 4.8 12 4.8s-5.9 0-7.6.4a2.8 2.8 0 0 0-2 2A29 29 0 0 0 2 12a29 29 0 0 0 .4 4.8 2.8 2.8 0 0 0 2 2c1.7.4 7.6.4 7.6.4s5.9 0 7.6-.4a2.8 2.8 0 0 0 2-2A29 29 0 0 0 22 12a29 29 0 0 0-.4-4.8z"/><path fill="#fff" d="M10 15.5v-7l6 3.5z"/></svg></a></li>
+        <li><a href="https://leetcode.com/problems/product-of-array-except-self/">Product of Array Except Self <span class="lc">#238</span></a><a class="yt" href="https://www.youtube.com/watch?v=bNvIQI2wAjk" target="_blank" rel="noopener noreferrer" aria-label="Watch the NeetCode video for Product of Array Except Self" title="NeetCode: Product of Array Except Self - Leetcode 238 - Python"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M21.6 7.2a2.8 2.8 0 0 0-2-2C17.9 4.8 12 4.8 12 4.8s-5.9 0-7.6.4a2.8 2.8 0 0 0-2 2A29 29 0 0 0 2 12a29 29 0 0 0 .4 4.8 2.8 2.8 0 0 0 2 2c1.7.4 7.6.4 7.6.4s5.9 0 7.6-.4a2.8 2.8 0 0 0 2-2A29 29 0 0 0 22 12a29 29 0 0 0-.4-4.8z"/><path fill="#fff" d="M10 15.5v-7l6 3.5z"/></svg></a></li>
+        <li><a href="https://leetcode.com/problems/continuous-subarray-sum/">Continuous Subarray Sum <span class="lc">#523</span></a><a class="yt" href="https://www.youtube.com/watch?v=OKcrLfR-8mE" target="_blank" rel="noopener noreferrer" aria-label="Watch the NeetCode video for Continuous Subarray Sum" title="NeetCode: Continuous Subarray Sum - Leetcode 523 - Python"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M21.6 7.2a2.8 2.8 0 0 0-2-2C17.9 4.8 12 4.8 12 4.8s-5.9 0-7.6.4a2.8 2.8 0 0 0-2 2A29 29 0 0 0 2 12a29 29 0 0 0 .4 4.8 2.8 2.8 0 0 0 2 2c1.7.4 7.6.4 7.6.4s5.9 0 7.6-.4a2.8 2.8 0 0 0 2-2A29 29 0 0 0 22 12a29 29 0 0 0-.4-4.8z"/><path fill="#fff" d="M10 15.5v-7l6 3.5z"/></svg></a></li>
+        <li><a href="https://leetcode.com/problems/range-sum-query-2d-immutable/">Range Sum Query 2D <span class="lc">#304</span></a><a class="yt" href="https://www.youtube.com/watch?v=KE8MQuwE2yA" target="_blank" rel="noopener noreferrer" aria-label="Watch the NeetCode video for Range Sum Query 2D" title="NeetCode: Range Sum Query 2D - Immutable - Leetcode 304 - Python"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M21.6 7.2a2.8 2.8 0 0 0-2-2C17.9 4.8 12 4.8 12 4.8s-5.9 0-7.6.4a2.8 2.8 0 0 0-2 2A29 29 0 0 0 2 12a29 29 0 0 0 .4 4.8 2.8 2.8 0 0 0 2 2c1.7.4 7.6.4 7.6.4s5.9 0 7.6-.4a2.8 2.8 0 0 0 2-2A29 29 0 0 0 22 12a29 29 0 0 0-.4-4.8z"/><path fill="#fff" d="M10 15.5v-7l6 3.5z"/></svg></a></li>
       </ul></div>
     </section>
 
@@ -2321,7 +2352,7 @@ stop
         </ul></div>
       </div>
       <article class="example">
-        <h3><a href="https://leetcode.com/problems/search-insert-position/">Search Insert Position</a><span class="lc">#35</span><span class="diff easy">Easy</span></h3>
+        <h3><a href="https://leetcode.com/problems/search-insert-position/">Search Insert Position</a><span class="lc">#35</span><a class="yt" href="https://www.youtube.com/watch?v=K-RYzDZkzCI" target="_blank" rel="noopener noreferrer" aria-label="Watch the NeetCode video for Search Insert Position" title="NeetCode: Search Insert Position - Binary Search - Leetcode 35 - Python"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M21.6 7.2a2.8 2.8 0 0 0-2-2C17.9 4.8 12 4.8 12 4.8s-5.9 0-7.6.4a2.8 2.8 0 0 0-2 2A29 29 0 0 0 2 12a29 29 0 0 0 .4 4.8 2.8 2.8 0 0 0 2 2c1.7.4 7.6.4 7.6.4s5.9 0 7.6-.4a2.8 2.8 0 0 0 2-2A29 29 0 0 0 22 12a29 29 0 0 0-.4-4.8z"/><path fill="#fff" d="M10 15.5v-7l6 3.5z"/></svg></a><span class="diff easy">Easy</span></h3>
         <p class="task">The index of <code>target</code> in a sorted array, or where it would be inserted. This is the lower-bound template.</p>
         <pre class="code" data-snippet="bs-search-insert" data-lang="ts"><code><span class="tk">function</span> <span class="tf">searchInsert</span>(nums: <span class="tk">number</span>[], target: <span class="tk">number</span>): <span class="tk">number</span> {
   <span class="tk">let</span> lo = <span class="tn">0</span>, hi = nums.length;  <span class="tc">// the answer is in [lo, hi]</span>
@@ -2423,7 +2454,7 @@ stop
         <p class="cx"><b>Time</b> O(log n) · <b>Space</b> O(1)</p>
       </article>
       <article class="example">
-        <h3><a href="https://leetcode.com/problems/koko-eating-bananas/">Koko Eating Bananas</a><span class="lc">#875</span><span class="diff medium">Medium</span></h3>
+        <h3><a href="https://leetcode.com/problems/koko-eating-bananas/">Koko Eating Bananas</a><span class="lc">#875</span><a class="yt" href="https://www.youtube.com/watch?v=U2SozAs9RzA" target="_blank" rel="noopener noreferrer" aria-label="Watch the NeetCode video for Koko Eating Bananas" title="NeetCode: Koko Eating Bananas - Binary Search - Leetcode 875 - Python"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M21.6 7.2a2.8 2.8 0 0 0-2-2C17.9 4.8 12 4.8 12 4.8s-5.9 0-7.6.4a2.8 2.8 0 0 0-2 2A29 29 0 0 0 2 12a29 29 0 0 0 .4 4.8 2.8 2.8 0 0 0 2 2c1.7.4 7.6.4 7.6.4s5.9 0 7.6-.4a2.8 2.8 0 0 0 2-2A29 29 0 0 0 22 12a29 29 0 0 0-.4-4.8z"/><path fill="#fff" d="M10 15.5v-7l6 3.5z"/></svg></a><span class="diff medium">Medium</span></h3>
         <p class="task">The slowest eating speed that finishes every pile within <code>h</code> hours.</p>
         <pre class="code" data-snippet="bs-koko" data-lang="ts"><code><span class="tk">function</span> <span class="tf">minEatingSpeed</span>(piles: <span class="tk">number</span>[], h: <span class="tk">number</span>): <span class="tk">number</span> {
   <span class="tk">let</span> lo = <span class="tn">1</span>, hi = <span class="tt">Math</span>.<span class="tf">max</span>(...piles);  <span class="tc">// search speeds, not the array</span>
@@ -2588,10 +2619,10 @@ stop
         <p class="cx"><b>Time</b> O(n log m), m = the largest pile · <b>Space</b> O(1)</p>
       </article>
       <div class="practice"><h3>Practice next</h3><ul>
-        <li><a href="https://leetcode.com/problems/search-in-rotated-sorted-array/">Search in Rotated Sorted Array <span class="lc">#33</span></a></li>
-        <li><a href="https://leetcode.com/problems/find-minimum-in-rotated-sorted-array/">Find Minimum in Rotated Sorted Array <span class="lc">#153</span></a></li>
-        <li><a href="https://leetcode.com/problems/capacity-to-ship-packages-within-d-days/">Capacity To Ship Packages Within D Days <span class="lc">#1011</span></a></li>
-        <li><a href="https://leetcode.com/problems/find-first-and-last-position-of-element-in-sorted-array/">Find First and Last Position <span class="lc">#34</span></a></li>
+        <li><a href="https://leetcode.com/problems/search-in-rotated-sorted-array/">Search in Rotated Sorted Array <span class="lc">#33</span></a><a class="yt" href="https://www.youtube.com/watch?v=U8XENwh8Oy8" target="_blank" rel="noopener noreferrer" aria-label="Watch the NeetCode video for Search in Rotated Sorted Array" title="NeetCode: Search in rotated sorted array - Leetcode 33 - Python"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M21.6 7.2a2.8 2.8 0 0 0-2-2C17.9 4.8 12 4.8 12 4.8s-5.9 0-7.6.4a2.8 2.8 0 0 0-2 2A29 29 0 0 0 2 12a29 29 0 0 0 .4 4.8 2.8 2.8 0 0 0 2 2c1.7.4 7.6.4 7.6.4s5.9 0 7.6-.4a2.8 2.8 0 0 0 2-2A29 29 0 0 0 22 12a29 29 0 0 0-.4-4.8z"/><path fill="#fff" d="M10 15.5v-7l6 3.5z"/></svg></a></li>
+        <li><a href="https://leetcode.com/problems/find-minimum-in-rotated-sorted-array/">Find Minimum in Rotated Sorted Array <span class="lc">#153</span></a><a class="yt" href="https://www.youtube.com/watch?v=nIVW4P8b1VA" target="_blank" rel="noopener noreferrer" aria-label="Watch the NeetCode video for Find Minimum in Rotated Sorted Array" title="NeetCode: Find Minimum in Rotated Sorted Array - Binary Search - Leetcode 153 - Python"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M21.6 7.2a2.8 2.8 0 0 0-2-2C17.9 4.8 12 4.8 12 4.8s-5.9 0-7.6.4a2.8 2.8 0 0 0-2 2A29 29 0 0 0 2 12a29 29 0 0 0 .4 4.8 2.8 2.8 0 0 0 2 2c1.7.4 7.6.4 7.6.4s5.9 0 7.6-.4a2.8 2.8 0 0 0 2-2A29 29 0 0 0 22 12a29 29 0 0 0-.4-4.8z"/><path fill="#fff" d="M10 15.5v-7l6 3.5z"/></svg></a></li>
+        <li><a href="https://leetcode.com/problems/capacity-to-ship-packages-within-d-days/">Capacity To Ship Packages Within D Days <span class="lc">#1011</span></a><a class="yt" href="https://www.youtube.com/watch?v=ER_oLmdc-nw" target="_blank" rel="noopener noreferrer" aria-label="Watch the NeetCode video for Capacity To Ship Packages Within D Days" title="NeetCode: Capacity to Ship Packages - Leetcode 1011 - Python"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M21.6 7.2a2.8 2.8 0 0 0-2-2C17.9 4.8 12 4.8 12 4.8s-5.9 0-7.6.4a2.8 2.8 0 0 0-2 2A29 29 0 0 0 2 12a29 29 0 0 0 .4 4.8 2.8 2.8 0 0 0 2 2c1.7.4 7.6.4 7.6.4s5.9 0 7.6-.4a2.8 2.8 0 0 0 2-2A29 29 0 0 0 22 12a29 29 0 0 0-.4-4.8z"/><path fill="#fff" d="M10 15.5v-7l6 3.5z"/></svg></a></li>
+        <li><a href="https://leetcode.com/problems/find-first-and-last-position-of-element-in-sorted-array/">Find First and Last Position <span class="lc">#34</span></a><a class="yt" href="https://www.youtube.com/watch?v=4sQL7R5ySUU" target="_blank" rel="noopener noreferrer" aria-label="Watch the NeetCode video for Find First and Last Position" title="NeetCode: First and Last Position of Element in Sorted Array - Binary Search - Leetcode 34"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M21.6 7.2a2.8 2.8 0 0 0-2-2C17.9 4.8 12 4.8 12 4.8s-5.9 0-7.6.4a2.8 2.8 0 0 0-2 2A29 29 0 0 0 2 12a29 29 0 0 0 .4 4.8 2.8 2.8 0 0 0 2 2c1.7.4 7.6.4 7.6.4s5.9 0 7.6-.4a2.8 2.8 0 0 0 2-2A29 29 0 0 0 22 12a29 29 0 0 0-.4-4.8z"/><path fill="#fff" d="M10 15.5v-7l6 3.5z"/></svg></a></li>
       </ul></div>
     </section>
 
@@ -2661,7 +2692,7 @@ stop
         </ul></div>
       </div>
       <article class="example">
-        <h3><a href="https://leetcode.com/problems/valid-parentheses/">Valid Parentheses</a><span class="lc">#20</span><span class="diff easy">Easy</span></h3>
+        <h3><a href="https://leetcode.com/problems/valid-parentheses/">Valid Parentheses</a><span class="lc">#20</span><a class="yt" href="https://www.youtube.com/watch?v=WTzjTskDFMg" target="_blank" rel="noopener noreferrer" aria-label="Watch the NeetCode video for Valid Parentheses" title="NeetCode: Valid Parentheses - Stack - Leetcode 20 - Python"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M21.6 7.2a2.8 2.8 0 0 0-2-2C17.9 4.8 12 4.8 12 4.8s-5.9 0-7.6.4a2.8 2.8 0 0 0-2 2A29 29 0 0 0 2 12a29 29 0 0 0 .4 4.8 2.8 2.8 0 0 0 2 2c1.7.4 7.6.4 7.6.4s5.9 0 7.6-.4a2.8 2.8 0 0 0 2-2A29 29 0 0 0 22 12a29 29 0 0 0-.4-4.8z"/><path fill="#fff" d="M10 15.5v-7l6 3.5z"/></svg></a><span class="diff easy">Easy</span></h3>
         <p class="task">Are the brackets balanced and correctly nested?</p>
         <pre class="code" data-snippet="st-valid-parentheses" data-lang="ts"><code><span class="tk">function</span> <span class="tf">isValid</span>(s: <span class="tk">string</span>): <span class="tk">boolean</span> {
   <span class="tk">const</span> expected: <span class="tk">string</span>[] = [];  <span class="tc">// closers we still owe</span>
@@ -2782,7 +2813,7 @@ stop
         <p class="cx"><b>Time</b> O(n) · <b>Space</b> O(n)</p>
       </article>
       <article class="example">
-        <h3><a href="https://leetcode.com/problems/online-stock-span/">Online Stock Span</a><span class="lc">#901</span><span class="diff medium">Medium</span></h3>
+        <h3><a href="https://leetcode.com/problems/online-stock-span/">Online Stock Span</a><span class="lc">#901</span><a class="yt" href="https://www.youtube.com/watch?v=slYh0ZNEqSw" target="_blank" rel="noopener noreferrer" aria-label="Watch the NeetCode video for Online Stock Span" title="NeetCode: Online Stock Span - Leetcode 901 - Python"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M21.6 7.2a2.8 2.8 0 0 0-2-2C17.9 4.8 12 4.8 12 4.8s-5.9 0-7.6.4a2.8 2.8 0 0 0-2 2A29 29 0 0 0 2 12a29 29 0 0 0 .4 4.8 2.8 2.8 0 0 0 2 2c1.7.4 7.6.4 7.6.4s5.9 0 7.6-.4a2.8 2.8 0 0 0 2-2A29 29 0 0 0 22 12a29 29 0 0 0-.4-4.8z"/><path fill="#fff" d="M10 15.5v-7l6 3.5z"/></svg></a><span class="diff medium">Medium</span></h3>
         <p class="task">For each new price, how many consecutive days (today included) had a price no higher than today's?</p>
         <pre class="code" data-snippet="st-stock-spanner" data-lang="ts"><code><span class="tk">class</span> StockSpanner {
   <span class="tc">// [price, span] pairs; prices fall from the bottom to the top</span>
@@ -2912,10 +2943,10 @@ stop
         <p class="cx"><b>Time</b> amortized O(1) per call · <b>Space</b> O(n)</p>
       </article>
       <div class="practice"><h3>Practice next</h3><ul>
-        <li><a href="https://leetcode.com/problems/daily-temperatures/">Daily Temperatures <span class="lc">#739</span> <span class="dojo">dojo 04</span></a></li>
-        <li><a href="https://leetcode.com/problems/evaluate-reverse-polish-notation/">Evaluate Reverse Polish Notation <span class="lc">#150</span></a></li>
-        <li><a href="https://leetcode.com/problems/decode-string/">Decode String <span class="lc">#394</span></a></li>
-        <li><a href="https://leetcode.com/problems/min-stack/">Min Stack <span class="lc">#155</span></a></li>
+        <li><a href="https://leetcode.com/problems/daily-temperatures/">Daily Temperatures <span class="lc">#739</span> <span class="dojo">dojo 04</span></a><a class="yt" href="https://www.youtube.com/watch?v=cTBiBSnjO3c" target="_blank" rel="noopener noreferrer" aria-label="Watch the NeetCode video for Daily Temperatures" title="NeetCode: Daily Temperatures - Monotonic Stack - Leetcode 739 - Python"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M21.6 7.2a2.8 2.8 0 0 0-2-2C17.9 4.8 12 4.8 12 4.8s-5.9 0-7.6.4a2.8 2.8 0 0 0-2 2A29 29 0 0 0 2 12a29 29 0 0 0 .4 4.8 2.8 2.8 0 0 0 2 2c1.7.4 7.6.4 7.6.4s5.9 0 7.6-.4a2.8 2.8 0 0 0 2-2A29 29 0 0 0 22 12a29 29 0 0 0-.4-4.8z"/><path fill="#fff" d="M10 15.5v-7l6 3.5z"/></svg></a></li>
+        <li><a href="https://leetcode.com/problems/evaluate-reverse-polish-notation/">Evaluate Reverse Polish Notation <span class="lc">#150</span></a><a class="yt" href="https://www.youtube.com/watch?v=iu0082c4HDE" target="_blank" rel="noopener noreferrer" aria-label="Watch the NeetCode video for Evaluate Reverse Polish Notation" title="NeetCode: Evaluate Reverse Polish Notation - Leetcode 150 - Python"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M21.6 7.2a2.8 2.8 0 0 0-2-2C17.9 4.8 12 4.8 12 4.8s-5.9 0-7.6.4a2.8 2.8 0 0 0-2 2A29 29 0 0 0 2 12a29 29 0 0 0 .4 4.8 2.8 2.8 0 0 0 2 2c1.7.4 7.6.4 7.6.4s5.9 0 7.6-.4a2.8 2.8 0 0 0 2-2A29 29 0 0 0 22 12a29 29 0 0 0-.4-4.8z"/><path fill="#fff" d="M10 15.5v-7l6 3.5z"/></svg></a></li>
+        <li><a href="https://leetcode.com/problems/decode-string/">Decode String <span class="lc">#394</span></a><a class="yt" href="https://www.youtube.com/watch?v=qB0zZpBJlh8" target="_blank" rel="noopener noreferrer" aria-label="Watch the NeetCode video for Decode String" title="NeetCode: Decode String - Leetcode 394 - Python"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M21.6 7.2a2.8 2.8 0 0 0-2-2C17.9 4.8 12 4.8 12 4.8s-5.9 0-7.6.4a2.8 2.8 0 0 0-2 2A29 29 0 0 0 2 12a29 29 0 0 0 .4 4.8 2.8 2.8 0 0 0 2 2c1.7.4 7.6.4 7.6.4s5.9 0 7.6-.4a2.8 2.8 0 0 0 2-2A29 29 0 0 0 22 12a29 29 0 0 0-.4-4.8z"/><path fill="#fff" d="M10 15.5v-7l6 3.5z"/></svg></a></li>
+        <li><a href="https://leetcode.com/problems/min-stack/">Min Stack <span class="lc">#155</span></a><a class="yt" href="https://www.youtube.com/watch?v=qkLl7nAwDPo" target="_blank" rel="noopener noreferrer" aria-label="Watch the NeetCode video for Min Stack" title="NeetCode: Design Min Stack - Amazon Interview Question - Leetcode 155 - Python"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M21.6 7.2a2.8 2.8 0 0 0-2-2C17.9 4.8 12 4.8 12 4.8s-5.9 0-7.6.4a2.8 2.8 0 0 0-2 2A29 29 0 0 0 2 12a29 29 0 0 0 .4 4.8 2.8 2.8 0 0 0 2 2c1.7.4 7.6.4 7.6.4s5.9 0 7.6-.4a2.8 2.8 0 0 0 2-2A29 29 0 0 0 22 12a29 29 0 0 0-.4-4.8z"/><path fill="#fff" d="M10 15.5v-7l6 3.5z"/></svg></a></li>
       </ul></div>
     </section>
 
@@ -2980,7 +3011,7 @@ stop
         </ul></div>
       </div>
       <article class="example">
-        <h3>Toolkit: <a href="https://leetcode.com/problems/reverse-linked-list/">Reverse Linked List</a><span class="lc">#206</span> and <a href="https://leetcode.com/problems/middle-of-the-linked-list/">Middle of the Linked List</a><span class="lc">#876</span><span class="diff easy">Easy</span></h3>
+        <h3>Toolkit: <a href="https://leetcode.com/problems/reverse-linked-list/">Reverse Linked List</a><span class="lc">#206</span><a class="yt" href="https://www.youtube.com/watch?v=G0_I-ZF0S38" target="_blank" rel="noopener noreferrer" aria-label="Watch the NeetCode video for Reverse Linked List" title="NeetCode: Reverse Linked List - Iterative AND Recursive - Leetcode 206 - Python"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M21.6 7.2a2.8 2.8 0 0 0-2-2C17.9 4.8 12 4.8 12 4.8s-5.9 0-7.6.4a2.8 2.8 0 0 0-2 2A29 29 0 0 0 2 12a29 29 0 0 0 .4 4.8 2.8 2.8 0 0 0 2 2c1.7.4 7.6.4 7.6.4s5.9 0 7.6-.4a2.8 2.8 0 0 0 2-2A29 29 0 0 0 22 12a29 29 0 0 0-.4-4.8z"/><path fill="#fff" d="M10 15.5v-7l6 3.5z"/></svg></a> and <a href="https://leetcode.com/problems/middle-of-the-linked-list/">Middle of the Linked List</a><span class="lc">#876</span><a class="yt" href="https://www.youtube.com/watch?v=A2_ldqM4QcY" target="_blank" rel="noopener noreferrer" aria-label="Watch the NeetCode video for Middle of the Linked List" title="NeetCode: Middle of the Linked List - Leetcode 876 - Python"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M21.6 7.2a2.8 2.8 0 0 0-2-2C17.9 4.8 12 4.8 12 4.8s-5.9 0-7.6.4a2.8 2.8 0 0 0-2 2A29 29 0 0 0 2 12a29 29 0 0 0 .4 4.8 2.8 2.8 0 0 0 2 2c1.7.4 7.6.4 7.6.4s5.9 0 7.6-.4a2.8 2.8 0 0 0 2-2A29 29 0 0 0 22 12a29 29 0 0 0-.4-4.8z"/><path fill="#fff" d="M10 15.5v-7l6 3.5z"/></svg></a><span class="diff easy">Easy</span></h3>
         <p class="task">The two moves most list mediums are built from. Reorder List (#143) is exactly these two plus a merge.</p>
         <pre class="code" data-snippet="ll-toolkit" data-lang="ts"><code><span class="tc">// Reverse in place: point each node back at the one before it.</span>
 <span class="tk">function</span> <span class="tf">reverseList</span>(head: ListNode | <span class="tk">null</span>): ListNode | <span class="tk">null</span> {
@@ -3199,7 +3230,7 @@ ListNode* <span class="tf">middleNode</span>(ListNode* head)
         <p class="cx"><b>Time</b> O(n) · <b>Space</b> O(1)</p>
       </article>
       <article class="example">
-        <h3><a href="https://leetcode.com/problems/remove-nth-node-from-end-of-list/">Remove Nth Node From End of List</a><span class="lc">#19</span><span class="diff medium">Medium</span></h3>
+        <h3><a href="https://leetcode.com/problems/remove-nth-node-from-end-of-list/">Remove Nth Node From End of List</a><span class="lc">#19</span><a class="yt" href="https://www.youtube.com/watch?v=XVuQxVej6y8" target="_blank" rel="noopener noreferrer" aria-label="Watch the NeetCode video for Remove Nth Node From End of List" title="NeetCode: Remove Nth Node from End of List - Oracle Interview Question - Leetcode 19"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M21.6 7.2a2.8 2.8 0 0 0-2-2C17.9 4.8 12 4.8 12 4.8s-5.9 0-7.6.4a2.8 2.8 0 0 0-2 2A29 29 0 0 0 2 12a29 29 0 0 0 .4 4.8 2.8 2.8 0 0 0 2 2c1.7.4 7.6.4 7.6.4s5.9 0 7.6-.4a2.8 2.8 0 0 0 2-2A29 29 0 0 0 22 12a29 29 0 0 0-.4-4.8z"/><path fill="#fff" d="M10 15.5v-7l6 3.5z"/></svg></a><span class="diff medium">Medium</span></h3>
         <p class="task">Remove the nth node from the end in a single pass.</p>
         <pre class="code" data-snippet="ll-remove-nth" data-lang="ts"><code><span class="tk">function</span> <span class="tf">removeNthFromEnd</span>(
   head: ListNode | <span class="tk">null</span>,
@@ -3335,7 +3366,7 @@ ListNode* <span class="tf">middleNode</span>(ListNode* head)
         <p class="cx"><b>Time</b> O(n) · <b>Space</b> O(1)</p>
       </article>
       <article class="example">
-        <h3><a href="https://leetcode.com/problems/lru-cache/">LRU Cache</a><span class="lc">#146</span><span class="diff medium">Medium</span></h3>
+        <h3><a href="https://leetcode.com/problems/lru-cache/">LRU Cache</a><span class="lc">#146</span><a class="yt" href="https://www.youtube.com/watch?v=7ABFKPK2hD4" target="_blank" rel="noopener noreferrer" aria-label="Watch the NeetCode video for LRU Cache" title="NeetCode: LRU Cache - Twitch Interview Question - Leetcode 146"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M21.6 7.2a2.8 2.8 0 0 0-2-2C17.9 4.8 12 4.8 12 4.8s-5.9 0-7.6.4a2.8 2.8 0 0 0-2 2A29 29 0 0 0 2 12a29 29 0 0 0 .4 4.8 2.8 2.8 0 0 0 2 2c1.7.4 7.6.4 7.6.4s5.9 0 7.6-.4a2.8 2.8 0 0 0 2-2A29 29 0 0 0 22 12a29 29 0 0 0-.4-4.8z"/><path fill="#fff" d="M10 15.5v-7l6 3.5z"/></svg></a><span class="diff medium">Medium</span></h3>
         <p class="task">A fixed-size cache that evicts the least recently used key, with O(1) <code>Get</code> and <code>Put</code>. A hash map finds the node; a doubly linked list keeps the order.</p>
         <pre class="code" data-snippet="ll-lru-cache" data-lang="ts"><code><span class="tk">class</span> DNode {
   prev: DNode = <span class="tk">this</span>;  <span class="tc">// linked to itself until it's inserted</span>
@@ -3644,10 +3675,10 @@ ListNode* <span class="tf">middleNode</span>(ListNode* head)
         <p class="cx"><b>Time</b> O(1) per operation · <b>Space</b> O(capacity)</p>
       </article>
       <div class="practice"><h3>Practice next</h3><ul>
-        <li><a href="https://leetcode.com/problems/reorder-list/">Reorder List <span class="lc">#143</span></a></li>
+        <li><a href="https://leetcode.com/problems/reorder-list/">Reorder List <span class="lc">#143</span></a><a class="yt" href="https://www.youtube.com/watch?v=S5bfdUTrKLM" target="_blank" rel="noopener noreferrer" aria-label="Watch the NeetCode video for Reorder List" title="NeetCode: Linkedin Interview Question - Reorder List - Leetcode 143 - Python"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M21.6 7.2a2.8 2.8 0 0 0-2-2C17.9 4.8 12 4.8 12 4.8s-5.9 0-7.6.4a2.8 2.8 0 0 0-2 2A29 29 0 0 0 2 12a29 29 0 0 0 .4 4.8 2.8 2.8 0 0 0 2 2c1.7.4 7.6.4 7.6.4s5.9 0 7.6-.4a2.8 2.8 0 0 0 2-2A29 29 0 0 0 22 12a29 29 0 0 0-.4-4.8z"/><path fill="#fff" d="M10 15.5v-7l6 3.5z"/></svg></a></li>
         <li><a href="https://leetcode.com/problems/linked-list-cycle-ii/">Linked List Cycle II <span class="lc">#142</span></a></li>
-        <li><a href="https://leetcode.com/problems/add-two-numbers/">Add Two Numbers <span class="lc">#2</span></a></li>
-        <li><a href="https://leetcode.com/problems/copy-list-with-random-pointer/">Copy List with Random Pointer <span class="lc">#138</span></a></li>
+        <li><a href="https://leetcode.com/problems/add-two-numbers/">Add Two Numbers <span class="lc">#2</span></a><a class="yt" href="https://www.youtube.com/watch?v=wgFPrzTjm7s" target="_blank" rel="noopener noreferrer" aria-label="Watch the NeetCode video for Add Two Numbers" title="NeetCode: Add Two Numbers - Leetcode 2 - Python"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M21.6 7.2a2.8 2.8 0 0 0-2-2C17.9 4.8 12 4.8 12 4.8s-5.9 0-7.6.4a2.8 2.8 0 0 0-2 2A29 29 0 0 0 2 12a29 29 0 0 0 .4 4.8 2.8 2.8 0 0 0 2 2c1.7.4 7.6.4 7.6.4s5.9 0 7.6-.4a2.8 2.8 0 0 0 2-2A29 29 0 0 0 22 12a29 29 0 0 0-.4-4.8z"/><path fill="#fff" d="M10 15.5v-7l6 3.5z"/></svg></a></li>
+        <li><a href="https://leetcode.com/problems/copy-list-with-random-pointer/">Copy List with Random Pointer <span class="lc">#138</span></a><a class="yt" href="https://www.youtube.com/watch?v=5Y2EiZST97Y" target="_blank" rel="noopener noreferrer" aria-label="Watch the NeetCode video for Copy List with Random Pointer" title="NeetCode: Copy List with Random Pointer - Linked List - Leetcode 138"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M21.6 7.2a2.8 2.8 0 0 0-2-2C17.9 4.8 12 4.8 12 4.8s-5.9 0-7.6.4a2.8 2.8 0 0 0-2 2A29 29 0 0 0 2 12a29 29 0 0 0 .4 4.8 2.8 2.8 0 0 0 2 2c1.7.4 7.6.4 7.6.4s5.9 0 7.6-.4a2.8 2.8 0 0 0 2-2A29 29 0 0 0 22 12a29 29 0 0 0-.4-4.8z"/><path fill="#fff" d="M10 15.5v-7l6 3.5z"/></svg></a></li>
       </ul></div>
     </section>
 
@@ -3724,7 +3755,7 @@ ListNode* <span class="tf">middleNode</span>(ListNode* head)
         </ul></div>
       </div>
       <article class="example">
-        <h3>DFS: <a href="https://leetcode.com/problems/maximum-depth-of-binary-tree/">Maximum Depth</a><span class="lc">#104</span> and <a href="https://leetcode.com/problems/validate-binary-search-tree/">Validate BST</a><span class="lc">#98</span><span class="diff medium">Medium</span></h3>
+        <h3>DFS: <a href="https://leetcode.com/problems/maximum-depth-of-binary-tree/">Maximum Depth</a><span class="lc">#104</span><a class="yt" href="https://www.youtube.com/watch?v=hTM3phVI6YQ" target="_blank" rel="noopener noreferrer" aria-label="Watch the NeetCode video for Maximum Depth" title="NeetCode: Maximum Depth of Binary Tree - 3 Solutions - Leetcode 104 - Python"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M21.6 7.2a2.8 2.8 0 0 0-2-2C17.9 4.8 12 4.8 12 4.8s-5.9 0-7.6.4a2.8 2.8 0 0 0-2 2A29 29 0 0 0 2 12a29 29 0 0 0 .4 4.8 2.8 2.8 0 0 0 2 2c1.7.4 7.6.4 7.6.4s5.9 0 7.6-.4a2.8 2.8 0 0 0 2-2A29 29 0 0 0 22 12a29 29 0 0 0-.4-4.8z"/><path fill="#fff" d="M10 15.5v-7l6 3.5z"/></svg></a> and <a href="https://leetcode.com/problems/validate-binary-search-tree/">Validate BST</a><span class="lc">#98</span><a class="yt" href="https://www.youtube.com/watch?v=s6ATEkipzow" target="_blank" rel="noopener noreferrer" aria-label="Watch the NeetCode video for Validate BST" title="NeetCode: Validate Binary Search Tree - Depth First Search - Leetcode 98"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M21.6 7.2a2.8 2.8 0 0 0-2-2C17.9 4.8 12 4.8 12 4.8s-5.9 0-7.6.4a2.8 2.8 0 0 0-2 2A29 29 0 0 0 2 12a29 29 0 0 0 .4 4.8 2.8 2.8 0 0 0 2 2c1.7.4 7.6.4 7.6.4s5.9 0 7.6-.4a2.8 2.8 0 0 0 2-2A29 29 0 0 0 22 12a29 29 0 0 0-.4-4.8z"/><path fill="#fff" d="M10 15.5v-7l6 3.5z"/></svg></a><span class="diff medium">Medium</span></h3>
         <p class="task">The height of a tree (answer flows up), and whether it's a valid BST (limits flow down).</p>
         <pre class="code" data-snippet="tr-dfs" data-lang="ts"><code><span class="tc">// Bottom-up: each call returns an answer about its own subtree.</span>
 <span class="tk">function</span> <span class="tf">maxDepth</span>(root: TreeNode | <span class="tk">null</span>): <span class="tk">number</span> {
@@ -3989,7 +4020,7 @@ ListNode* <span class="tf">middleNode</span>(ListNode* head)
         <p class="cx"><b>Time</b> O(n) · <b>Space</b> O(h)</p>
       </article>
       <article class="example">
-        <h3>BFS: <a href="https://leetcode.com/problems/binary-tree-level-order-traversal/">Binary Tree Level Order Traversal</a><span class="lc">#102</span><span class="diff medium">Medium</span></h3>
+        <h3>BFS: <a href="https://leetcode.com/problems/binary-tree-level-order-traversal/">Binary Tree Level Order Traversal</a><span class="lc">#102</span><a class="yt" href="https://www.youtube.com/watch?v=6ZnyEApgFYg" target="_blank" rel="noopener noreferrer" aria-label="Watch the NeetCode video for Binary Tree Level Order Traversal" title="NeetCode: Binary Tree Level Order Traversal - BFS - Leetcode 102"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M21.6 7.2a2.8 2.8 0 0 0-2-2C17.9 4.8 12 4.8 12 4.8s-5.9 0-7.6.4a2.8 2.8 0 0 0-2 2A29 29 0 0 0 2 12a29 29 0 0 0 .4 4.8 2.8 2.8 0 0 0 2 2c1.7.4 7.6.4 7.6.4s5.9 0 7.6-.4a2.8 2.8 0 0 0 2-2A29 29 0 0 0 22 12a29 29 0 0 0-.4-4.8z"/><path fill="#fff" d="M10 15.5v-7l6 3.5z"/></svg></a><span class="diff medium">Medium</span></h3>
         <p class="task">The values level by level, top to bottom.</p>
         <pre class="code" data-snippet="tr-bfs" data-lang="ts"><code><span class="tk">function</span> <span class="tf">levelOrder</span>(root: TreeNode | <span class="tk">null</span>): <span class="tk">number</span>[][] {
   <span class="tk">const</span> levels: <span class="tk">number</span>[][] = [];
@@ -4185,10 +4216,10 @@ ListNode* <span class="tf">middleNode</span>(ListNode* head)
         <p class="cx"><b>Time</b> O(n) · <b>Space</b> O(n)</p>
       </article>
       <div class="practice"><h3>Practice next</h3><ul>
-        <li><a href="https://leetcode.com/problems/binary-tree-right-side-view/">Binary Tree Right Side View <span class="lc">#199</span></a></li>
-        <li><a href="https://leetcode.com/problems/kth-smallest-element-in-a-bst/">Kth Smallest Element in a BST <span class="lc">#230</span></a></li>
-        <li><a href="https://leetcode.com/problems/construct-binary-tree-from-preorder-and-inorder-traversal/">Construct Tree from Preorder and Inorder <span class="lc">#105</span></a></li>
-        <li><a href="https://leetcode.com/problems/diameter-of-binary-tree/">Diameter of Binary Tree <span class="lc">#543</span></a></li>
+        <li><a href="https://leetcode.com/problems/binary-tree-right-side-view/">Binary Tree Right Side View <span class="lc">#199</span></a><a class="yt" href="https://www.youtube.com/watch?v=d4zLyf32e3I" target="_blank" rel="noopener noreferrer" aria-label="Watch the NeetCode video for Binary Tree Right Side View" title="NeetCode: Binary Tree Right Side View - Breadth First Search - Leetcode 199"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M21.6 7.2a2.8 2.8 0 0 0-2-2C17.9 4.8 12 4.8 12 4.8s-5.9 0-7.6.4a2.8 2.8 0 0 0-2 2A29 29 0 0 0 2 12a29 29 0 0 0 .4 4.8 2.8 2.8 0 0 0 2 2c1.7.4 7.6.4 7.6.4s5.9 0 7.6-.4a2.8 2.8 0 0 0 2-2A29 29 0 0 0 22 12a29 29 0 0 0-.4-4.8z"/><path fill="#fff" d="M10 15.5v-7l6 3.5z"/></svg></a></li>
+        <li><a href="https://leetcode.com/problems/kth-smallest-element-in-a-bst/">Kth Smallest Element in a BST <span class="lc">#230</span></a><a class="yt" href="https://www.youtube.com/watch?v=5LUXSvjmGCw" target="_blank" rel="noopener noreferrer" aria-label="Watch the NeetCode video for Kth Smallest Element in a BST" title="NeetCode: Kth Smallest Element in a BST - Leetcode 230 - Python"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M21.6 7.2a2.8 2.8 0 0 0-2-2C17.9 4.8 12 4.8 12 4.8s-5.9 0-7.6.4a2.8 2.8 0 0 0-2 2A29 29 0 0 0 2 12a29 29 0 0 0 .4 4.8 2.8 2.8 0 0 0 2 2c1.7.4 7.6.4 7.6.4s5.9 0 7.6-.4a2.8 2.8 0 0 0 2-2A29 29 0 0 0 22 12a29 29 0 0 0-.4-4.8z"/><path fill="#fff" d="M10 15.5v-7l6 3.5z"/></svg></a></li>
+        <li><a href="https://leetcode.com/problems/construct-binary-tree-from-preorder-and-inorder-traversal/">Construct Tree from Preorder and Inorder <span class="lc">#105</span></a><a class="yt" href="https://www.youtube.com/watch?v=ihj4IQGZ2zc" target="_blank" rel="noopener noreferrer" aria-label="Watch the NeetCode video for Construct Tree from Preorder and Inorder" title="NeetCode: Construct Binary Tree from Inorder and Preorder Traversal - Leetcode 105 - Python"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M21.6 7.2a2.8 2.8 0 0 0-2-2C17.9 4.8 12 4.8 12 4.8s-5.9 0-7.6.4a2.8 2.8 0 0 0-2 2A29 29 0 0 0 2 12a29 29 0 0 0 .4 4.8 2.8 2.8 0 0 0 2 2c1.7.4 7.6.4 7.6.4s5.9 0 7.6-.4a2.8 2.8 0 0 0 2-2A29 29 0 0 0 22 12a29 29 0 0 0-.4-4.8z"/><path fill="#fff" d="M10 15.5v-7l6 3.5z"/></svg></a></li>
+        <li><a href="https://leetcode.com/problems/diameter-of-binary-tree/">Diameter of Binary Tree <span class="lc">#543</span></a><a class="yt" href="https://www.youtube.com/watch?v=bkxqA8Rfv04" target="_blank" rel="noopener noreferrer" aria-label="Watch the NeetCode video for Diameter of Binary Tree" title="NeetCode: Diameter of a Binary Tree - Leetcode 543 - Python"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M21.6 7.2a2.8 2.8 0 0 0-2-2C17.9 4.8 12 4.8 12 4.8s-5.9 0-7.6.4a2.8 2.8 0 0 0-2 2A29 29 0 0 0 2 12a29 29 0 0 0 .4 4.8 2.8 2.8 0 0 0 2 2c1.7.4 7.6.4 7.6.4s5.9 0 7.6-.4a2.8 2.8 0 0 0 2-2A29 29 0 0 0 22 12a29 29 0 0 0-.4-4.8z"/><path fill="#fff" d="M10 15.5v-7l6 3.5z"/></svg></a></li>
       </ul></div>
     </section>
 
@@ -4245,7 +4276,7 @@ ListNode* <span class="tf">middleNode</span>(ListNode* head)
         </ul></div>
       </div>
       <article class="example">
-        <h3><a href="https://leetcode.com/problems/kth-largest-element-in-an-array/">Kth Largest Element in an Array</a><span class="lc">#215</span><span class="diff medium">Medium</span></h3>
+        <h3><a href="https://leetcode.com/problems/kth-largest-element-in-an-array/">Kth Largest Element in an Array</a><span class="lc">#215</span><a class="yt" href="https://www.youtube.com/watch?v=XEmy13g1Qxc" target="_blank" rel="noopener noreferrer" aria-label="Watch the NeetCode video for Kth Largest Element in an Array" title="NeetCode: Kth Largest Element in an Array - Quick Select - Leetcode 215 - Python"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M21.6 7.2a2.8 2.8 0 0 0-2-2C17.9 4.8 12 4.8 12 4.8s-5.9 0-7.6.4a2.8 2.8 0 0 0-2 2A29 29 0 0 0 2 12a29 29 0 0 0 .4 4.8 2.8 2.8 0 0 0 2 2c1.7.4 7.6.4 7.6.4s5.9 0 7.6-.4a2.8 2.8 0 0 0 2-2A29 29 0 0 0 22 12a29 29 0 0 0-.4-4.8z"/><path fill="#fff" d="M10 15.5v-7l6 3.5z"/></svg></a><span class="diff medium">Medium</span></h3>
         <p class="task">The kth largest element, without sorting everything.</p>
         <pre class="code" data-snippet="hp-kth-largest" data-lang="ts"><code><span class="tc">// A binary heap, stored in an array. The children of slot i are</span>
 <span class="tc">// 2i + 1 and 2i + 2, so the parent of slot i is (i - 1) / 2, rounded down.</span>
@@ -4395,7 +4426,7 @@ ListNode* <span class="tf">middleNode</span>(ListNode* head)
         <p class="cx"><b>Time</b> O(n log k) · <b>Space</b> O(k)</p>
       </article>
       <article class="example">
-        <h3><a href="https://leetcode.com/problems/top-k-frequent-elements/">Top K Frequent Elements</a><span class="lc">#347</span><span class="diff medium">Medium</span></h3>
+        <h3><a href="https://leetcode.com/problems/top-k-frequent-elements/">Top K Frequent Elements</a><span class="lc">#347</span><a class="yt" href="https://www.youtube.com/watch?v=YPTqKIgVk-k" target="_blank" rel="noopener noreferrer" aria-label="Watch the NeetCode video for Top K Frequent Elements" title="NeetCode: Top K Frequent Elements - Bucket Sort - Leetcode 347 - Python"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M21.6 7.2a2.8 2.8 0 0 0-2-2C17.9 4.8 12 4.8 12 4.8s-5.9 0-7.6.4a2.8 2.8 0 0 0-2 2A29 29 0 0 0 2 12a29 29 0 0 0 .4 4.8 2.8 2.8 0 0 0 2 2c1.7.4 7.6.4 7.6.4s5.9 0 7.6-.4a2.8 2.8 0 0 0 2-2A29 29 0 0 0 22 12a29 29 0 0 0-.4-4.8z"/><path fill="#fff" d="M10 15.5v-7l6 3.5z"/></svg></a><span class="diff medium">Medium</span></h3>
         <p class="task">The k most frequent numbers. A hash map counts; the heap ranks by count.</p>
         <pre class="code" data-snippet="hp-top-k-frequent" data-lang="ts"><code><span class="tc">// A binary heap, stored in an array. The children of slot i are</span>
 <span class="tc">// 2i + 1 and 2i + 2, so the parent of slot i is (i - 1) / 2, rounded down.</span>
@@ -4608,10 +4639,10 @@ ListNode* <span class="tf">middleNode</span>(ListNode* head)
         <p class="cx"><b>Time</b> O(n log k) · <b>Space</b> O(n)</p>
       </article>
       <div class="practice"><h3>Practice next</h3><ul>
-        <li><a href="https://leetcode.com/problems/k-closest-points-to-origin/">K Closest Points to Origin <span class="lc">#973</span></a></li>
-        <li><a href="https://leetcode.com/problems/task-scheduler/">Task Scheduler <span class="lc">#621</span></a></li>
-        <li><a href="https://leetcode.com/problems/last-stone-weight/">Last Stone Weight <span class="lc">#1046</span></a></li>
-        <li><a href="https://leetcode.com/problems/find-median-from-data-stream/">Find Median from Data Stream <span class="lc">#295</span> <span class="diff hard">Hard</span></a></li>
+        <li><a href="https://leetcode.com/problems/k-closest-points-to-origin/">K Closest Points to Origin <span class="lc">#973</span></a><a class="yt" href="https://www.youtube.com/watch?v=rI2EBUEMfTk" target="_blank" rel="noopener noreferrer" aria-label="Watch the NeetCode video for K Closest Points to Origin" title="NeetCode: K Closest Points to Origin - Heap / Priority Queue - Leetcode 973 - Python"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M21.6 7.2a2.8 2.8 0 0 0-2-2C17.9 4.8 12 4.8 12 4.8s-5.9 0-7.6.4a2.8 2.8 0 0 0-2 2A29 29 0 0 0 2 12a29 29 0 0 0 .4 4.8 2.8 2.8 0 0 0 2 2c1.7.4 7.6.4 7.6.4s5.9 0 7.6-.4a2.8 2.8 0 0 0 2-2A29 29 0 0 0 22 12a29 29 0 0 0-.4-4.8z"/><path fill="#fff" d="M10 15.5v-7l6 3.5z"/></svg></a></li>
+        <li><a href="https://leetcode.com/problems/task-scheduler/">Task Scheduler <span class="lc">#621</span></a><a class="yt" href="https://www.youtube.com/watch?v=s8p8ukTyA2I" target="_blank" rel="noopener noreferrer" aria-label="Watch the NeetCode video for Task Scheduler" title="NeetCode: Task Scheduler - Leetcode 621 - Python"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M21.6 7.2a2.8 2.8 0 0 0-2-2C17.9 4.8 12 4.8 12 4.8s-5.9 0-7.6.4a2.8 2.8 0 0 0-2 2A29 29 0 0 0 2 12a29 29 0 0 0 .4 4.8 2.8 2.8 0 0 0 2 2c1.7.4 7.6.4 7.6.4s5.9 0 7.6-.4a2.8 2.8 0 0 0 2-2A29 29 0 0 0 22 12a29 29 0 0 0-.4-4.8z"/><path fill="#fff" d="M10 15.5v-7l6 3.5z"/></svg></a></li>
+        <li><a href="https://leetcode.com/problems/last-stone-weight/">Last Stone Weight <span class="lc">#1046</span></a><a class="yt" href="https://www.youtube.com/watch?v=B-QCq79-Vfw" target="_blank" rel="noopener noreferrer" aria-label="Watch the NeetCode video for Last Stone Weight" title="NeetCode: Last Stone Weight - Priority Queue - Leetcode 1046 - Python"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M21.6 7.2a2.8 2.8 0 0 0-2-2C17.9 4.8 12 4.8 12 4.8s-5.9 0-7.6.4a2.8 2.8 0 0 0-2 2A29 29 0 0 0 2 12a29 29 0 0 0 .4 4.8 2.8 2.8 0 0 0 2 2c1.7.4 7.6.4 7.6.4s5.9 0 7.6-.4a2.8 2.8 0 0 0 2-2A29 29 0 0 0 22 12a29 29 0 0 0-.4-4.8z"/><path fill="#fff" d="M10 15.5v-7l6 3.5z"/></svg></a></li>
+        <li><a href="https://leetcode.com/problems/find-median-from-data-stream/">Find Median from Data Stream <span class="lc">#295</span> <span class="diff hard">Hard</span></a><a class="yt" href="https://www.youtube.com/watch?v=itmhHWaHupI" target="_blank" rel="noopener noreferrer" aria-label="Watch the NeetCode video for Find Median from Data Stream" title="NeetCode: Find Median from Data Stream - Heap &amp; Priority Queue - Leetcode 295"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M21.6 7.2a2.8 2.8 0 0 0-2-2C17.9 4.8 12 4.8 12 4.8s-5.9 0-7.6.4a2.8 2.8 0 0 0-2 2A29 29 0 0 0 2 12a29 29 0 0 0 .4 4.8 2.8 2.8 0 0 0 2 2c1.7.4 7.6.4 7.6.4s5.9 0 7.6-.4a2.8 2.8 0 0 0 2-2A29 29 0 0 0 22 12a29 29 0 0 0-.4-4.8z"/><path fill="#fff" d="M10 15.5v-7l6 3.5z"/></svg></a></li>
       </ul></div>
     </section>
 
@@ -4699,7 +4730,7 @@ ListNode* <span class="tf">middleNode</span>(ListNode* head)
         </ul></div>
       </div>
       <article class="example">
-        <h3><a href="https://leetcode.com/problems/number-of-islands/">Number of Islands</a><span class="lc">#200</span><span class="diff medium">Medium</span></h3>
+        <h3><a href="https://leetcode.com/problems/number-of-islands/">Number of Islands</a><span class="lc">#200</span><a class="yt" href="https://www.youtube.com/watch?v=pV2kpPD66nE" target="_blank" rel="noopener noreferrer" aria-label="Watch the NeetCode video for Number of Islands" title="NeetCode: NUMBER OF ISLANDS - Leetcode 200 - Python"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M21.6 7.2a2.8 2.8 0 0 0-2-2C17.9 4.8 12 4.8 12 4.8s-5.9 0-7.6.4a2.8 2.8 0 0 0-2 2A29 29 0 0 0 2 12a29 29 0 0 0 .4 4.8 2.8 2.8 0 0 0 2 2c1.7.4 7.6.4 7.6.4s5.9 0 7.6-.4a2.8 2.8 0 0 0 2-2A29 29 0 0 0 22 12a29 29 0 0 0-.4-4.8z"/><path fill="#fff" d="M10 15.5v-7l6 3.5z"/></svg></a><span class="diff medium">Medium</span></h3>
         <p class="task">Count the groups of connected <code>'1'</code> cells in a grid.</p>
         <pre class="code" data-snippet="gr-islands" data-lang="ts"><code><span class="tk">function</span> <span class="tf">numIslands</span>(grid: <span class="tk">string</span>[][]): <span class="tk">number</span> {
   <span class="tk">let</span> islands = <span class="tn">0</span>;
@@ -4906,7 +4937,7 @@ ListNode* <span class="tf">middleNode</span>(ListNode* head)
         <p class="cx"><b>Time</b> O(rows · cols) · <b>Space</b> O(rows · cols) for the recursion in the worst case</p>
       </article>
       <article class="example">
-        <h3><a href="https://leetcode.com/problems/rotting-oranges/">Rotting Oranges</a><span class="lc">#994</span><span class="diff medium">Medium</span></h3>
+        <h3><a href="https://leetcode.com/problems/rotting-oranges/">Rotting Oranges</a><span class="lc">#994</span><a class="yt" href="https://www.youtube.com/watch?v=y704fEOx0s0" target="_blank" rel="noopener noreferrer" aria-label="Watch the NeetCode video for Rotting Oranges" title="NeetCode: Rotting Oranges - Leetcode 994 - Python"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M21.6 7.2a2.8 2.8 0 0 0-2-2C17.9 4.8 12 4.8 12 4.8s-5.9 0-7.6.4a2.8 2.8 0 0 0-2 2A29 29 0 0 0 2 12a29 29 0 0 0 .4 4.8 2.8 2.8 0 0 0 2 2c1.7.4 7.6.4 7.6.4s5.9 0 7.6-.4a2.8 2.8 0 0 0 2-2A29 29 0 0 0 22 12a29 29 0 0 0-.4-4.8z"/><path fill="#fff" d="M10 15.5v-7l6 3.5z"/></svg></a><span class="diff medium">Medium</span></h3>
         <p class="task">Each minute, rotten oranges rot their fresh neighbors. How many minutes until none are fresh (or -1)?</p>
         <pre class="code" data-snippet="gr-rotting" data-lang="ts"><code><span class="tk">function</span> <span class="tf">orangesRotting</span>(grid: <span class="tk">number</span>[][]): <span class="tk">number</span> {
   <span class="tk">const</span> rows = grid.length, cols = grid[<span class="tn">0</span>].length;
@@ -5195,10 +5226,10 @@ ListNode* <span class="tf">middleNode</span>(ListNode* head)
         <p class="cx"><b>Time</b> O(rows · cols) · <b>Space</b> O(rows · cols)</p>
       </article>
       <div class="practice"><h3>Practice next</h3><ul>
-        <li><a href="https://leetcode.com/problems/clone-graph/">Clone Graph <span class="lc">#133</span></a></li>
-        <li><a href="https://leetcode.com/problems/pacific-atlantic-water-flow/">Pacific Atlantic Water Flow <span class="lc">#417</span></a></li>
-        <li><a href="https://leetcode.com/problems/max-area-of-island/">Max Area of Island <span class="lc">#695</span></a></li>
-        <li><a href="https://leetcode.com/problems/shortest-path-in-binary-matrix/">Shortest Path in Binary Matrix <span class="lc">#1091</span></a></li>
+        <li><a href="https://leetcode.com/problems/clone-graph/">Clone Graph <span class="lc">#133</span></a><a class="yt" href="https://www.youtube.com/watch?v=mQeF6bN8hMk" target="_blank" rel="noopener noreferrer" aria-label="Watch the NeetCode video for Clone Graph" title="NeetCode: Clone Graph - Depth First Search - Leetcode 133"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M21.6 7.2a2.8 2.8 0 0 0-2-2C17.9 4.8 12 4.8 12 4.8s-5.9 0-7.6.4a2.8 2.8 0 0 0-2 2A29 29 0 0 0 2 12a29 29 0 0 0 .4 4.8 2.8 2.8 0 0 0 2 2c1.7.4 7.6.4 7.6.4s5.9 0 7.6-.4a2.8 2.8 0 0 0 2-2A29 29 0 0 0 22 12a29 29 0 0 0-.4-4.8z"/><path fill="#fff" d="M10 15.5v-7l6 3.5z"/></svg></a></li>
+        <li><a href="https://leetcode.com/problems/pacific-atlantic-water-flow/">Pacific Atlantic Water Flow <span class="lc">#417</span></a><a class="yt" href="https://www.youtube.com/watch?v=s-VkcjHqkGI" target="_blank" rel="noopener noreferrer" aria-label="Watch the NeetCode video for Pacific Atlantic Water Flow" title="NeetCode: Pacific Atlantic Water Flow - Leetcode 417 - Python"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M21.6 7.2a2.8 2.8 0 0 0-2-2C17.9 4.8 12 4.8 12 4.8s-5.9 0-7.6.4a2.8 2.8 0 0 0-2 2A29 29 0 0 0 2 12a29 29 0 0 0 .4 4.8 2.8 2.8 0 0 0 2 2c1.7.4 7.6.4 7.6.4s5.9 0 7.6-.4a2.8 2.8 0 0 0 2-2A29 29 0 0 0 22 12a29 29 0 0 0-.4-4.8z"/><path fill="#fff" d="M10 15.5v-7l6 3.5z"/></svg></a></li>
+        <li><a href="https://leetcode.com/problems/max-area-of-island/">Max Area of Island <span class="lc">#695</span></a><a class="yt" href="https://www.youtube.com/watch?v=iJGr1OtmH0c" target="_blank" rel="noopener noreferrer" aria-label="Watch the NeetCode video for Max Area of Island" title="NeetCode: Max Area of Island - Leetcode 695 - Python"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M21.6 7.2a2.8 2.8 0 0 0-2-2C17.9 4.8 12 4.8 12 4.8s-5.9 0-7.6.4a2.8 2.8 0 0 0-2 2A29 29 0 0 0 2 12a29 29 0 0 0 .4 4.8 2.8 2.8 0 0 0 2 2c1.7.4 7.6.4 7.6.4s5.9 0 7.6-.4a2.8 2.8 0 0 0 2-2A29 29 0 0 0 22 12a29 29 0 0 0-.4-4.8z"/><path fill="#fff" d="M10 15.5v-7l6 3.5z"/></svg></a></li>
+        <li><a href="https://leetcode.com/problems/shortest-path-in-binary-matrix/">Shortest Path in Binary Matrix <span class="lc">#1091</span></a><a class="yt" href="https://www.youtube.com/watch?v=YnxUdAO7TAo" target="_blank" rel="noopener noreferrer" aria-label="Watch the NeetCode video for Shortest Path in Binary Matrix" title="NeetCode: Shortest Path in a Binary Matrix - Leetcode 1091 - Python"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M21.6 7.2a2.8 2.8 0 0 0-2-2C17.9 4.8 12 4.8 12 4.8s-5.9 0-7.6.4a2.8 2.8 0 0 0-2 2A29 29 0 0 0 2 12a29 29 0 0 0 .4 4.8 2.8 2.8 0 0 0 2 2c1.7.4 7.6.4 7.6.4s5.9 0 7.6-.4a2.8 2.8 0 0 0 2-2A29 29 0 0 0 22 12a29 29 0 0 0-.4-4.8z"/><path fill="#fff" d="M10 15.5v-7l6 3.5z"/></svg></a></li>
       </ul></div>
     </section>
 
@@ -5264,7 +5295,7 @@ ListNode* <span class="tf">middleNode</span>(ListNode* head)
         </ul></div>
       </div>
       <article class="example">
-        <h3><a href="https://leetcode.com/problems/course-schedule-ii/">Course Schedule II</a><span class="lc">#210</span><span class="diff medium">Medium</span></h3>
+        <h3><a href="https://leetcode.com/problems/course-schedule-ii/">Course Schedule II</a><span class="lc">#210</span><a class="yt" href="https://www.youtube.com/watch?v=Akt3glAwyfY" target="_blank" rel="noopener noreferrer" aria-label="Watch the NeetCode video for Course Schedule II" title="NeetCode: Course Schedule II - Topological Sort - Leetcode 210"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M21.6 7.2a2.8 2.8 0 0 0-2-2C17.9 4.8 12 4.8 12 4.8s-5.9 0-7.6.4a2.8 2.8 0 0 0-2 2A29 29 0 0 0 2 12a29 29 0 0 0 .4 4.8 2.8 2.8 0 0 0 2 2c1.7.4 7.6.4 7.6.4s5.9 0 7.6-.4a2.8 2.8 0 0 0 2-2A29 29 0 0 0 22 12a29 29 0 0 0-.4-4.8z"/><path fill="#fff" d="M10 15.5v-7l6 3.5z"/></svg></a><span class="diff medium">Medium</span></h3>
         <p class="task">Return an order that takes every course, or an empty array if that's impossible.</p>
         <pre class="code" data-snippet="ts-course-schedule" data-lang="ts"><code><span class="tk">function</span> <span class="tf">findOrder</span>(
   numCourses: <span class="tk">number</span>,
@@ -5484,9 +5515,9 @@ ListNode* <span class="tf">middleNode</span>(ListNode* head)
         <p class="cx"><b>Time</b> O(V + E) · <b>Space</b> O(V + E)</p>
       </article>
       <div class="practice"><h3>Practice next</h3><ul>
-        <li><a href="https://leetcode.com/problems/course-schedule/">Course Schedule <span class="lc">#207</span></a></li>
-        <li><a href="https://leetcode.com/problems/minimum-height-trees/">Minimum Height Trees <span class="lc">#310</span></a></li>
-        <li><a href="https://leetcode.com/problems/find-eventual-safe-states/">Find Eventual Safe States <span class="lc">#802</span></a></li>
+        <li><a href="https://leetcode.com/problems/course-schedule/">Course Schedule <span class="lc">#207</span></a><a class="yt" href="https://www.youtube.com/watch?v=EgI5nU9etnU" target="_blank" rel="noopener noreferrer" aria-label="Watch the NeetCode video for Course Schedule" title="NeetCode: Course Schedule - Graph Adjacency List - Leetcode 207"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M21.6 7.2a2.8 2.8 0 0 0-2-2C17.9 4.8 12 4.8 12 4.8s-5.9 0-7.6.4a2.8 2.8 0 0 0-2 2A29 29 0 0 0 2 12a29 29 0 0 0 .4 4.8 2.8 2.8 0 0 0 2 2c1.7.4 7.6.4 7.6.4s5.9 0 7.6-.4a2.8 2.8 0 0 0 2-2A29 29 0 0 0 22 12a29 29 0 0 0-.4-4.8z"/><path fill="#fff" d="M10 15.5v-7l6 3.5z"/></svg></a></li>
+        <li><a href="https://leetcode.com/problems/minimum-height-trees/">Minimum Height Trees <span class="lc">#310</span></a><a class="yt" href="https://www.youtube.com/watch?v=wQGQnyv_9hI" target="_blank" rel="noopener noreferrer" aria-label="Watch the NeetCode video for Minimum Height Trees" title="NeetCode: Minimum Height Trees - Leetcode 310 - Python"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M21.6 7.2a2.8 2.8 0 0 0-2-2C17.9 4.8 12 4.8 12 4.8s-5.9 0-7.6.4a2.8 2.8 0 0 0-2 2A29 29 0 0 0 2 12a29 29 0 0 0 .4 4.8 2.8 2.8 0 0 0 2 2c1.7.4 7.6.4 7.6.4s5.9 0 7.6-.4a2.8 2.8 0 0 0 2-2A29 29 0 0 0 22 12a29 29 0 0 0-.4-4.8z"/><path fill="#fff" d="M10 15.5v-7l6 3.5z"/></svg></a></li>
+        <li><a href="https://leetcode.com/problems/find-eventual-safe-states/">Find Eventual Safe States <span class="lc">#802</span></a><a class="yt" href="https://www.youtube.com/watch?v=Re_v0j0CRsg" target="_blank" rel="noopener noreferrer" aria-label="Watch the NeetCode video for Find Eventual Safe States" title="NeetCode: Find Eventual Safe States - Leetcode 802 - Python"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M21.6 7.2a2.8 2.8 0 0 0-2-2C17.9 4.8 12 4.8 12 4.8s-5.9 0-7.6.4a2.8 2.8 0 0 0-2 2A29 29 0 0 0 2 12a29 29 0 0 0 .4 4.8 2.8 2.8 0 0 0 2 2c1.7.4 7.6.4 7.6.4s5.9 0 7.6-.4a2.8 2.8 0 0 0 2-2A29 29 0 0 0 22 12a29 29 0 0 0-.4-4.8z"/><path fill="#fff" d="M10 15.5v-7l6 3.5z"/></svg></a></li>
       </ul></div>
     </section>
 
@@ -5542,7 +5573,7 @@ ListNode* <span class="tf">middleNode</span>(ListNode* head)
         </ul></div>
       </div>
       <article class="example">
-        <h3><a href="https://leetcode.com/problems/subsets/">Subsets</a><span class="lc">#78</span><span class="diff medium">Medium</span></h3>
+        <h3><a href="https://leetcode.com/problems/subsets/">Subsets</a><span class="lc">#78</span><a class="yt" href="https://www.youtube.com/watch?v=REOH22Xwdkk" target="_blank" rel="noopener noreferrer" aria-label="Watch the NeetCode video for Subsets" title="NeetCode: Subsets - Backtracking - Leetcode 78"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M21.6 7.2a2.8 2.8 0 0 0-2-2C17.9 4.8 12 4.8 12 4.8s-5.9 0-7.6.4a2.8 2.8 0 0 0-2 2A29 29 0 0 0 2 12a29 29 0 0 0 .4 4.8 2.8 2.8 0 0 0 2 2c1.7.4 7.6.4 7.6.4s5.9 0 7.6-.4a2.8 2.8 0 0 0 2-2A29 29 0 0 0 22 12a29 29 0 0 0-.4-4.8z"/><path fill="#fff" d="M10 15.5v-7l6 3.5z"/></svg></a><span class="diff medium">Medium</span></h3>
         <p class="task">Every subset of a list of distinct numbers.</p>
         <pre class="code" data-snippet="bt-subsets" data-lang="ts"><code><span class="tk">function</span> <span class="tf">subsets</span>(nums: <span class="tk">number</span>[]): <span class="tk">number</span>[][] {
   <span class="tk">const</span> result: <span class="tk">number</span>[][] = [];
@@ -5683,7 +5714,7 @@ ListNode* <span class="tf">middleNode</span>(ListNode* head)
         <p class="cx"><b>Time</b> O(n · 2<sup>n</sup>) · <b>Space</b> O(n) besides the output</p>
       </article>
       <article class="example">
-        <h3><a href="https://leetcode.com/problems/permutations/">Permutations</a><span class="lc">#46</span><span class="diff medium">Medium</span></h3>
+        <h3><a href="https://leetcode.com/problems/permutations/">Permutations</a><span class="lc">#46</span><a class="yt" href="https://www.youtube.com/watch?v=FZe0UqISmUw" target="_blank" rel="noopener noreferrer" aria-label="Watch the NeetCode video for Permutations" title="NeetCode: Permutations - Leetcode 46 - Python"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M21.6 7.2a2.8 2.8 0 0 0-2-2C17.9 4.8 12 4.8 12 4.8s-5.9 0-7.6.4a2.8 2.8 0 0 0-2 2A29 29 0 0 0 2 12a29 29 0 0 0 .4 4.8 2.8 2.8 0 0 0 2 2c1.7.4 7.6.4 7.6.4s5.9 0 7.6-.4a2.8 2.8 0 0 0 2-2A29 29 0 0 0 22 12a29 29 0 0 0-.4-4.8z"/><path fill="#fff" d="M10 15.5v-7l6 3.5z"/></svg></a><span class="diff medium">Medium</span></h3>
         <p class="task">Every ordering of a list of distinct numbers.</p>
         <pre class="code" data-snippet="bt-permutations" data-lang="ts"><code><span class="tk">function</span> <span class="tf">permute</span>(nums: <span class="tk">number</span>[]): <span class="tk">number</span>[][] {
   <span class="tk">const</span> result: <span class="tk">number</span>[][] = [];
@@ -5894,7 +5925,7 @@ ListNode* <span class="tf">middleNode</span>(ListNode* head)
         <p class="cx"><b>Time</b> O(n · n!) · <b>Space</b> O(n) besides the output</p>
       </article>
       <article class="example">
-        <h3><a href="https://leetcode.com/problems/combination-sum/">Combination Sum</a><span class="lc">#39</span><span class="diff medium">Medium</span></h3>
+        <h3><a href="https://leetcode.com/problems/combination-sum/">Combination Sum</a><span class="lc">#39</span><a class="yt" href="https://www.youtube.com/watch?v=GBKI9VSKdGg" target="_blank" rel="noopener noreferrer" aria-label="Watch the NeetCode video for Combination Sum" title="NeetCode: Combination Sum - Backtracking - Leetcode 39 - Python"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M21.6 7.2a2.8 2.8 0 0 0-2-2C17.9 4.8 12 4.8 12 4.8s-5.9 0-7.6.4a2.8 2.8 0 0 0-2 2A29 29 0 0 0 2 12a29 29 0 0 0 .4 4.8 2.8 2.8 0 0 0 2 2c1.7.4 7.6.4 7.6.4s5.9 0 7.6-.4a2.8 2.8 0 0 0 2-2A29 29 0 0 0 22 12a29 29 0 0 0-.4-4.8z"/><path fill="#fff" d="M10 15.5v-7l6 3.5z"/></svg></a><span class="diff medium">Medium</span></h3>
         <p class="task">Every combination that sums to <code>target</code>; a number may be reused.</p>
         <pre class="code" data-snippet="bt-combination-sum" data-lang="ts"><code><span class="tk">function</span> <span class="tf">combinationSum</span>(candidates: <span class="tk">number</span>[], target: <span class="tk">number</span>): <span class="tk">number</span>[][] {
   <span class="tk">const</span> result: <span class="tk">number</span>[][] = [];
@@ -6081,10 +6112,10 @@ ListNode* <span class="tf">middleNode</span>(ListNode* head)
         <p class="cx"><b>Time</b> exponential, cut down by the sorted early stop · <b>Space</b> O(target / smallest candidate) for the recursion</p>
       </article>
       <div class="practice"><h3>Practice next</h3><ul>
-        <li><a href="https://leetcode.com/problems/word-search/">Word Search <span class="lc">#79</span></a></li>
-        <li><a href="https://leetcode.com/problems/palindrome-partitioning/">Palindrome Partitioning <span class="lc">#131</span></a></li>
-        <li><a href="https://leetcode.com/problems/letter-combinations-of-a-phone-number/">Letter Combinations of a Phone Number <span class="lc">#17</span></a></li>
-        <li><a href="https://leetcode.com/problems/subsets-ii/">Subsets II <span class="lc">#90</span></a></li>
+        <li><a href="https://leetcode.com/problems/word-search/">Word Search <span class="lc">#79</span></a><a class="yt" href="https://www.youtube.com/watch?v=pfiQ_PS1g8E" target="_blank" rel="noopener noreferrer" aria-label="Watch the NeetCode video for Word Search" title="NeetCode: Word Search - Backtracking - Leetcode 79 - Python"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M21.6 7.2a2.8 2.8 0 0 0-2-2C17.9 4.8 12 4.8 12 4.8s-5.9 0-7.6.4a2.8 2.8 0 0 0-2 2A29 29 0 0 0 2 12a29 29 0 0 0 .4 4.8 2.8 2.8 0 0 0 2 2c1.7.4 7.6.4 7.6.4s5.9 0 7.6-.4a2.8 2.8 0 0 0 2-2A29 29 0 0 0 22 12a29 29 0 0 0-.4-4.8z"/><path fill="#fff" d="M10 15.5v-7l6 3.5z"/></svg></a></li>
+        <li><a href="https://leetcode.com/problems/palindrome-partitioning/">Palindrome Partitioning <span class="lc">#131</span></a><a class="yt" href="https://www.youtube.com/watch?v=3jvWodd7ht0" target="_blank" rel="noopener noreferrer" aria-label="Watch the NeetCode video for Palindrome Partitioning" title="NeetCode: Palindrome Partitioning - Backtracking - Leetcode 131"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M21.6 7.2a2.8 2.8 0 0 0-2-2C17.9 4.8 12 4.8 12 4.8s-5.9 0-7.6.4a2.8 2.8 0 0 0-2 2A29 29 0 0 0 2 12a29 29 0 0 0 .4 4.8 2.8 2.8 0 0 0 2 2c1.7.4 7.6.4 7.6.4s5.9 0 7.6-.4a2.8 2.8 0 0 0 2-2A29 29 0 0 0 22 12a29 29 0 0 0-.4-4.8z"/><path fill="#fff" d="M10 15.5v-7l6 3.5z"/></svg></a></li>
+        <li><a href="https://leetcode.com/problems/letter-combinations-of-a-phone-number/">Letter Combinations of a Phone Number <span class="lc">#17</span></a><a class="yt" href="https://www.youtube.com/watch?v=0snEunUacZY" target="_blank" rel="noopener noreferrer" aria-label="Watch the NeetCode video for Letter Combinations of a Phone Number" title="NeetCode: Letter Combinations of a Phone Number - Backtracking - Leetcode 17"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M21.6 7.2a2.8 2.8 0 0 0-2-2C17.9 4.8 12 4.8 12 4.8s-5.9 0-7.6.4a2.8 2.8 0 0 0-2 2A29 29 0 0 0 2 12a29 29 0 0 0 .4 4.8 2.8 2.8 0 0 0 2 2c1.7.4 7.6.4 7.6.4s5.9 0 7.6-.4a2.8 2.8 0 0 0 2-2A29 29 0 0 0 22 12a29 29 0 0 0-.4-4.8z"/><path fill="#fff" d="M10 15.5v-7l6 3.5z"/></svg></a></li>
+        <li><a href="https://leetcode.com/problems/subsets-ii/">Subsets II <span class="lc">#90</span></a><a class="yt" href="https://www.youtube.com/watch?v=Vn2v6ajA7U0" target="_blank" rel="noopener noreferrer" aria-label="Watch the NeetCode video for Subsets II" title="NeetCode: Subsets II - Backtracking - Leetcode 90 - Python"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M21.6 7.2a2.8 2.8 0 0 0-2-2C17.9 4.8 12 4.8 12 4.8s-5.9 0-7.6.4a2.8 2.8 0 0 0-2 2A29 29 0 0 0 2 12a29 29 0 0 0 .4 4.8 2.8 2.8 0 0 0 2 2c1.7.4 7.6.4 7.6.4s5.9 0 7.6-.4a2.8 2.8 0 0 0 2-2A29 29 0 0 0 22 12a29 29 0 0 0-.4-4.8z"/><path fill="#fff" d="M10 15.5v-7l6 3.5z"/></svg></a></li>
       </ul></div>
     </section>
 
@@ -6186,7 +6217,7 @@ ListNode* <span class="tf">middleNode</span>(ListNode* head)
         </ul></div>
       </div>
       <article class="example">
-        <h3><a href="https://leetcode.com/problems/house-robber/">House Robber</a><span class="lc">#198</span><span class="diff medium">Medium</span></h3>
+        <h3><a href="https://leetcode.com/problems/house-robber/">House Robber</a><span class="lc">#198</span><a class="yt" href="https://www.youtube.com/watch?v=73r3KWiEvyk" target="_blank" rel="noopener noreferrer" aria-label="Watch the NeetCode video for House Robber" title="NeetCode: House Robber -  Leetcode 198 - Python Dynamic Programming"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M21.6 7.2a2.8 2.8 0 0 0-2-2C17.9 4.8 12 4.8 12 4.8s-5.9 0-7.6.4a2.8 2.8 0 0 0-2 2A29 29 0 0 0 2 12a29 29 0 0 0 .4 4.8 2.8 2.8 0 0 0 2 2c1.7.4 7.6.4 7.6.4s5.9 0 7.6-.4a2.8 2.8 0 0 0 2-2A29 29 0 0 0 22 12a29 29 0 0 0-.4-4.8z"/><path fill="#fff" d="M10 15.5v-7l6 3.5z"/></svg></a><span class="diff medium">Medium</span></h3>
         <p class="task">The largest sum of houses with no two neighbors robbed. Shown both ways, so you can see the recursion turn into a loop.</p>
         <pre class="code" data-snippet="dp-house-robber" data-lang="ts"><code><span class="tc">// 1. Top-down: write the recursion, then cache it.</span>
 <span class="tk">function</span> <span class="tf">robMemo</span>(nums: <span class="tk">number</span>[]): <span class="tk">number</span> {
@@ -6425,7 +6456,7 @@ ListNode* <span class="tf">middleNode</span>(ListNode* head)
         <p class="cx"><b>Time</b> O(n) · <b>Space</b> O(n) with the memo, O(1) bottom-up</p>
       </article>
       <article class="example">
-        <h3><a href="https://leetcode.com/problems/coin-change/">Coin Change</a><span class="lc">#322</span><span class="diff medium">Medium</span></h3>
+        <h3><a href="https://leetcode.com/problems/coin-change/">Coin Change</a><span class="lc">#322</span><a class="yt" href="https://www.youtube.com/watch?v=H9bfqozjoqs" target="_blank" rel="noopener noreferrer" aria-label="Watch the NeetCode video for Coin Change" title="NeetCode: Coin Change - Dynamic Programming Bottom Up - Leetcode 322"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M21.6 7.2a2.8 2.8 0 0 0-2-2C17.9 4.8 12 4.8 12 4.8s-5.9 0-7.6.4a2.8 2.8 0 0 0-2 2A29 29 0 0 0 2 12a29 29 0 0 0 .4 4.8 2.8 2.8 0 0 0 2 2c1.7.4 7.6.4 7.6.4s5.9 0 7.6-.4a2.8 2.8 0 0 0 2-2A29 29 0 0 0 22 12a29 29 0 0 0-.4-4.8z"/><path fill="#fff" d="M10 15.5v-7l6 3.5z"/></svg></a><span class="diff medium">Medium</span></h3>
         <p class="task">The fewest coins that make <code>amount</code>, or -1 if no combination does.</p>
         <pre class="code" data-snippet="dp-coin-change" data-lang="ts"><code><span class="tk">function</span> <span class="tf">coinChange</span>(coins: <span class="tk">number</span>[], amount: <span class="tk">number</span>): <span class="tk">number</span> {
   <span class="tc">// dp[a] = the fewest coins that make a; Infinity means "can't yet"</span>
@@ -6540,7 +6571,7 @@ ListNode* <span class="tf">middleNode</span>(ListNode* head)
         <p class="cx"><b>Time</b> O(amount · coins) · <b>Space</b> O(amount)</p>
       </article>
       <article class="example">
-        <h3><a href="https://leetcode.com/problems/longest-common-subsequence/">Longest Common Subsequence</a><span class="lc">#1143</span><span class="diff medium">Medium</span></h3>
+        <h3><a href="https://leetcode.com/problems/longest-common-subsequence/">Longest Common Subsequence</a><span class="lc">#1143</span><a class="yt" href="https://www.youtube.com/watch?v=Ua0GhsJSlWM" target="_blank" rel="noopener noreferrer" aria-label="Watch the NeetCode video for Longest Common Subsequence" title="NeetCode: Longest Common Subsequence - Dynamic Programming - Leetcode 1143"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M21.6 7.2a2.8 2.8 0 0 0-2-2C17.9 4.8 12 4.8 12 4.8s-5.9 0-7.6.4a2.8 2.8 0 0 0-2 2A29 29 0 0 0 2 12a29 29 0 0 0 .4 4.8 2.8 2.8 0 0 0 2 2c1.7.4 7.6.4 7.6.4s5.9 0 7.6-.4a2.8 2.8 0 0 0 2-2A29 29 0 0 0 22 12a29 29 0 0 0-.4-4.8z"/><path fill="#fff" d="M10 15.5v-7l6 3.5z"/></svg></a><span class="diff medium">Medium</span></h3>
         <p class="task">The length of the longest subsequence two strings share. The table in the diagram is this code's <code>dp</code>.</p>
         <pre class="code" data-snippet="dp-lcs" data-lang="ts"><code><span class="tk">function</span> <span class="tf">longestCommonSubsequence</span>(text1: <span class="tk">string</span>, text2: <span class="tk">string</span>): <span class="tk">number</span> {
   <span class="tk">const</span> m = text1.length, n = text2.length;
@@ -6671,11 +6702,11 @@ ListNode* <span class="tf">middleNode</span>(ListNode* head)
         <p class="cx"><b>Time</b> O(m · n) · <b>Space</b> O(m · n)</p>
       </article>
       <div class="practice"><h3>Practice next</h3><ul>
-        <li><a href="https://leetcode.com/problems/longest-increasing-subsequence/">Longest Increasing Subsequence <span class="lc">#300</span></a></li>
-        <li><a href="https://leetcode.com/problems/word-break/">Word Break <span class="lc">#139</span></a></li>
-        <li><a href="https://leetcode.com/problems/unique-paths/">Unique Paths <span class="lc">#62</span></a></li>
-        <li><a href="https://leetcode.com/problems/partition-equal-subset-sum/">Partition Equal Subset Sum <span class="lc">#416</span></a></li>
-        <li><a href="https://leetcode.com/problems/decode-ways/">Decode Ways <span class="lc">#91</span></a></li>
+        <li><a href="https://leetcode.com/problems/longest-increasing-subsequence/">Longest Increasing Subsequence <span class="lc">#300</span></a><a class="yt" href="https://www.youtube.com/watch?v=cjWnW0hdF1Y" target="_blank" rel="noopener noreferrer" aria-label="Watch the NeetCode video for Longest Increasing Subsequence" title="NeetCode: Longest Increasing Subsequence - Dynamic Programming - Leetcode 300"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M21.6 7.2a2.8 2.8 0 0 0-2-2C17.9 4.8 12 4.8 12 4.8s-5.9 0-7.6.4a2.8 2.8 0 0 0-2 2A29 29 0 0 0 2 12a29 29 0 0 0 .4 4.8 2.8 2.8 0 0 0 2 2c1.7.4 7.6.4 7.6.4s5.9 0 7.6-.4a2.8 2.8 0 0 0 2-2A29 29 0 0 0 22 12a29 29 0 0 0-.4-4.8z"/><path fill="#fff" d="M10 15.5v-7l6 3.5z"/></svg></a></li>
+        <li><a href="https://leetcode.com/problems/word-break/">Word Break <span class="lc">#139</span></a><a class="yt" href="https://www.youtube.com/watch?v=Sx9NNgInc3A" target="_blank" rel="noopener noreferrer" aria-label="Watch the NeetCode video for Word Break" title="NeetCode: Word Break - Dynamic Programming - Leetcode 139 - Python"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M21.6 7.2a2.8 2.8 0 0 0-2-2C17.9 4.8 12 4.8 12 4.8s-5.9 0-7.6.4a2.8 2.8 0 0 0-2 2A29 29 0 0 0 2 12a29 29 0 0 0 .4 4.8 2.8 2.8 0 0 0 2 2c1.7.4 7.6.4 7.6.4s5.9 0 7.6-.4a2.8 2.8 0 0 0 2-2A29 29 0 0 0 22 12a29 29 0 0 0-.4-4.8z"/><path fill="#fff" d="M10 15.5v-7l6 3.5z"/></svg></a></li>
+        <li><a href="https://leetcode.com/problems/unique-paths/">Unique Paths <span class="lc">#62</span></a><a class="yt" href="https://www.youtube.com/watch?v=IlEsdxuD4lY" target="_blank" rel="noopener noreferrer" aria-label="Watch the NeetCode video for Unique Paths" title="NeetCode: Unique Paths - Dynamic Programming - Leetcode 62"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M21.6 7.2a2.8 2.8 0 0 0-2-2C17.9 4.8 12 4.8 12 4.8s-5.9 0-7.6.4a2.8 2.8 0 0 0-2 2A29 29 0 0 0 2 12a29 29 0 0 0 .4 4.8 2.8 2.8 0 0 0 2 2c1.7.4 7.6.4 7.6.4s5.9 0 7.6-.4a2.8 2.8 0 0 0 2-2A29 29 0 0 0 22 12a29 29 0 0 0-.4-4.8z"/><path fill="#fff" d="M10 15.5v-7l6 3.5z"/></svg></a></li>
+        <li><a href="https://leetcode.com/problems/partition-equal-subset-sum/">Partition Equal Subset Sum <span class="lc">#416</span></a><a class="yt" href="https://www.youtube.com/watch?v=IsvocB5BJhw" target="_blank" rel="noopener noreferrer" aria-label="Watch the NeetCode video for Partition Equal Subset Sum" title="NeetCode: Partition Equal Subset Sum - Dynamic Programming - Leetcode 416 - Python"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M21.6 7.2a2.8 2.8 0 0 0-2-2C17.9 4.8 12 4.8 12 4.8s-5.9 0-7.6.4a2.8 2.8 0 0 0-2 2A29 29 0 0 0 2 12a29 29 0 0 0 .4 4.8 2.8 2.8 0 0 0 2 2c1.7.4 7.6.4 7.6.4s5.9 0 7.6-.4a2.8 2.8 0 0 0 2-2A29 29 0 0 0 22 12a29 29 0 0 0-.4-4.8z"/><path fill="#fff" d="M10 15.5v-7l6 3.5z"/></svg></a></li>
+        <li><a href="https://leetcode.com/problems/decode-ways/">Decode Ways <span class="lc">#91</span></a><a class="yt" href="https://www.youtube.com/watch?v=6aEyTjOwlJU" target="_blank" rel="noopener noreferrer" aria-label="Watch the NeetCode video for Decode Ways" title="NeetCode: Decode Ways - Dynamic Programming - Leetcode 91 - Python"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M21.6 7.2a2.8 2.8 0 0 0-2-2C17.9 4.8 12 4.8 12 4.8s-5.9 0-7.6.4a2.8 2.8 0 0 0-2 2A29 29 0 0 0 2 12a29 29 0 0 0 .4 4.8 2.8 2.8 0 0 0 2 2c1.7.4 7.6.4 7.6.4s5.9 0 7.6-.4a2.8 2.8 0 0 0 2-2A29 29 0 0 0 22 12a29 29 0 0 0-.4-4.8z"/><path fill="#fff" d="M10 15.5v-7l6 3.5z"/></svg></a></li>
       </ul></div>
     </section>
 
@@ -6738,7 +6769,7 @@ ListNode* <span class="tf">middleNode</span>(ListNode* head)
         </ul></div>
       </div>
       <article class="example">
-        <h3><a href="https://leetcode.com/problems/merge-intervals/">Merge Intervals</a><span class="lc">#56</span><span class="diff medium">Medium</span><span class="dojo">dojo 02</span></h3>
+        <h3><a href="https://leetcode.com/problems/merge-intervals/">Merge Intervals</a><span class="lc">#56</span><a class="yt" href="https://www.youtube.com/watch?v=44H3cEC2fFM" target="_blank" rel="noopener noreferrer" aria-label="Watch the NeetCode video for Merge Intervals" title="NeetCode: Merge Intervals - Sorting - Leetcode 56"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M21.6 7.2a2.8 2.8 0 0 0-2-2C17.9 4.8 12 4.8 12 4.8s-5.9 0-7.6.4a2.8 2.8 0 0 0-2 2A29 29 0 0 0 2 12a29 29 0 0 0 .4 4.8 2.8 2.8 0 0 0 2 2c1.7.4 7.6.4 7.6.4s5.9 0 7.6-.4a2.8 2.8 0 0 0 2-2A29 29 0 0 0 22 12a29 29 0 0 0-.4-4.8z"/><path fill="#fff" d="M10 15.5v-7l6 3.5z"/></svg></a><span class="diff medium">Medium</span><span class="dojo">dojo 02</span></h3>
         <p class="task">Merge every set of overlapping intervals.</p>
         <pre class="code" data-snippet="iv-merge" data-lang="ts"><code><span class="tk">function</span> <span class="tf">merge</span>(intervals: <span class="tk">number</span>[][]): <span class="tk">number</span>[][] {
   intervals.<span class="tf">sort</span>((a, b) =&gt; a[<span class="tn">0</span>] - b[<span class="tn">0</span>]);  <span class="tc">// by start</span>
@@ -6858,7 +6889,7 @@ ListNode* <span class="tf">middleNode</span>(ListNode* head)
         <p class="cx"><b>Time</b> O(n log n) · <b>Space</b> O(n)</p>
       </article>
       <article class="example">
-        <h3><a href="https://leetcode.com/problems/non-overlapping-intervals/">Non-overlapping Intervals</a><span class="lc">#435</span><span class="diff medium">Medium</span></h3>
+        <h3><a href="https://leetcode.com/problems/non-overlapping-intervals/">Non-overlapping Intervals</a><span class="lc">#435</span><a class="yt" href="https://www.youtube.com/watch?v=nONCGxWoUfM" target="_blank" rel="noopener noreferrer" aria-label="Watch the NeetCode video for Non-overlapping Intervals" title="NeetCode: Non-Overlapping Intervals - Leetcode 435 - Python"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M21.6 7.2a2.8 2.8 0 0 0-2-2C17.9 4.8 12 4.8 12 4.8s-5.9 0-7.6.4a2.8 2.8 0 0 0-2 2A29 29 0 0 0 2 12a29 29 0 0 0 .4 4.8 2.8 2.8 0 0 0 2 2c1.7.4 7.6.4 7.6.4s5.9 0 7.6-.4a2.8 2.8 0 0 0 2-2A29 29 0 0 0 22 12a29 29 0 0 0-.4-4.8z"/><path fill="#fff" d="M10 15.5v-7l6 3.5z"/></svg></a><span class="diff medium">Medium</span></h3>
         <p class="task">The fewest intervals to remove so the rest don't overlap. Keep whichever ends first: it leaves the most room.</p>
         <pre class="code" data-snippet="iv-non-overlapping" data-lang="ts"><code><span class="tk">function</span> <span class="tf">eraseOverlapIntervals</span>(intervals: <span class="tk">number</span>[][]): <span class="tk">number</span> {
   intervals.<span class="tf">sort</span>((a, b) =&gt; a[<span class="tn">1</span>] - b[<span class="tn">1</span>]);  <span class="tc">// by end</span>
@@ -6960,7 +6991,7 @@ ListNode* <span class="tf">middleNode</span>(ListNode* head)
         <p class="cx"><b>Time</b> O(n log n) · <b>Space</b> O(1) beyond the sort</p>
       </article>
       <article class="example">
-        <h3><a href="https://leetcode.com/problems/jump-game/">Jump Game</a><span class="lc">#55</span><span class="diff medium">Medium</span></h3>
+        <h3><a href="https://leetcode.com/problems/jump-game/">Jump Game</a><span class="lc">#55</span><a class="yt" href="https://www.youtube.com/watch?v=Yan0cv2cLy8" target="_blank" rel="noopener noreferrer" aria-label="Watch the NeetCode video for Jump Game" title="NeetCode: Jump Game - Greedy - Leetcode 55"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M21.6 7.2a2.8 2.8 0 0 0-2-2C17.9 4.8 12 4.8 12 4.8s-5.9 0-7.6.4a2.8 2.8 0 0 0-2 2A29 29 0 0 0 2 12a29 29 0 0 0 .4 4.8 2.8 2.8 0 0 0 2 2c1.7.4 7.6.4 7.6.4s5.9 0 7.6-.4a2.8 2.8 0 0 0 2-2A29 29 0 0 0 22 12a29 29 0 0 0-.4-4.8z"/><path fill="#fff" d="M10 15.5v-7l6 3.5z"/></svg></a><span class="diff medium">Medium</span></h3>
         <p class="task">From index i you may jump up to <code>nums[i]</code>. Can you reach the last index?</p>
         <pre class="code" data-snippet="iv-jump-game" data-lang="ts"><code><span class="tk">function</span> <span class="tf">canJump</span>(nums: <span class="tk">number</span>[]): <span class="tk">boolean</span> {
   <span class="tk">let</span> reach = <span class="tn">0</span>;  <span class="tc">// the farthest index we can get to</span>
@@ -7047,10 +7078,10 @@ ListNode* <span class="tf">middleNode</span>(ListNode* head)
         <p class="cx"><b>Time</b> O(n) · <b>Space</b> O(1)</p>
       </article>
       <div class="practice"><h3>Practice next</h3><ul>
-        <li><a href="https://leetcode.com/problems/insert-interval/">Insert Interval <span class="lc">#57</span></a></li>
-        <li><a href="https://leetcode.com/problems/minimum-number-of-arrows-to-burst-balloons/">Minimum Number of Arrows to Burst Balloons <span class="lc">#452</span></a></li>
-        <li><a href="https://leetcode.com/problems/gas-station/">Gas Station <span class="lc">#134</span></a></li>
-        <li><a href="https://leetcode.com/problems/partition-labels/">Partition Labels <span class="lc">#763</span></a></li>
+        <li><a href="https://leetcode.com/problems/insert-interval/">Insert Interval <span class="lc">#57</span></a><a class="yt" href="https://www.youtube.com/watch?v=A8NUOmlwOlM" target="_blank" rel="noopener noreferrer" aria-label="Watch the NeetCode video for Insert Interval" title="NeetCode: Insert Interval - Leetcode 57 - Python"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M21.6 7.2a2.8 2.8 0 0 0-2-2C17.9 4.8 12 4.8 12 4.8s-5.9 0-7.6.4a2.8 2.8 0 0 0-2 2A29 29 0 0 0 2 12a29 29 0 0 0 .4 4.8 2.8 2.8 0 0 0 2 2c1.7.4 7.6.4 7.6.4s5.9 0 7.6-.4a2.8 2.8 0 0 0 2-2A29 29 0 0 0 22 12a29 29 0 0 0-.4-4.8z"/><path fill="#fff" d="M10 15.5v-7l6 3.5z"/></svg></a></li>
+        <li><a href="https://leetcode.com/problems/minimum-number-of-arrows-to-burst-balloons/">Minimum Number of Arrows to Burst Balloons <span class="lc">#452</span></a><a class="yt" href="https://www.youtube.com/watch?v=lPmkKnvNPrw" target="_blank" rel="noopener noreferrer" aria-label="Watch the NeetCode video for Minimum Number of Arrows to Burst Balloons" title="NeetCode: Minimum Number of Arrows to Burst Balloons - Leetcode 452 - Python"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M21.6 7.2a2.8 2.8 0 0 0-2-2C17.9 4.8 12 4.8 12 4.8s-5.9 0-7.6.4a2.8 2.8 0 0 0-2 2A29 29 0 0 0 2 12a29 29 0 0 0 .4 4.8 2.8 2.8 0 0 0 2 2c1.7.4 7.6.4 7.6.4s5.9 0 7.6-.4a2.8 2.8 0 0 0 2-2A29 29 0 0 0 22 12a29 29 0 0 0-.4-4.8z"/><path fill="#fff" d="M10 15.5v-7l6 3.5z"/></svg></a></li>
+        <li><a href="https://leetcode.com/problems/gas-station/">Gas Station <span class="lc">#134</span></a><a class="yt" href="https://www.youtube.com/watch?v=lJwbPZGo05A" target="_blank" rel="noopener noreferrer" aria-label="Watch the NeetCode video for Gas Station" title="NeetCode: Gas Station - Greedy - Leetcode 134 - Python"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M21.6 7.2a2.8 2.8 0 0 0-2-2C17.9 4.8 12 4.8 12 4.8s-5.9 0-7.6.4a2.8 2.8 0 0 0-2 2A29 29 0 0 0 2 12a29 29 0 0 0 .4 4.8 2.8 2.8 0 0 0 2 2c1.7.4 7.6.4 7.6.4s5.9 0 7.6-.4a2.8 2.8 0 0 0 2-2A29 29 0 0 0 22 12a29 29 0 0 0-.4-4.8z"/><path fill="#fff" d="M10 15.5v-7l6 3.5z"/></svg></a></li>
+        <li><a href="https://leetcode.com/problems/partition-labels/">Partition Labels <span class="lc">#763</span></a><a class="yt" href="https://www.youtube.com/watch?v=B7m8UmZE-vw" target="_blank" rel="noopener noreferrer" aria-label="Watch the NeetCode video for Partition Labels" title="NeetCode: Partition Labels - Leetcode 763 - Python"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M21.6 7.2a2.8 2.8 0 0 0-2-2C17.9 4.8 12 4.8 12 4.8s-5.9 0-7.6.4a2.8 2.8 0 0 0-2 2A29 29 0 0 0 2 12a29 29 0 0 0 .4 4.8 2.8 2.8 0 0 0 2 2c1.7.4 7.6.4 7.6.4s5.9 0 7.6-.4a2.8 2.8 0 0 0 2-2A29 29 0 0 0 22 12a29 29 0 0 0-.4-4.8z"/><path fill="#fff" d="M10 15.5v-7l6 3.5z"/></svg></a></li>
       </ul></div>
     </section>
 
@@ -7104,7 +7135,7 @@ ListNode* <span class="tf">middleNode</span>(ListNode* head)
         </ul></div>
       </div>
       <article class="example">
-        <h3><a href="https://leetcode.com/problems/redundant-connection/">Redundant Connection</a><span class="lc">#684</span><span class="diff medium">Medium</span></h3>
+        <h3><a href="https://leetcode.com/problems/redundant-connection/">Redundant Connection</a><span class="lc">#684</span><a class="yt" href="https://www.youtube.com/watch?v=FXWRE67PLL0" target="_blank" rel="noopener noreferrer" aria-label="Watch the NeetCode video for Redundant Connection" title="NeetCode: Redundant Connection - Union Find - Leetcode 684 - Python"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M21.6 7.2a2.8 2.8 0 0 0-2-2C17.9 4.8 12 4.8 12 4.8s-5.9 0-7.6.4a2.8 2.8 0 0 0-2 2A29 29 0 0 0 2 12a29 29 0 0 0 .4 4.8 2.8 2.8 0 0 0 2 2c1.7.4 7.6.4 7.6.4s5.9 0 7.6-.4a2.8 2.8 0 0 0 2-2A29 29 0 0 0 22 12a29 29 0 0 0-.4-4.8z"/><path fill="#fff" d="M10 15.5v-7l6 3.5z"/></svg></a><span class="diff medium">Medium</span></h3>
         <p class="task">A tree with one extra edge: return the edge that creates the cycle. The <code>UnionFind</code> class is reusable as-is.</p>
         <pre class="code" data-snippet="uf-redundant" data-lang="ts"><code><span class="tk">class</span> UnionFind {
   <span class="tk">private</span> parent: <span class="tk">number</span>[];
@@ -7422,7 +7453,7 @@ ListNode* <span class="tf">middleNode</span>(ListNode* head)
       </article>
       <div class="practice"><h3>Practice next</h3><ul>
         <li><a href="https://leetcode.com/problems/number-of-provinces/">Number of Provinces <span class="lc">#547</span></a></li>
-        <li><a href="https://leetcode.com/problems/accounts-merge/">Accounts Merge <span class="lc">#721</span></a></li>
+        <li><a href="https://leetcode.com/problems/accounts-merge/">Accounts Merge <span class="lc">#721</span></a><a class="yt" href="https://www.youtube.com/watch?v=6st4IxEF-90" target="_blank" rel="noopener noreferrer" aria-label="Watch the NeetCode video for Accounts Merge" title="NeetCode: Accounts Merge - Leetcode 721 - Python"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M21.6 7.2a2.8 2.8 0 0 0-2-2C17.9 4.8 12 4.8 12 4.8s-5.9 0-7.6.4a2.8 2.8 0 0 0-2 2A29 29 0 0 0 2 12a29 29 0 0 0 .4 4.8 2.8 2.8 0 0 0 2 2c1.7.4 7.6.4 7.6.4s5.9 0 7.6-.4a2.8 2.8 0 0 0 2-2A29 29 0 0 0 22 12a29 29 0 0 0-.4-4.8z"/><path fill="#fff" d="M10 15.5v-7l6 3.5z"/></svg></a></li>
         <li><a href="https://leetcode.com/problems/satisfiability-of-equality-equations/">Satisfiability of Equality Equations <span class="lc">#990</span></a></li>
       </ul></div>
     </section>
@@ -7480,7 +7511,7 @@ ListNode* <span class="tf">middleNode</span>(ListNode* head)
         </ul></div>
       </div>
       <article class="example">
-        <h3><a href="https://leetcode.com/problems/implement-trie-prefix-tree/">Implement Trie (Prefix Tree)</a><span class="lc">#208</span><span class="diff medium">Medium</span></h3>
+        <h3><a href="https://leetcode.com/problems/implement-trie-prefix-tree/">Implement Trie (Prefix Tree)</a><span class="lc">#208</span><a class="yt" href="https://www.youtube.com/watch?v=oobqoCJlHA0" target="_blank" rel="noopener noreferrer" aria-label="Watch the NeetCode video for Implement Trie (Prefix Tree)" title="NeetCode: Implement Trie (Prefix Tree) - Leetcode 208"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M21.6 7.2a2.8 2.8 0 0 0-2-2C17.9 4.8 12 4.8 12 4.8s-5.9 0-7.6.4a2.8 2.8 0 0 0-2 2A29 29 0 0 0 2 12a29 29 0 0 0 .4 4.8 2.8 2.8 0 0 0 2 2c1.7.4 7.6.4 7.6.4s5.9 0 7.6-.4a2.8 2.8 0 0 0 2-2A29 29 0 0 0 22 12a29 29 0 0 0-.4-4.8z"/><path fill="#fff" d="M10 15.5v-7l6 3.5z"/></svg></a><span class="diff medium">Medium</span></h3>
         <p class="task">Insert words, then search for a whole word or a prefix.</p>
         <pre class="code" data-snippet="trie-implement" data-lang="ts"><code><span class="tk">class</span> TrieNode {
   children = <span class="tk">new</span> <span class="tt">Map</span>&lt;<span class="tk">string</span>, <span class="tt">TrieNode</span>&gt;();  <span class="tc">// letter -&gt; child</span>
@@ -7779,10 +7810,10 @@ ListNode* <span class="tf">middleNode</span>(ListNode* head)
         <p class="cx"><b>Time</b> O(L) per operation for a word of length L · <b>Space</b> O(total letters · 26)</p>
       </article>
       <div class="practice"><h3>Practice next</h3><ul>
-        <li><a href="https://leetcode.com/problems/design-add-and-search-words-data-structure/">Design Add and Search Words <span class="lc">#211</span></a></li>
+        <li><a href="https://leetcode.com/problems/design-add-and-search-words-data-structure/">Design Add and Search Words <span class="lc">#211</span></a><a class="yt" href="https://www.youtube.com/watch?v=BTf05gs_8iU" target="_blank" rel="noopener noreferrer" aria-label="Watch the NeetCode video for Design Add and Search Words" title="NeetCode: Design Add and Search Words Data Structure - Leetcode 211 - Python"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M21.6 7.2a2.8 2.8 0 0 0-2-2C17.9 4.8 12 4.8 12 4.8s-5.9 0-7.6.4a2.8 2.8 0 0 0-2 2A29 29 0 0 0 2 12a29 29 0 0 0 .4 4.8 2.8 2.8 0 0 0 2 2c1.7.4 7.6.4 7.6.4s5.9 0 7.6-.4a2.8 2.8 0 0 0 2-2A29 29 0 0 0 22 12a29 29 0 0 0-.4-4.8z"/><path fill="#fff" d="M10 15.5v-7l6 3.5z"/></svg></a></li>
         <li><a href="https://leetcode.com/problems/replace-words/">Replace Words <span class="lc">#648</span></a></li>
-        <li><a href="https://leetcode.com/problems/search-suggestions-system/">Search Suggestions System <span class="lc">#1268</span></a></li>
-        <li><a href="https://leetcode.com/problems/word-search-ii/">Word Search II <span class="lc">#212</span> <span class="diff hard">Hard</span></a></li>
+        <li><a href="https://leetcode.com/problems/search-suggestions-system/">Search Suggestions System <span class="lc">#1268</span></a><a class="yt" href="https://www.youtube.com/watch?v=D4T2N0yAr20" target="_blank" rel="noopener noreferrer" aria-label="Watch the NeetCode video for Search Suggestions System" title="NeetCode: Search Suggestions System - Leetcode 1268 - Python"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M21.6 7.2a2.8 2.8 0 0 0-2-2C17.9 4.8 12 4.8 12 4.8s-5.9 0-7.6.4a2.8 2.8 0 0 0-2 2A29 29 0 0 0 2 12a29 29 0 0 0 .4 4.8 2.8 2.8 0 0 0 2 2c1.7.4 7.6.4 7.6.4s5.9 0 7.6-.4a2.8 2.8 0 0 0 2-2A29 29 0 0 0 22 12a29 29 0 0 0-.4-4.8z"/><path fill="#fff" d="M10 15.5v-7l6 3.5z"/></svg></a></li>
+        <li><a href="https://leetcode.com/problems/word-search-ii/">Word Search II <span class="lc">#212</span> <span class="diff hard">Hard</span></a><a class="yt" href="https://www.youtube.com/watch?v=asbcE9mZz_U" target="_blank" rel="noopener noreferrer" aria-label="Watch the NeetCode video for Word Search II" title="NeetCode: Word Search II - Backtracking Trie - Leetcode 212 - Python"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M21.6 7.2a2.8 2.8 0 0 0-2-2C17.9 4.8 12 4.8 12 4.8s-5.9 0-7.6.4a2.8 2.8 0 0 0-2 2A29 29 0 0 0 2 12a29 29 0 0 0 .4 4.8 2.8 2.8 0 0 0 2 2c1.7.4 7.6.4 7.6.4s5.9 0 7.6-.4a2.8 2.8 0 0 0 2-2A29 29 0 0 0 22 12a29 29 0 0 0-.4-4.8z"/><path fill="#fff" d="M10 15.5v-7l6 3.5z"/></svg></a></li>
       </ul></div>
     </section>
 
@@ -7835,7 +7866,7 @@ ListNode* <span class="tf">middleNode</span>(ListNode* head)
         </ul></div>
       </div>
       <article class="example">
-        <h3><a href="https://leetcode.com/problems/network-delay-time/">Network Delay Time</a><span class="lc">#743</span><span class="diff medium">Medium</span></h3>
+        <h3><a href="https://leetcode.com/problems/network-delay-time/">Network Delay Time</a><span class="lc">#743</span><a class="yt" href="https://www.youtube.com/watch?v=EaphyqKU4PQ" target="_blank" rel="noopener noreferrer" aria-label="Watch the NeetCode video for Network Delay Time" title="NeetCode: Network Delay Time - Dijkstra&#x27;s algorithm - Leetcode 743"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M21.6 7.2a2.8 2.8 0 0 0-2-2C17.9 4.8 12 4.8 12 4.8s-5.9 0-7.6.4a2.8 2.8 0 0 0-2 2A29 29 0 0 0 2 12a29 29 0 0 0 .4 4.8 2.8 2.8 0 0 0 2 2c1.7.4 7.6.4 7.6.4s5.9 0 7.6-.4a2.8 2.8 0 0 0 2-2A29 29 0 0 0 22 12a29 29 0 0 0-.4-4.8z"/><path fill="#fff" d="M10 15.5v-7l6 3.5z"/></svg></a><span class="diff medium">Medium</span></h3>
         <p class="task">A signal starts at node <code>k</code>. How long until every node has it (-1 if some never do)?</p>
         <pre class="code" data-snippet="dj-network-delay" data-lang="ts"><code><span class="tc">// A binary heap, stored in an array. The children of slot i are</span>
 <span class="tc">// 2i + 1 and 2i + 2, so the parent of slot i is (i - 1) / 2, rounded down.</span>
@@ -8129,9 +8160,9 @@ ListNode* <span class="tf">middleNode</span>(ListNode* head)
         <p class="cx"><b>Time</b> O(E log E) · <b>Space</b> O(V + E)</p>
       </article>
       <div class="practice"><h3>Practice next</h3><ul>
-        <li><a href="https://leetcode.com/problems/path-with-minimum-effort/">Path With Minimum Effort <span class="lc">#1631</span></a></li>
-        <li><a href="https://leetcode.com/problems/cheapest-flights-within-k-stops/">Cheapest Flights Within K Stops <span class="lc">#787</span></a></li>
-        <li><a href="https://leetcode.com/problems/min-cost-to-connect-all-points/">Min Cost to Connect All Points <span class="lc">#1584</span></a></li>
+        <li><a href="https://leetcode.com/problems/path-with-minimum-effort/">Path With Minimum Effort <span class="lc">#1631</span></a><a class="yt" href="https://www.youtube.com/watch?v=XQlxCCx2vI4" target="_blank" rel="noopener noreferrer" aria-label="Watch the NeetCode video for Path With Minimum Effort" title="NeetCode: Path with Minimum Effort - Leetcode 1631 - Python"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M21.6 7.2a2.8 2.8 0 0 0-2-2C17.9 4.8 12 4.8 12 4.8s-5.9 0-7.6.4a2.8 2.8 0 0 0-2 2A29 29 0 0 0 2 12a29 29 0 0 0 .4 4.8 2.8 2.8 0 0 0 2 2c1.7.4 7.6.4 7.6.4s5.9 0 7.6-.4a2.8 2.8 0 0 0 2-2A29 29 0 0 0 22 12a29 29 0 0 0-.4-4.8z"/><path fill="#fff" d="M10 15.5v-7l6 3.5z"/></svg></a></li>
+        <li><a href="https://leetcode.com/problems/cheapest-flights-within-k-stops/">Cheapest Flights Within K Stops <span class="lc">#787</span></a><a class="yt" href="https://www.youtube.com/watch?v=5eIK3zUdYmE" target="_blank" rel="noopener noreferrer" aria-label="Watch the NeetCode video for Cheapest Flights Within K Stops" title="NeetCode: Bellman-Ford - Cheapest Flights within K Stops - Leetcode 787 - Python"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M21.6 7.2a2.8 2.8 0 0 0-2-2C17.9 4.8 12 4.8 12 4.8s-5.9 0-7.6.4a2.8 2.8 0 0 0-2 2A29 29 0 0 0 2 12a29 29 0 0 0 .4 4.8 2.8 2.8 0 0 0 2 2c1.7.4 7.6.4 7.6.4s5.9 0 7.6-.4a2.8 2.8 0 0 0 2-2A29 29 0 0 0 22 12a29 29 0 0 0-.4-4.8z"/><path fill="#fff" d="M10 15.5v-7l6 3.5z"/></svg></a></li>
+        <li><a href="https://leetcode.com/problems/min-cost-to-connect-all-points/">Min Cost to Connect All Points <span class="lc">#1584</span></a><a class="yt" href="https://www.youtube.com/watch?v=f7JOBJIC-NA" target="_blank" rel="noopener noreferrer" aria-label="Watch the NeetCode video for Min Cost to Connect All Points" title="NeetCode: Prim&#x27;s Algorithm - Minimum Spanning Tree - Min Cost to Connect all Points - Leetcode 1584 - Python"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M21.6 7.2a2.8 2.8 0 0 0-2-2C17.9 4.8 12 4.8 12 4.8s-5.9 0-7.6.4a2.8 2.8 0 0 0-2 2A29 29 0 0 0 2 12a29 29 0 0 0 .4 4.8 2.8 2.8 0 0 0 2 2c1.7.4 7.6.4 7.6.4s5.9 0 7.6-.4a2.8 2.8 0 0 0 2-2A29 29 0 0 0 22 12a29 29 0 0 0-.4-4.8z"/><path fill="#fff" d="M10 15.5v-7l6 3.5z"/></svg></a></li>
       </ul></div>
     </section>
 

@@ -1,6 +1,6 @@
 # LeetCode medium patterns
 
-A one-page cheat sheet for the patterns behind most LeetCode medium problems, in TypeScript, Python, Java, C#, F#, C++, Go and Rust. Each pattern has the signals that point to it, a diagram that steps through the idea, and solutions you can paste into LeetCode.
+A one-page cheat sheet for the patterns behind most LeetCode medium problems, in TypeScript, Python, Java, C#, F#, C++, Go and Rust. Each pattern has the signals that point to it, a diagram that steps through the idea, and solutions you can paste into LeetCode. Most problems also carry a small play button that opens the NeetCode video walkthrough in a new tab.
 
 Read it at https://odytrice.github.io/leetcode/
 
