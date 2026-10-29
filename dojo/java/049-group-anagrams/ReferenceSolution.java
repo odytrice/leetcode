@@ -8,12 +8,14 @@ import java.util.Map;
 class ReferenceSolution extends Solution {
     @Override
     public List<List<String>> groupAnagrams(String[] strs) {
+        // groups maps a letter-count signature to every word that has it.
         Map<String, List<String>> groups = new HashMap<>();
         for (String word : strs) {
             int[] counts = new int[26];
             for (char letter : word.toCharArray()) {
                 counts[letter - 'a'] += 1;
             }
+            // Anagrams share the same counts, so the counts' text form works as the key.
             groups.computeIfAbsent(Arrays.toString(counts), key -> new ArrayList<>()).add(word);
         }
         return new ArrayList<>(groups.values());

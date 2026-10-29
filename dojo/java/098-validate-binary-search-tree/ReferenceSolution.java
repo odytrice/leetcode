@@ -6,14 +6,17 @@ class ReferenceSolution extends Solution {
     @Override
     public boolean isValidBST(TreeNode root) {
         Deque<TreeNode> stack = new ArrayDeque<>();
+        // A long sentinel sits below every int, so even Integer.MIN_VALUE passes the first check.
         long previous = Long.MIN_VALUE;
         TreeNode node = root;
         while (node != null || !stack.isEmpty()) {
+            // Walk as far left as possible; the stack remembers the ancestors to visit later.
             while (node != null) {
                 stack.push(node);
                 node = node.left;
             }
             node = stack.pop();
+            // Each in-order value must be strictly larger than the one before it.
             if (node.val <= previous) {
                 return false;
             }

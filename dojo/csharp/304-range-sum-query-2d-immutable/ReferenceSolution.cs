@@ -5,11 +5,13 @@ public class ReferenceSolution : NumMatrix
 
     public ReferenceSolution(int[][] matrix) : base(matrix)
     {
+        // An extra row and column of zeros remove the edge cases at row 0 and column 0.
         prefix = new long[matrix.Length + 1, matrix[0].Length + 1];
         for (int r = 0; r < matrix.Length; r += 1)
         {
             for (int c = 0; c < matrix[0].Length; c += 1)
             {
+                // Add the rectangle above and the one to the left, then remove their double-counted overlap.
                 prefix[r + 1, c + 1] = matrix[r][c] + prefix[r, c + 1] + prefix[r + 1, c] - prefix[r, c];
             }
         }

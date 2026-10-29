@@ -15,9 +15,11 @@ class ReferenceSolution extends Solution {
         queue.add(root);
         while (!queue.isEmpty()) {
             List<Integer> level = new ArrayList<>();
+            // At this point the queue holds exactly one level, so its size is the level's width.
             for (int count = queue.size(); count > 0; count -= 1) {
                 TreeNode node = queue.poll();
                 level.add(node.val);
+                // Children join the back of the queue and form the next level.
                 if (node.left != null) {
                     queue.add(node.left);
                 }

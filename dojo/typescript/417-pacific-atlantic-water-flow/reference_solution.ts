@@ -3,9 +3,11 @@ export function pacificAtlantic(heights: number[][]): number[][] {
   const rows = heights.length;
   const columns = heights[0].length;
 
+  // Returns every cell that can drain into one ocean, found by walking uphill from its edges.
   const reach = (pacific: boolean): Set<string> => {
     const seen = new Set<string>();
     const stack: [number, number][] = [];
+    // Seed with the ocean's border cells: left and top for the Pacific, right and bottom for the Atlantic.
     for (let row = 0; row < rows; row += 1) {
       stack.push([row, pacific ? 0 : columns - 1]);
     }
@@ -27,8 +29,10 @@ export function pacificAtlantic(heights: number[][]): number[][] {
         const key = `${nextRow},${nextColumn}`;
         if (
           nextRow >= 0 && nextColumn >= 0 && nextRow < rows && nextColumn < columns &&
+          // Moving backwards against the flow, water can only come from an equal or higher cell.
           !seen.has(key) && heights[nextRow][nextColumn] >= heights[row][column]
         ) {
+          // Mark a cell when it is pushed so it is never pushed twice.
           seen.add(key);
           stack.push([nextRow, nextColumn]);
         }
@@ -40,6 +44,7 @@ export function pacificAtlantic(heights: number[][]): number[][] {
   const pacific = reach(true);
   const atlantic = reach(false);
   const result: number[][] = [];
+  // Keep the cells that both oceans can reach.
   for (const key of pacific) {
     if (!atlantic.has(key)) {
       continue;

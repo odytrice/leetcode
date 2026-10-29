@@ -12,11 +12,13 @@ public class ReferenceSolution : Solution
             {
                 continue;
             }
+            // Look to the right of i for two values that sum to -nums[i].
             int l = i + 1;
             int r = nums.Length - 1;
             while (l < r)
             {
                 int sum = nums[i] + nums[l] + nums[r];
+                // Too small needs a bigger value from the left; too big needs a smaller one from the right.
                 if (sum < 0)
                 {
                     l += 1;

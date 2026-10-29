@@ -5,6 +5,7 @@ export class ReferenceSolution extends MedianFinder {
   private readonly values: number[] = [];
 
   override addNum(num: number): void {
+    // Binary search for the insert position that keeps values sorted.
     let low = 0;
     let high = this.values.length;
     while (low < high) {
@@ -20,6 +21,7 @@ export class ReferenceSolution extends MedianFinder {
 
   override findMedian(): number {
     const middle = this.values.length >> 1;
+    // Odd count: one middle value. Even count: average the two middle values.
     if (this.values.length % 2 === 1) {
       return this.values[middle];
     }

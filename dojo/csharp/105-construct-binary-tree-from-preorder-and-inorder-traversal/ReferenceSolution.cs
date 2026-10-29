@@ -6,9 +6,11 @@ public class ReferenceSolution : Solution
         var root = new TreeNode(preorder[0]);
         var stack = new Stack<TreeNode>();
         stack.Push(root);
+        // j points at the next inorder value: the leftmost node whose subtree is not finished.
         int j = 0;
         for (int i = 1; i < preorder.Length; i += 1)
         {
+            // The stack holds the current path of nodes that may still get a right child.
             var parent = stack.Peek();
             var node = new TreeNode(preorder[i]);
             if (parent.val != inorder[j])
@@ -26,6 +28,7 @@ public class ReferenceSolution : Solution
                 }
                 parent.right = node;
             }
+            // The new node may get children of its own next.
             stack.Push(node);
         }
         return root;

@@ -3,6 +3,7 @@ public class ReferenceSolution
     // O(n) time and space, using frequency buckets.
     public int[] TopKFrequent(int[] nums, int k)
     {
+        // counts[n] is how many times n appears.
         var counts = new Dictionary<int, int>();
         foreach (int n in nums)
         {
@@ -25,6 +26,7 @@ public class ReferenceSolution
                 result.AddRange(bucket);
             }
         }
+        // The last bucket may overshoot k, so trim the extra values.
         return result.Take(k).ToArray();
     }
 }

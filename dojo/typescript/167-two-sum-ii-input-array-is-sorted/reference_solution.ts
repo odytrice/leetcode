@@ -5,8 +5,10 @@ export function twoSum(numbers: number[], target: number): number[] {
   while (left < right) {
     const total = numbers[left] + numbers[right];
     if (total === target) {
+      // The answer uses 1-based indices.
       return [left + 1, right + 1];
     }
+    // Too small: only moving left raises the sum. Too big: only moving right lowers it.
     if (total < target) {
       left += 1;
     } else {

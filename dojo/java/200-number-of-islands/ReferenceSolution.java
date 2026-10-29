@@ -8,6 +8,7 @@ class ReferenceSolution extends Solution {
         int rows = grid.length;
         int columns = grid[0].length;
         int count = 0;
+        // Offsets for up, down, left and right.
         int[] rowStep = {-1, 1, 0, 0};
         int[] columnStep = {0, 0, -1, 1};
         for (int row = 0; row < rows; row += 1) {
@@ -15,9 +16,11 @@ class ReferenceSolution extends Solution {
                 if (grid[row][column] != '1') {
                     continue;
                 }
+                // Unvisited land starts a new island; flood it so it is never counted again.
                 count += 1;
                 Deque<int[]> stack = new ArrayDeque<>();
                 stack.push(new int[] {row, column});
+                // Sink a cell when it is pushed so it cannot be pushed a second time.
                 grid[row][column] = '0';
                 while (!stack.isEmpty()) {
                     int[] cell = stack.pop();

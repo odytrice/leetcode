@@ -6,11 +6,13 @@ public class ReferenceSolution : Solution
         int rows = heights.Length;
         int cols = heights[0].Length;
 
+        // Returns the cells whose water can drain into the chosen ocean.
         bool[,] Reach(bool pacific)
         {
             var seen = new bool[rows, cols];
             var queue = new Queue<(int R, int C)>();
 
+            // Marks a cell when it is queued so it never enters the queue twice.
             void Add(int r, int c)
             {
                 if (!seen[r, c])
@@ -38,6 +40,7 @@ public class ReferenceSolution : Solution
                 {
                     int r = cell.R + dr[d];
                     int c = cell.C + dc[d];
+                    // An equal or higher neighbor can drain down into this cell, so it reaches the ocean too.
                     if (r >= 0 && c >= 0 && r < rows && c < cols && !seen[r, c] && heights[r][c] >= heights[cell.R][cell.C])
                     {
                         Add(r, c);
@@ -54,6 +57,7 @@ public class ReferenceSolution : Solution
         {
             for (int c = 0; c < cols; c += 1)
             {
+                // Keep the cells that drain into both oceans.
                 if (p[r, c] && a[r, c])
                 {
                     result.Add(new[] { r, c });

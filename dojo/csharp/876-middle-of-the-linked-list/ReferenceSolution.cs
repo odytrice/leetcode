@@ -5,6 +5,7 @@ public class ReferenceSolution : Solution
     {
         var slow = head;
         ListNode? fast = head;
+        // fast moves two steps per slow step; with an even length slow ends on the second middle.
         while (fast?.next != null)
         {
             slow = slow.next!;

@@ -10,6 +10,7 @@ public class ReferenceSolution : RandomizedSet
         {
             return false;
         }
+        // Append at the end and remember its position.
         index[val] = values.Count;
         values.Add(val);
         return true;
@@ -25,6 +26,7 @@ public class ReferenceSolution : RandomizedSet
         int last = values[^1];
         values[i] = last;
         index[last] = i;
+        // The last slot is now a duplicate, so drop it.
         values.RemoveAt(values.Count - 1);
         index.Remove(val);
         return true;
@@ -32,6 +34,7 @@ public class ReferenceSolution : RandomizedSet
 
     public override int GetRandom()
     {
+        // Every value has one slot in the list, so a random index is uniform.
         return values[Random.Shared.Next(values.Count)];
     }
 }

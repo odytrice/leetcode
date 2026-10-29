@@ -4,6 +4,7 @@ export function orangesRotting(grid: number[][]): number {
   const columns = grid[0].length;
   let fresh = 0;
   let queue: [number, number][] = [];
+  // Count fresh oranges and queue every rotten one; they all spread at the same time.
   for (let row = 0; row < rows; row += 1) {
     for (let column = 0; column < columns; column += 1) {
       if (grid[row][column] === 1) {
@@ -15,6 +16,7 @@ export function orangesRotting(grid: number[][]): number {
   }
 
   let minutes = 0;
+  // Each round of the loop is one minute; stop when nothing fresh is left or nothing can spread.
   while (fresh > 0 && queue.length > 0) {
     minutes += 1;
     const nextQueue: [number, number][] = [];
@@ -26,6 +28,7 @@ export function orangesRotting(grid: number[][]): number {
         [row, column + 1],
       ]) {
         if (nextRow >= 0 && nextColumn >= 0 && nextRow < rows && nextColumn < columns && grid[nextRow][nextColumn] === 1) {
+          // Rot the orange when it is queued so it is not counted twice.
           grid[nextRow][nextColumn] = 2;
           fresh -= 1;
           nextQueue.push([nextRow, nextColumn]);
@@ -35,5 +38,6 @@ export function orangesRotting(grid: number[][]): number {
     queue = nextQueue;
   }
 
+  // Any fresh orange left could never be reached.
   return fresh === 0 ? minutes : -1;
 }

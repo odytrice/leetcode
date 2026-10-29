@@ -8,6 +8,7 @@ public class ReferenceSolution : Solution
         int best = 0;
         for (int right = 0; right < nums.Length; right += 1)
         {
+            // Count the zeros the window would need to flip.
             if (nums[right] == 0)
             {
                 zeros += 1;
@@ -21,6 +22,7 @@ public class ReferenceSolution : Solution
                 }
                 left += 1;
             }
+            // The window now has at most k zeros, so all of them can be flipped.
             best = Math.Max(best, right - left + 1);
         }
         return best;

@@ -8,9 +8,11 @@ export class ReferenceSolution extends NumMatrix {
     super(matrix);
     const rows = matrix.length;
     const cols = matrix[0].length;
+    // prefix[r][c] is the sum of the rectangle above and left of (r, c); the extra row and column are 0.
     this.prefix = Array.from({ length: rows + 1 }, () => new Array<number>(cols + 1).fill(0));
     for (let row = 0; row < rows; row += 1) {
       for (let column = 0; column < cols; column += 1) {
+        // Add the cell, the area above and the area left, then remove the overlap counted twice.
         this.prefix[row + 1][column + 1] =
           matrix[row][column] +
           this.prefix[row][column + 1] +
@@ -22,6 +24,7 @@ export class ReferenceSolution extends NumMatrix {
 
   override sumRegion(row1: number, col1: number, row2: number, col2: number): number {
     const prefix = this.prefix;
+    // Take the big rectangle, cut off the strips above and left, then add back the corner removed twice.
     return (
       prefix[row2 + 1][col2 + 1] -
       prefix[row1][col2 + 1] -

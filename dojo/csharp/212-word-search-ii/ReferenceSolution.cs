@@ -9,6 +9,7 @@ public class ReferenceSolution : Solution
 
     public override IList<string> FindWords(char[][] board, string[] words)
     {
+        // Build the trie; the node at the end of each word stores that word.
         var root = new Node();
         foreach (string word in words)
         {
@@ -36,6 +37,7 @@ public class ReferenceSolution : Solution
                 return;
             }
             char ch = board[r][c];
+            // No word continues with this letter. A used cell holds '\0', so it stops here too.
             if (!parent.Children.TryGetValue(ch, out var n))
             {
                 return;
@@ -46,6 +48,7 @@ public class ReferenceSolution : Solution
                 result.Add(n.Word);
                 n.Word = null;
             }
+            // Hide the cell while exploring so a path cannot use it twice.
             board[r][c] = '\0';
             Search(r - 1, c, n);
             Search(r + 1, c, n);
@@ -59,6 +62,7 @@ public class ReferenceSolution : Solution
             }
         }
 
+        // Start a search from every cell.
         for (int r = 0; r < rows; r += 1)
         {
             for (int c = 0; c < cols; c += 1)

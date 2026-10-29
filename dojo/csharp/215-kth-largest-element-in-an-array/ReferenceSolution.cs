@@ -7,11 +7,13 @@ public class ReferenceSolution : Solution
         foreach (int n in nums)
         {
             heap.Enqueue(n, n);
+            // Dropping the smallest keeps only the k largest values seen so far.
             if (heap.Count > k)
             {
                 heap.Dequeue();
             }
         }
+        // The smallest of the k largest values is the kth largest.
         return heap.Peek();
     }
 }

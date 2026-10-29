@@ -6,6 +6,7 @@ export class ReferenceSolution extends NumArray {
 
   constructor(nums: number[]) {
     super(nums);
+    // prefix[i] is the sum of the first i values; the leading 0 handles ranges that start at 0.
     this.prefix = [0];
     for (const value of nums) {
       this.prefix.push(this.prefix[this.prefix.length - 1] + value);
@@ -13,6 +14,7 @@ export class ReferenceSolution extends NumArray {
   }
 
   override sumRange(left: number, right: number): number {
+    // Sum of the first right + 1 values minus the first left values.
     return this.prefix[right + 1] - this.prefix[left];
   }
 }

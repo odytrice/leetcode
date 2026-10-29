@@ -7,6 +7,7 @@ public class ReferenceSolution : Solution
         {
             return 0;
         }
+        // heights[n] is the number of nodes on the longest downward path from n.
         var heights = new Dictionary<TreeNode, int>();
         var stack = new Stack<(TreeNode Node, bool Done)>();
         stack.Push((root, false));
@@ -28,8 +29,10 @@ public class ReferenceSolution : Solution
                 }
                 continue;
             }
+            // Second visit: both children already have their heights stored.
             int l = n.left == null ? 0 : heights[n.left];
             int r = n.right == null ? 0 : heights[n.right];
+            // The longest path that bends at n has l + r edges.
             best = Math.Max(best, l + r);
             heights[n] = 1 + Math.Max(l, r);
         }

@@ -9,7 +9,10 @@ class ReferenceSolution extends Solution {
             if (nums[middle] == target) {
                 return middle;
             }
+            // At least one half is always in order; only that half supports a simple range check.
+            // The else-if branch below handles the case where the right half is the sorted one.
             if (nums[left] <= nums[middle]) {
+                // The left half is sorted: keep it only if the target falls inside its range.
                 if (nums[left] <= target && target < nums[middle]) {
                     right = middle - 1;
                 } else {
@@ -21,6 +24,7 @@ class ReferenceSolution extends Solution {
                 right = middle - 1;
             }
         }
+        // -1 means the target is not in the array.
         return -1;
     }
 }

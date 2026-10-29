@@ -7,6 +7,7 @@ class ReferenceSolution extends Solution {
     public int maxAreaOfIsland(int[][] grid) {
         int rows = grid.length;
         int columns = grid[0].length;
+        // Offsets for up, down, left and right.
         int[] rowStep = {-1, 1, 0, 0};
         int[] columnStep = {0, 0, -1, 1};
         int best = 0;
@@ -15,9 +16,11 @@ class ReferenceSolution extends Solution {
                 if (grid[row][column] == 0) {
                     continue;
                 }
+                // Unvisited land: flood the whole island and count its cells.
                 int area = 0;
                 Deque<int[]> stack = new ArrayDeque<>();
                 stack.push(new int[] {row, column});
+                // Sink a cell when it is pushed so it is counted exactly once.
                 grid[row][column] = 0;
                 while (!stack.isEmpty()) {
                     int[] cell = stack.pop();

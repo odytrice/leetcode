@@ -7,6 +7,7 @@ public class ReferenceSolution : Solution
         {
             return null;
         }
+        // copies maps each original to its clone and doubles as the visited set.
         var copies = new Dictionary<Node, Node> { [node] = new(node.val) };
         var queue = new Queue<Node>();
         queue.Enqueue(node);
@@ -14,11 +15,13 @@ public class ReferenceSolution : Solution
         {
             foreach (var neighbor in original.neighbors)
             {
+                // Clone and queue a neighbor only the first time it appears.
                 if (!copies.ContainsKey(neighbor))
                 {
                     copies[neighbor] = new(neighbor.val);
                     queue.Enqueue(neighbor);
                 }
+                // Link the clones the same way the originals are linked.
                 copies[original].neighbors.Add(copies[neighbor]);
             }
         }

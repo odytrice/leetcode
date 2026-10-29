@@ -12,6 +12,7 @@ public class ReferenceSolution : Solution
             {
                 return m;
             }
+            // A sorted half lets us test the target with a simple range check.
             if (nums[l] <= nums[m])
             {
                 // The left half is sorted.
@@ -37,6 +38,7 @@ public class ReferenceSolution : Solution
                 }
             }
         }
+        // The range is empty, so the target is not in the array.
         return -1;
     }
 }

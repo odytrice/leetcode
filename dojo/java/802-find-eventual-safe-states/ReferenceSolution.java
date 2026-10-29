@@ -8,6 +8,7 @@ class ReferenceSolution extends Solution {
     @Override
     public List<Integer> eventualSafeNodes(int[][] graph) {
         int count = graph.length;
+        // reverse[t] lists the nodes with an edge into t; degree[n] counts n's outgoing edges.
         List<List<Integer>> reverse = new ArrayList<>();
         for (int node = 0; node < count; node += 1) {
             reverse.add(new ArrayList<>());
@@ -20,6 +21,7 @@ class ReferenceSolution extends Solution {
             }
         }
 
+        // Terminal nodes have no outgoing edges and are safe by definition.
         Deque<Integer> queue = new ArrayDeque<>();
         for (int node = 0; node < count; node += 1) {
             if (degree[node] == 0) {
@@ -28,14 +30,17 @@ class ReferenceSolution extends Solution {
         }
         while (!queue.isEmpty()) {
             int node = queue.poll();
+            // Each source loses one edge that is known to lead somewhere safe.
             for (int source : reverse.get(node)) {
                 degree[source] -= 1;
+                // Every edge of source now leads to safety, so source is safe too.
                 if (degree[source] == 0) {
                     queue.add(source);
                 }
             }
         }
 
+        // Nodes on or leading into a cycle keep a positive degree; the rest are safe, in order.
         List<Integer> result = new ArrayList<>();
         for (int node = 0; node < count; node += 1) {
             if (degree[node] == 0) {

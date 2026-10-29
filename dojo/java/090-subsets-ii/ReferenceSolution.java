@@ -6,6 +6,7 @@ import java.util.List;
 class ReferenceSolution extends Solution {
     @Override
     public List<List<Integer>> subsetsWithDup(int[] nums) {
+        // Sorting places equal values next to each other so duplicates are easy to spot.
         int[] values = nums.clone();
         Arrays.sort(values);
         List<List<Integer>> result = new ArrayList<>();
@@ -14,8 +15,10 @@ class ReferenceSolution extends Solution {
     }
 
     private void search(int[] values, int start, List<Integer> path, List<List<Integer>> result) {
+        // Every path reached is a distinct subset, so record it on the way down.
         result.add(new ArrayList<>(path));
         for (int index = start; index < values.length; index += 1) {
+            // Picking an equal value at the same depth would rebuild the same subsets.
             if (index > start && values[index] == values[index - 1]) {
                 continue;
             }

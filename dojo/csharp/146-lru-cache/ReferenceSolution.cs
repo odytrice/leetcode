@@ -2,6 +2,7 @@ public class ReferenceSolution : LRUCache
 {
     // O(1) per operation. The list keeps recency order; the dictionary finds a node by key.
     private readonly int capacity;
+    // The front of the list is the most recently used entry.
     private readonly LinkedList<(int Key, int Value)> order = new();
     private readonly Dictionary<int, LinkedListNode<(int Key, int Value)>> nodes = new();
 
@@ -26,6 +27,7 @@ public class ReferenceSolution : LRUCache
     {
         if (nodes.TryGetValue(key, out var node))
         {
+            // An existing key: update the value and mark it most recently used.
             node.Value = (key, value);
             order.Remove(node);
             order.AddFirst(node);
@@ -37,6 +39,7 @@ public class ReferenceSolution : LRUCache
             nodes.Remove(order.Last!.Value.Key);
             order.RemoveLast();
         }
+        // A new key enters at the front as the most recently used.
         nodes[key] = order.AddFirst((key, value));
     }
 }

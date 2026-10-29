@@ -4,6 +4,7 @@ public class ReferenceSolution : Solution
     public override IList<IList<string>> AccountsMerge(IList<IList<string>> accounts)
     {
         var parent = Enumerable.Range(0, accounts.Count).ToArray();
+        // owner maps each email to the first account that listed it.
         var owner = new Dictionary<string, int>();
 
         // Path halving keeps the trees shallow.
@@ -23,6 +24,7 @@ public class ReferenceSolution : Solution
             {
                 if (owner.TryGetValue(email, out int j))
                 {
+                    // The email was seen before, so join this account with the earlier one.
                     parent[Find(i)] = Find(j);
                 }
                 else
@@ -47,7 +49,9 @@ public class ReferenceSolution : Solution
         var result = new List<IList<string>>();
         foreach (var (root, emails) in groups)
         {
+            // The output lists the emails in sorted order after the name.
             emails.Sort(StringComparer.Ordinal);
+            // Every account in a group has the same name, so take the root's.
             var account = new List<string> { accounts[root][0] };
             account.AddRange(emails);
             result.Add(account);

@@ -5,6 +5,7 @@ public class ReferenceSolution : Solution
     {
         int rows = heights.Length;
         int cols = heights[0].Length;
+        // dist[r, c] is the smallest effort found so far to reach that cell.
         var dist = new int[rows, cols];
         for (int r = 0; r < rows; r += 1)
         {
@@ -25,6 +26,7 @@ public class ReferenceSolution : Solution
             {
                 continue;
             }
+            // The first time the target is popped, its effort is final.
             if (cell.R == rows - 1 && cell.C == cols - 1)
             {
                 return effort;
@@ -37,7 +39,9 @@ public class ReferenceSolution : Solution
                 {
                     continue;
                 }
+                // A path's effort is its largest step, so take the max instead of a sum.
                 int next = Math.Max(effort, Math.Abs(heights[r][c] - heights[cell.R][cell.C]));
+                // Only queue a neighbor when this path improves on its best so far.
                 if (next < dist[r, c])
                 {
                     dist[r, c] = next;
@@ -45,6 +49,7 @@ public class ReferenceSolution : Solution
                 }
             }
         }
+        // Unreachable: the grid is connected, so the corner is always popped.
         return 0;
     }
 }

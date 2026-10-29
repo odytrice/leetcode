@@ -5,8 +5,10 @@ import java.util.List;
 class ReferenceSolution extends Solution {
     @Override
     public int lengthOfLIS(int[] nums) {
+        // tails stays sorted, which is what makes the binary search valid.
         List<Integer> tails = new ArrayList<>();
         for (int value : nums) {
+            // Find the first tail that is not smaller than value.
             int low = 0;
             int high = tails.size();
             while (low < high) {
@@ -17,9 +19,11 @@ class ReferenceSolution extends Solution {
                     high = middle;
                 }
             }
+            // Bigger than every tail: value extends the longest run by one.
             if (low == tails.size()) {
                 tails.add(value);
             } else {
+                // A smaller tail for that length leaves more room for later values.
                 tails.set(low, value);
             }
         }

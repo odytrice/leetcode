@@ -3,6 +3,7 @@ public class ReferenceSolution : Solution
     // O(n log n + m log n) time. Sort once, then binary search each prefix.
     public override IList<IList<string>> SuggestedProducts(string[] products, string searchWord)
     {
+        // Sort ordinally to match the ordinal comparisons in the binary search.
         Array.Sort(products, StringComparer.Ordinal);
         var result = new List<IList<string>>();
         for (int length = 1; length <= searchWord.Length; length += 1)
@@ -29,6 +30,7 @@ public class ReferenceSolution : Solution
             var suggestions = new List<string>();
             for (int i = l; i < products.Length && suggestions.Count < 3; i += 1)
             {
+                // In sorted order the first product without the prefix ends the matches.
                 if (!products[i].StartsWith(prefix, StringComparison.Ordinal))
                 {
                     break;

@@ -2,12 +2,15 @@ import { ListNode } from "../shared.ts";
 
 // O(max(m, n)) time. Adds column by column with a carry.
 export function addTwoNumbers(l1: ListNode, l2: ListNode): ListNode {
+  // The dummy head avoids a special case for the first digit.
   const dummy = new ListNode(0);
   let tail: ListNode = dummy;
   let first: ListNode | null = l1;
   let second: ListNode | null = l2;
   let carry = 0;
+  // Keep going while either list has digits or a carry is still pending.
   while (first !== null || second !== null || carry !== 0) {
+    // A finished list contributes 0 for the rest of the columns.
     const total = (first?.val ?? 0) + (second?.val ?? 0) + carry;
     tail.next = new ListNode(total % 10);
     tail = tail.next;

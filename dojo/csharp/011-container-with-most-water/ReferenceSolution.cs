@@ -8,7 +8,9 @@ public class ReferenceSolution : Solution
         int best = 0;
         while (l < r)
         {
+            // The water level is set by the shorter wall; the width is the distance between them.
             best = Math.Max(best, (r - l) * Math.Min(height[l], height[r]));
+            // The shorter wall can never do better with a closer partner, so drop it.
             if (height[l] <= height[r])
             {
                 l += 1;

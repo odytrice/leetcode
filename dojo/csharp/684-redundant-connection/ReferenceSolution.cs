@@ -3,6 +3,7 @@ public class ReferenceSolution : Solution
     // O(n * alpha(n)) time. The first edge whose ends are already connected closes the cycle.
     public override int[] FindRedundantConnection(int[][] edges)
     {
+        // Nodes are numbered 1 to n, so allocate one extra slot.
         var parent = Enumerable.Range(0, edges.Length + 1).ToArray();
         var size = Enumerable.Repeat(1, parent.Length).ToArray();
 
@@ -21,6 +22,7 @@ public class ReferenceSolution : Solution
         {
             int a = Find(e[0]);
             int b = Find(e[1]);
+            // Both ends are already connected, so this edge closes the cycle.
             if (a == b)
             {
                 return e;
@@ -33,6 +35,7 @@ public class ReferenceSolution : Solution
             parent[b] = a;
             size[a] += size[b];
         }
+        // The input always has one redundant edge, so this is never reached.
         throw new ArgumentException();
     }
 }

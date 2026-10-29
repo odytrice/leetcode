@@ -12,10 +12,12 @@ public class ReferenceSolution
         {
             for (int c = 0; c < cols; c += 1)
             {
+                // Water and already sunk land are skipped.
                 if (grid[r][c] != '1')
                 {
                     continue;
                 }
+                // Unvisited land starts a new island.
                 count += 1;
 
                 // Sink the whole island with an iterative DFS.
@@ -32,6 +34,7 @@ public class ReferenceSolution
                         {
                             continue;
                         }
+                        // Sink land when it is pushed so it never enters the stack twice.
                         grid[nr][nc] = '0';
                         stack.Push((nr, nc));
                     }

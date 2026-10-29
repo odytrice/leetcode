@@ -12,11 +12,13 @@ public class ReferenceSolution : Solution
         int depth = 0;
         while (queue.Count > 0)
         {
+            // Everything in the queue right now belongs to one level.
             int count = queue.Count;
             depth += 1;
             for (int i = 0; i < count; i += 1)
             {
                 var n = queue.Dequeue();
+                // Queue the nodes of the next level.
                 if (n.left != null)
                 {
                     queue.Enqueue(n.left);

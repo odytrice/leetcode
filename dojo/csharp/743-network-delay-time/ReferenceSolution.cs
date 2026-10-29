@@ -3,6 +3,7 @@ public class ReferenceSolution : Solution
     // O(E log V) time. Dijkstra from k; the answer is the farthest node's distance.
     public override int NetworkDelayTime(int[][] times, int n, int k)
     {
+        // graph[u] lists (neighbor, travel time) pairs; nodes are numbered 1 to n.
         var graph = Enumerable.Range(0, n + 1).Select(_ => new List<(int To, int Weight)>()).ToArray();
         foreach (var e in times)
         {
@@ -21,6 +22,7 @@ public class ReferenceSolution : Solution
             }
             foreach (var (v, weight) in graph[u])
             {
+                // Queue v only when this route beats its best known time.
                 if (cost + weight < dist[v])
                 {
                     dist[v] = cost + weight;
@@ -28,7 +30,9 @@ public class ReferenceSolution : Solution
                 }
             }
         }
+        // Everyone has the signal once the slowest node does; index 0 is unused.
         int answer = dist.Skip(1).Max();
+        // int.MaxValue means some node was never reached.
         return answer == int.MaxValue ? -1 : answer;
     }
 }

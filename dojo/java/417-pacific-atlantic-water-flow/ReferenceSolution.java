@@ -18,6 +18,7 @@ class ReferenceSolution extends Solution {
         columns = heights[0].length;
         Set<Integer> pacific = reach(true);
         Set<Integer> atlantic = reach(false);
+        // A cell that can drain to both oceans appears in both sets.
         List<List<Integer>> result = new ArrayList<>();
         for (int row = 0; row < rows; row += 1) {
             for (int column = 0; column < columns; column += 1) {
@@ -30,9 +31,11 @@ class ReferenceSolution extends Solution {
         return result;
     }
 
+    // Returns the cells (as row * columns + column) whose water can reach the chosen ocean.
     private Set<Integer> reach(boolean pacific) {
         Set<Integer> seen = new HashSet<>();
         Deque<int[]> stack = new ArrayDeque<>();
+        // Start from the edges touching this ocean: left and top for Pacific, right and bottom for Atlantic.
         for (int row = 0; row < rows; row += 1) {
             stack.push(new int[] {row, pacific ? 0 : columns - 1});
         }
@@ -53,6 +56,7 @@ class ReferenceSolution extends Solution {
                     continue;
                 }
                 int key = nextRow * columns + nextColumn;
+                // Walking uphill in reverse means water could flow downhill from that neighbour to here.
                 if (!seen.contains(key) && heights[nextRow][nextColumn] >= heights[cell[0]][cell[1]]) {
                     seen.add(key);
                     stack.push(new int[] {nextRow, nextColumn});

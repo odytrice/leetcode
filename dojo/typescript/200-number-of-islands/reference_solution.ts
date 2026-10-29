@@ -5,11 +5,14 @@ export function numIslands(grid: string[][]): number {
   let count = 0;
   for (let row = 0; row < rows; row += 1) {
     for (let column = 0; column < columns; column += 1) {
+      // Water or already-flooded land does not start a new island.
       if (grid[row][column] !== "1") {
         continue;
       }
+      // Unvisited land starts a new island; flood it so none of its cells are counted again.
       count += 1;
       const stack: [number, number][] = [[row, column]];
+      // Sink cells as they are pushed so no cell is pushed twice.
       grid[row][column] = "0";
       while (stack.length > 0) {
         const [currentRow, currentColumn] = stack.pop() as [number, number];

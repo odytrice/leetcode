@@ -4,6 +4,7 @@ public class ReferenceSolution : Solution
     public override IList<int> EventualSafeNodes(int[][] graph)
     {
         int n = graph.Length;
+        // reverse[v] lists the nodes with an edge into v.
         var reverse = Enumerable.Range(0, n).Select(_ => new List<int>()).ToArray();
         // degree[u] counts u's outgoing edges not yet known to lead somewhere safe.
         var degree = new int[n];
@@ -15,18 +16,21 @@ public class ReferenceSolution : Solution
                 reverse[v].Add(u);
             }
         }
+        // Terminal nodes have no outgoing edges and are safe by definition.
         var queue = new Queue<int>(Enumerable.Range(0, n).Where(i => degree[i] == 0));
         while (queue.TryDequeue(out int v))
         {
             foreach (int u in reverse[v])
             {
                 degree[u] -= 1;
+                // Every edge out of u now leads to a safe node, so u is safe too.
                 if (degree[u] == 0)
                 {
                     queue.Enqueue(u);
                 }
             }
         }
+        // Nodes on a cycle, or leading into one, keep a positive degree.
         return Enumerable.Range(0, n).Where(i => degree[i] == 0).ToList();
     }
 }

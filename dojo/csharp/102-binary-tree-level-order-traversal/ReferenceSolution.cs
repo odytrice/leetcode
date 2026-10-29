@@ -12,12 +12,14 @@ public class ReferenceSolution : Solution
         queue.Enqueue(root);
         while (queue.Count > 0)
         {
+            // At this point the queue holds exactly one level.
             int count = queue.Count;
             var level = new List<int>();
             for (int i = 0; i < count; i += 1)
             {
                 var n = queue.Dequeue();
                 level.Add(n.val);
+                // Children join the queue behind this level, so they form the next one.
                 if (n.left != null)
                 {
                     queue.Enqueue(n.left);

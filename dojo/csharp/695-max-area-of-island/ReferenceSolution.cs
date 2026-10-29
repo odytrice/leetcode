@@ -12,16 +12,19 @@ public class ReferenceSolution : Solution
         {
             for (int c = 0; c < cols; c += 1)
             {
+                // Skip water and land already counted in an earlier island.
                 if (grid[r][c] == 0)
                 {
                     continue;
                 }
                 var stack = new Stack<(int R, int C)>();
                 stack.Push((r, c));
+                // Sink cells as they are pushed so each one is counted once.
                 grid[r][c] = 0;
                 int area = 0;
                 while (stack.TryPop(out var cell))
                 {
+                    // Every popped cell is one more square of this island.
                     area += 1;
                     for (int d = 0; d < 4; d += 1)
                     {

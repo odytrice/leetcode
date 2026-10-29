@@ -1,5 +1,6 @@
 /** O(rows * cols) build, O(1) queries from a 2D prefix sum. */
 class ReferenceSolution extends NumMatrix {
+    // prefix[r][c] is the sum of the rectangle above and left of (r, c), exclusive; row and column 0 are 0.
     private final long[][] prefix;
 
     ReferenceSolution(int[][] matrix) {
@@ -9,6 +10,7 @@ class ReferenceSolution extends NumMatrix {
         prefix = new long[rows + 1][cols + 1];
         for (int row = 0; row < rows; row += 1) {
             for (int column = 0; column < cols; column += 1) {
+                // Add the strip above and the strip to the left, then remove their overlap counted twice.
                 prefix[row + 1][column + 1] = matrix[row][column]
                         + prefix[row][column + 1]
                         + prefix[row + 1][column]
@@ -19,6 +21,7 @@ class ReferenceSolution extends NumMatrix {
 
     @Override
     public int sumRegion(int row1, int col1, int row2, int col2) {
+        // Take the big rectangle, cut off the top and left parts, and add back the corner cut twice.
         return (int) (prefix[row2 + 1][col2 + 1]
                 - prefix[row1][col2 + 1]
                 - prefix[row2 + 1][col1]

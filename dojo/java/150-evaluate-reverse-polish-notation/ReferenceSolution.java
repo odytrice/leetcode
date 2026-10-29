@@ -7,12 +7,14 @@ class ReferenceSolution extends Solution {
     @Override
     public int evalRPN(String[] tokens) {
         Set<String> operators = Set.of("+", "-", "*", "/");
+        // The stack holds values that are waiting for an operator.
         Deque<Integer> stack = new ArrayDeque<>();
         for (String token : tokens) {
             if (!operators.contains(token)) {
                 stack.push(Integer.parseInt(token));
                 continue;
             }
+            // The top of the stack is the right operand, so pop it first; order matters for - and /.
             int right = stack.pop();
             int left = stack.pop();
             switch (token) {
@@ -22,6 +24,7 @@ class ReferenceSolution extends Solution {
                 default -> stack.push(left / right);
             }
         }
+        // A valid expression leaves exactly one value: the result.
         return stack.pop();
     }
 }

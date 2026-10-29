@@ -7,13 +7,16 @@ class ReferenceSolution extends Solution {
     @Override
     public boolean wordBreak(String s, List<String> wordDict) {
         Set<String> words = new HashSet<>(wordDict);
+        // No word is longer than this, so there is no point looking further back.
         int longest = 0;
         for (String word : wordDict) {
             longest = Math.max(longest, word.length());
         }
         boolean[] dp = new boolean[s.length() + 1];
+        // The empty prefix needs no words, which lets the first word start at 0.
         dp[0] = true;
         for (int end = 1; end <= s.length(); end += 1) {
+            // Try each split: a good prefix up to start, then one dictionary word to end.
             for (int start = Math.max(0, end - longest); start < end; start += 1) {
                 if (dp[start] && words.contains(s.substring(start, end))) {
                     dp[end] = true;

@@ -10,8 +10,10 @@ public class ReferenceSolution : Solution
             int sum = numbers[l] + numbers[r];
             if (sum == target)
             {
+                // The problem uses 1-based indices.
                 return [l + 1, r + 1];
             }
+            // The array is sorted, so each pointer moves the sum in a known direction.
             if (sum < target)
             {
                 l += 1;

@@ -8,13 +8,16 @@ public class ReferenceSolution
         var stack = new Stack<int>();
         for (int i = 0; i < temperatures.Length; i += 1)
         {
+            // Today is the warmer day for every colder index on the stack.
             while (stack.Count > 0 && temperatures[stack.Peek()] < temperatures[i])
             {
                 int previous = stack.Pop();
                 result[previous] = i - previous;
             }
+            // Today now waits for its own warmer day.
             stack.Push(i);
         }
+        // Indices still on the stack never found a warmer day and keep 0.
         return result;
     }
 }

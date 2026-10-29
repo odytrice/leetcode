@@ -21,15 +21,18 @@ public class ReferenceSolution : Solution
                     r = m;
                 }
             }
+            // n is bigger than every tail, so it extends the longest run.
             if (l == tails.Count)
             {
                 tails.Add(n);
             }
             else
             {
+                // n is a smaller tail for runs of length l + 1, which leaves more room to grow.
                 tails[l] = n;
             }
         }
+        // tails is not itself a subsequence, but its length is the answer.
         return tails.Count;
     }
 }

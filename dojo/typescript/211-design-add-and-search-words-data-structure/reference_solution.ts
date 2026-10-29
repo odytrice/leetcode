@@ -2,6 +2,7 @@ import { WordDictionary } from "./solution.ts";
 
 class Node {
   readonly children = new Map<string, Node>();
+  // True when a whole added word ends at this node.
   endsWord = false;
 }
 
@@ -23,10 +24,12 @@ export class ReferenceSolution extends WordDictionary {
   }
 
   private match(node: Node, word: string, index: number): boolean {
+    // Used every pattern character, so a word must end exactly here.
     if (index === word.length) {
       return node.endsWord;
     }
     const char = word[index];
+    // A wildcard can be any letter, so try every child.
     if (char === ".") {
       for (const child of node.children.values()) {
         if (this.match(child, word, index + 1)) {
@@ -35,6 +38,7 @@ export class ReferenceSolution extends WordDictionary {
       }
       return false;
     }
+    // A normal letter has only one possible branch.
     const child = node.children.get(char);
     return child !== undefined && this.match(child, word, index + 1);
   }

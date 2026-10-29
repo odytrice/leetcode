@@ -5,14 +5,17 @@ export function maxAreaOfIsland(grid: number[][]): number {
   let best = 0;
   for (let row = 0; row < rows; row += 1) {
     for (let column = 0; column < columns; column += 1) {
+      // Water or an already-counted cell does not start a new island.
       if (grid[row][column] === 0) {
         continue;
       }
       let area = 0;
       const stack: [number, number][] = [[row, column]];
+      // Sink cells as they are pushed so no cell is counted twice.
       grid[row][column] = 0;
       while (stack.length > 0) {
         const [currentRow, currentColumn] = stack.pop() as [number, number];
+        // Each cell popped from the stack is one unit of this island's area.
         area += 1;
         for (const [nextRow, nextColumn] of [
           [currentRow - 1, currentColumn],

@@ -3,12 +3,15 @@
 class ReferenceSolution extends Solution {
     @Override
     public ListNode addTwoNumbers(ListNode l1, ListNode l2) {
+        // A dummy head lets every digit, including the first, be appended the same way.
         ListNode dummy = new ListNode(0);
         ListNode tail = dummy;
         ListNode first = l1;
         ListNode second = l2;
         int carry = 0;
+        // Keep going while either list has digits or a final carry still needs a node.
         while (first != null || second != null || carry != 0) {
+            // A finished list contributes 0 so the shorter number is padded with zeros.
             int total = (first == null ? 0 : first.val) + (second == null ? 0 : second.val) + carry;
             tail.next = new ListNode(total % 10);
             tail = tail.next;

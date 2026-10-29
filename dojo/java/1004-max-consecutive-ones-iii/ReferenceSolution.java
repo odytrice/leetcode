@@ -2,6 +2,7 @@
 class ReferenceSolution extends Solution {
     @Override
     public int longestOnes(int[] nums, int k) {
+        // zeros counts the zeros inside nums[left..right], which we pretend to flip.
         int left = 0;
         int zeros = 0;
         int best = 0;
@@ -9,6 +10,7 @@ class ReferenceSolution extends Solution {
             if (nums[right] == 0) {
                 zeros += 1;
             }
+            // Shrink from the left until the window is valid again.
             while (zeros > k) {
                 if (nums[left] == 0) {
                     zeros -= 1;

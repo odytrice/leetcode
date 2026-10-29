@@ -5,6 +5,7 @@ import java.util.PriorityQueue;
 class ReferenceSolution extends Solution {
     @Override
     public int lastStoneWeight(int[] stones) {
+        // Reverse order turns Java's min-heap into a max-heap, so poll() gives the heaviest.
         PriorityQueue<Integer> heap = new PriorityQueue<>(Collections.reverseOrder());
         for (int stone : stones) {
             heap.add(stone);
@@ -12,10 +13,12 @@ class ReferenceSolution extends Solution {
         while (heap.size() > 1) {
             int first = heap.poll();
             int second = heap.poll();
+            // Equal stones destroy each other; otherwise the leftover goes back in.
             if (first != second) {
                 heap.add(first - second);
             }
         }
+        // An empty heap means every stone was destroyed.
         return heap.isEmpty() ? 0 : heap.poll();
     }
 }

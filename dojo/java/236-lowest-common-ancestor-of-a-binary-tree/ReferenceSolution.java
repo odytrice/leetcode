@@ -9,6 +9,7 @@ import java.util.Set;
 class ReferenceSolution extends Solution {
     @Override
     public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {
+        // parents maps each node to its parent; the root's parent is null.
         Map<TreeNode, TreeNode> parents = new HashMap<>();
         parents.put(root, null);
         Deque<TreeNode> stack = new ArrayDeque<>();
@@ -25,10 +26,12 @@ class ReferenceSolution extends Solution {
             }
         }
 
+        // Collect p and every ancestor of p, up to the root.
         Set<TreeNode> ancestors = new HashSet<>();
         for (TreeNode node = p; node != null; node = parents.get(node)) {
             ancestors.add(node);
         }
+        // Climb from q; the first node shared with p's chain is the lowest common ancestor.
         TreeNode node = q;
         while (!ancestors.contains(node)) {
             node = parents.get(node);

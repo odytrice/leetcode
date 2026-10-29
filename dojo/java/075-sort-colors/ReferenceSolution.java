@@ -2,11 +2,14 @@
 class ReferenceSolution extends Solution {
     @Override
     public void sortColors(int[] nums) {
+        // Invariant: [0, low) is all 0s, [low, index) is all 1s, (high, end] is all 2s.
         int low = 0;
         int index = 0;
         int high = nums.length - 1;
+        // Cells between index and high are still unsorted.
         while (index <= high) {
             if (nums[index] == 0) {
+                // The value swapped in from low is a 1 already checked, so both pointers advance.
                 int swap = nums[low];
                 nums[low] = nums[index];
                 nums[index] = swap;

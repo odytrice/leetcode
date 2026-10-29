@@ -5,6 +5,7 @@ public class ReferenceSolution : Solution
     {
         var slow = head;
         var fast = head;
+        // Find the middle: slow ends on the last node of the front half.
         while (fast.next?.next != null)
         {
             slow = slow.next!;
@@ -14,6 +15,7 @@ public class ReferenceSolution : Solution
         // Detach and reverse the second half.
         ListNode? right = slow.next;
         ListNode? reversed = null;
+        // Cut the list so the front half ends at slow.
         slow.next = null;
         while (right != null)
         {

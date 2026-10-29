@@ -8,6 +8,7 @@ public class ReferenceSolution : Solution
         int fresh = 0;
         int minutes = 0;
         var queue = new Queue<(int R, int C)>();
+        // Count fresh oranges and queue every rotten one as a starting point.
         for (int r = 0; r < rows; r += 1)
         {
             for (int c = 0; c < cols; c += 1)
@@ -24,6 +25,7 @@ public class ReferenceSolution : Solution
         }
         int[] dr = [-1, 1, 0, 0];
         int[] dc = [0, 0, -1, 1];
+        // Each round rots one layer and costs one minute; stop once nothing fresh is left.
         while (fresh > 0 && queue.Count > 0)
         {
             int count = queue.Count;
@@ -39,12 +41,14 @@ public class ReferenceSolution : Solution
                     {
                         continue;
                     }
+                    // Rot the orange as it is queued so no other cell queues it again.
                     grid[r][c] = 2;
                     fresh -= 1;
                     queue.Enqueue((r, c));
                 }
             }
         }
+        // Fresh oranges left over were never reachable from a rotten one.
         return fresh == 0 ? minutes : -1;
     }
 }

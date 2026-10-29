@@ -5,10 +5,12 @@ public class ReferenceSolution : Solution
     {
         var slow = head;
         var fast = head;
+        // fast moves two steps per round; reaching null means there is no cycle.
         while (fast?.next != null)
         {
             slow = slow!.next;
             fast = fast.next.next;
+            // Keep going until the pointers meet inside the cycle.
             if (!ReferenceEquals(slow, fast))
             {
                 continue;

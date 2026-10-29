@@ -1,5 +1,6 @@
 /** O(n) build, O(1) queries. Stores prefix sums so a range is one subtraction. */
 class ReferenceSolution extends NumArray {
+    // prefix[i] is the sum of the first i values, so prefix[0] is 0.
     private final int[] prefix;
 
     ReferenceSolution(int[] nums) {
@@ -12,6 +13,7 @@ class ReferenceSolution extends NumArray {
 
     @Override
     public int sumRange(int left, int right) {
+        // Everything up to right, minus everything before left.
         return prefix[right + 1] - prefix[left];
     }
 }

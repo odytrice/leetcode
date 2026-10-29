@@ -7,6 +7,7 @@ public class ReferenceSolution : Solution
 
         // palindrome[i, j] reuses the answer for the inside s[i + 1 .. j - 1].
         var palindrome = new bool[n, n];
+        // i runs backwards so row i + 1 is ready before row i needs it.
         for (int i = n - 1; i >= 0; i -= 1)
         {
             for (int j = i; j < n; j += 1)
@@ -20,6 +21,7 @@ public class ReferenceSolution : Solution
 
         void Search(int start)
         {
+            // The cuts cover the whole string, so the path is a full partition.
             if (start == n)
             {
                 result.Add(path.ToArray());
@@ -27,6 +29,7 @@ public class ReferenceSolution : Solution
             }
             for (int end = start; end < n; end += 1)
             {
+                // Only cut here if the piece s[start..end] is a palindrome.
                 if (palindrome[start, end])
                 {
                     path.Add(s[start..(end + 1)]);

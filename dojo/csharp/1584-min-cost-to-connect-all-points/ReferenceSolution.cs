@@ -6,7 +6,9 @@ public class ReferenceSolution : Solution
         int n = points.Length;
         int total = 0;
         var used = new bool[n];
+        // best[i] is the cheapest edge linking point i to the tree built so far.
         var best = Enumerable.Repeat(int.MaxValue, n).ToArray();
+        // Point 0 starts the tree at no cost.
         best[0] = 0;
         for (int step = 0; step < n; step += 1)
         {
@@ -19,6 +21,7 @@ public class ReferenceSolution : Solution
                     u = i;
                 }
             }
+            // Add the point to the tree and pay for the edge that links it.
             used[u] = true;
             total += best[u];
 

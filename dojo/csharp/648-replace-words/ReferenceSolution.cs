@@ -4,11 +4,13 @@ public class ReferenceSolution : Solution
     private class Node
     {
         public readonly Dictionary<char, Node> Children = new();
+        // End marks that a root word stops at this node.
         public bool End;
     }
 
     public override string ReplaceWords(IList<string> dictionary, string sentence)
     {
+        // Build the trie from all the roots.
         var root = new Node();
         foreach (string word in dictionary)
         {
@@ -30,11 +32,13 @@ public class ReferenceSolution : Solution
             var n = root;
             for (int i = 0; i < word.Length; i += 1)
             {
+                // No root continues this way, so the word stays as it is.
                 if (!n.Children.TryGetValue(word[i], out var next))
                 {
                     break;
                 }
                 n = next;
+                // The first root reached is the shortest, so use it right away.
                 if (n.End)
                 {
                     return word[..(i + 1)];

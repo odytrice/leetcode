@@ -12,7 +12,9 @@ class ReferenceSolution extends Solution {
         queue.add(root);
         int depth = 0;
         while (!queue.isEmpty()) {
+            // Each pass of the outer loop handles one whole level.
             depth += 1;
+            // Process only the nodes already queued; their children belong to the next level.
             for (int count = queue.size(); count > 0; count -= 1) {
                 TreeNode node = queue.poll();
                 if (node.left != null) {

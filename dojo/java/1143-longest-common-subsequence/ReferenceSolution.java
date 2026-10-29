@@ -2,11 +2,15 @@
 class ReferenceSolution extends Solution {
     @Override
     public int longestCommonSubsequence(String text1, String text2) {
+        // dp[column] is the LCS of the text1 prefix so far and text2's first column characters.
         int[] dp = new int[text2.length() + 1];
         for (char first : text1.toCharArray()) {
+            // diagonal holds the previous row's value one column to the left.
             int diagonal = 0;
             for (int column = 1; column <= text2.length(); column += 1) {
+                // Save the old value before overwriting; it becomes the next column's diagonal.
                 int previous = dp[column];
+                // A match extends the diagonal; otherwise drop a character from one string.
                 dp[column] = first == text2.charAt(column - 1)
                         ? diagonal + 1
                         : Math.max(dp[column], dp[column - 1]);

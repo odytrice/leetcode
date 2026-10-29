@@ -4,6 +4,7 @@ public class ReferenceSolution : Trie
     private class Node
     {
         public readonly Dictionary<char, Node> Children = new();
+        // End marks that a whole word stops at this node, not just a prefix.
         public bool End;
     }
 
@@ -14,6 +15,7 @@ public class ReferenceSolution : Trie
         var n = root;
         foreach (char c in word)
         {
+            // Create the missing child so the path for the word exists.
             if (!n.Children.TryGetValue(c, out var next))
             {
                 next = new();
@@ -41,11 +43,13 @@ public class ReferenceSolution : Trie
 
     public override bool Search(string word)
     {
+        // The path must exist and end on a node marked as a word.
         return Find(word)?.End == true;
     }
 
     public override bool StartsWith(string prefix)
     {
+        // Any surviving path means some word starts with prefix.
         return Find(prefix) != null;
     }
 }

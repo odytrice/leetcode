@@ -9,7 +9,9 @@ public class ReferenceSolution : Solution
         for (int i = 0; i < nums.Length; i += 1)
         {
             sum += nums[i];
+            // Equal remainders mean the sum between the two positions is a multiple of k.
             int remainder = sum % k;
+            // Record a new remainder; on a repeat, the subarray must have at least two elements.
             if (!first.TryGetValue(remainder, out int j))
             {
                 first[remainder] = i;

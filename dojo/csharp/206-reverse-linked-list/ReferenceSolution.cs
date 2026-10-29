@@ -6,11 +6,13 @@ public class ReferenceSolution : Solution
         ListNode? previous = null;
         while (head != null)
         {
+            // Save the rest of the list before the link is overwritten.
             var next = head.next;
             head.next = previous;
             previous = head;
             head = next;
         }
+        // previous ends on the old tail, which is the new head.
         return previous;
     }
 }

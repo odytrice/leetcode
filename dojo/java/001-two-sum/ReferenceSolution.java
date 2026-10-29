@@ -5,8 +5,10 @@ import java.util.Map;
 class ReferenceSolution extends Solution {
     @Override
     public int[] twoSum(int[] nums, int target) {
+        // seen maps each value already passed to the index where it appeared.
         Map<Integer, Integer> seen = new HashMap<>();
         for (int index = 0; index < nums.length; index += 1) {
+            // Look for the partner before storing, so a value never pairs with itself.
             Integer partner = seen.get(target - nums[index]);
             if (partner != null) {
                 return new int[] {partner, index};

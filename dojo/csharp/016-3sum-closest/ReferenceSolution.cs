@@ -4,6 +4,7 @@ public class ReferenceSolution : Solution
     public override int ThreeSumClosest(int[] nums, int target)
     {
         Array.Sort(nums);
+        // Start with any valid triple so there is something to compare against.
         int best = nums[0] + nums[1] + nums[2];
         for (int i = 0; i < nums.Length - 2; i += 1)
         {
@@ -16,10 +17,12 @@ public class ReferenceSolution : Solution
                 {
                     best = sum;
                 }
+                // An exact match cannot be beaten.
                 if (sum == target)
                 {
                     return sum;
                 }
+                // Move the pointer that brings the sum closer to the target.
                 if (sum < target)
                 {
                     l += 1;

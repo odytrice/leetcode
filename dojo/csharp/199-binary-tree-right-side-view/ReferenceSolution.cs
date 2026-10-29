@@ -12,10 +12,12 @@ public class ReferenceSolution : Solution
         queue.Enqueue(root);
         while (queue.Count > 0)
         {
+            // The queue now holds exactly one level.
             int count = queue.Count;
             for (int i = 0; i < count; i += 1)
             {
                 var n = queue.Dequeue();
+                // Left children are queued first, so the last node of a level is the rightmost.
                 if (i == count - 1)
                 {
                     result.Add(n.val);

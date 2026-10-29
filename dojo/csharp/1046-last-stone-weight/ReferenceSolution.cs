@@ -13,11 +13,13 @@ public class ReferenceSolution : Solution
         {
             int a = heap.Dequeue();
             int b = heap.Dequeue();
+            // Equal stones both vanish; otherwise the difference goes back on the heap.
             if (a != b)
             {
                 heap.Enqueue(a - b, b - a);
             }
         }
+        // Either one stone is left or none.
         return heap.Count == 0 ? 0 : heap.Dequeue();
     }
 }

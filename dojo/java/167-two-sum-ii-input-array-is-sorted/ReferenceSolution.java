@@ -6,9 +6,11 @@ class ReferenceSolution extends Solution {
         int right = numbers.length - 1;
         while (left < right) {
             int total = numbers[left] + numbers[right];
+            // The problem uses 1-based indexes.
             if (total == target) {
                 return new int[] {left + 1, right + 1};
             }
+            // Too small: only a larger left value can help. Too big: only a smaller right value.
             if (total < target) {
                 left += 1;
             } else {
